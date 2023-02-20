@@ -1,4 +1,7 @@
-# Flyme-WebApp
+# Flyme WebApp
+
+---
+### Airline Reservation System JavaEE WebApp 
 Group 6 Final Project for CSD 4464 – Programming Java EE Term 2023W 
 
 
@@ -50,7 +53,12 @@ or simply in one command
 ```shell
 git switch -c <branch name>
 ```
-To add all modified files to the staging area
+
+So, here is where you star working with your part of the project. After you finish with all your files, then you add
+and commit those changes.
+
+To add all modified files to the staging area.
+
 ```shell
 git add --all
 ```
@@ -103,10 +111,15 @@ git pull
 ```
 
 ### 7. Managing conflicts
-If any conflict emerge in any of the previous steps, we must locate source of conflict and solve it.
+**IMPORTANT ⚠️** If any conflict emerge in any of the previous steps, we must locate source of conflict and solve it.
 The remote repository represents the official project, so its commit history should be treated as sacred and 
 immutable. If a one of our local commits diverge from the main branch, We should not push those changes 
-because this would overwrite official commits.
+because this would overwrite official commits. Again, we first solve the conflict and later continue with the merge.
+
+The following command can only be run after a merge attempt has resulted in conflicts.
+```shell
+git merge --continue
+```
 
 ### 8. Start over again
 After we finish the previous series of changes, we can start all over again but with a new feature. For that 
