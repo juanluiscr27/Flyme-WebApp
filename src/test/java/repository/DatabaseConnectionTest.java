@@ -4,17 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
 import java.util.Properties;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-class DatabaseConnectionTest {
+public class DatabaseConnectionTest {
 
     @Test
-    void testReadConfigPropertiesFile() {
+    public void testReadConfigPropertiesFile() {
         //Create an input stream to read the properties file
         String expectedUrl = null;
         String expectedUser = null;
