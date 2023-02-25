@@ -10,8 +10,8 @@ out/
 .idea/modules.xml
 .idea/uiDesigner.xml
 .idea/tasks.xml
-.iml
-.iws
+*.iml
+*.iws
 
 # Output files
 *target*
@@ -44,3 +44,4 @@ local.properties
 
 # Others
 ooad/
+src/main/resources/config.properties

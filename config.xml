@@ -51,13 +51,6 @@
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- Transitive dependency to junit-jupiter-api -->
-        <dependency>
-            <groupId>org.opentest4j</groupId>
-            <artifactId>opentest4j</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
         <!-- Transitive dependency to junit -->
         <dependency>
             <groupId>org.hamcrest</groupId>

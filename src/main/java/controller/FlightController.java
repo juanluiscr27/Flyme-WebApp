@@ -20,7 +20,8 @@ public class FlightController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<h2>List of all employees</h2>");
+        out.println("<h2>List of all Flights</h2>");
+        out.close();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
