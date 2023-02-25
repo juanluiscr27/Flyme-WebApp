@@ -33,7 +33,7 @@ public class DatabaseConnectionPoolTest {
         assertNotNull(connection2);
     }
 
-    @Ignore("Consumes a lot of resources")
+    // @Ignore("[Test disabled] - Consumes a lot of resources")
     @Test
     public void testExhaustedConnectionPool() {
         connection = DatabaseConnectionPool.getConnection();
