@@ -62,6 +62,7 @@ DROP TABLE IF EXISTS `users`;
 -- Drop tables if exist -
 -- ---------------------- 
 
+DROP TABLE IF EXISTS countries;
 DROP TABLE IF EXISTS distance_fares;
 DROP TABLE IF EXISTS bag_fares;
 DROP TABLE IF EXISTS passengers;
@@ -76,9 +77,9 @@ DROP TABLE IF EXISTS airports;
 DROP TABLE IF EXISTS users;
 
 -- Table countries
-CREATE TABLE distance_fares (
+CREATE TABLE countries (
 	country_id VARCHAR(2) PRIMARY KEY,
-	name VARCHAR(25) NOT NULL
+	country_name VARCHAR(25) NOT NULL
 );
 
 -- Table users
@@ -88,7 +89,7 @@ CREATE TABLE users (
     first_name VARCHAR(25) NOT NULL,
     last_name VARCHAR(25) NOT NULL,
 	birth_date DATE NOT NULL,
-	nationality VARCHAR(2) NOT NULL;
+	nationality VARCHAR(2) NOT NULL,
 	genre VARCHAR(15),
 	phone VARCHAR(10) NOT NULL,
     points INTEGER,
@@ -161,9 +162,10 @@ CREATE TABLE flights (
 -- Table orders
 CREATE TABLE orders (
 	order_id INTEGER PRIMARY KEY,
-	user_id VARCHAR(25),
-	flight_id INTEGER,
-	round_trip BOOLEAN,
+	user_id VARCHAR(25) NOT NULL,
+	flight_id INTEGER NOT NULL,
+	round_trip BOOLEAN NOT NULL,
+	price DECIMAL NOT NULL,
 	CONSTRAINT orders_users_fk FOREIGN KEY (user_id) REFERENCES users(email),
 	CONSTRAINT orders_flights_fk FOREIGN KEY (flight_id) REFERENCES flights(flight_id)
 );
@@ -172,13 +174,13 @@ CREATE TABLE orders (
 CREATE TABLE passengers (
     passenger_id INTEGER NOT NULL,
     flight_id INTEGER NOT NULL,
-    order_id INTEGER,
-	seat_id INTEGER,
+    order_id INTEGER NOT NULL,
+	seat_id INTEGER NOT NULL,
     first_name VARCHAR(25) NOT NULL,
     last_name VARCHAR(25) NOT NULL,
 	birth_date DATE NOT NULL,
 	genre VARCHAR(15),
-	bags INTEGER,
+	bags INTEGER NOT NULL,
 	PRIMARY KEY(passenger_id, flight_id),
 	CONSTRAINT passengers_flights_fk FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
     CONSTRAINT passengers_orders_fk FOREIGN KEY (order_id) REFERENCES orders(order_id),
