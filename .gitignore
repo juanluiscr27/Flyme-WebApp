@@ -44,4 +44,4 @@ local.properties
 
 # Others
 ooad/
-src/main/resources/config.properties
+**/resources/config.properties
