@@ -82,6 +82,14 @@ CREATE TABLE countries (
 	country_name VARCHAR(25) NOT NULL
 );
 
+-- Table payments
+CREATE TABLE payments (
+	payment_id VARCHAR(16) PRIMARY KEY,
+	expiry_date VARCHAR(4) NOT NULL,
+	name VARCHAR(25) NOT NULL,
+	security_code VARCHAR(3) NOT NULL
+);
+
 -- Table users
 CREATE TABLE users (
 	email VARCHAR(25) PRIMARY KEY,
@@ -92,8 +100,10 @@ CREATE TABLE users (
 	nationality VARCHAR(2) NOT NULL,
 	genre VARCHAR(15),
 	phone VARCHAR(10) NOT NULL,
+	payment_id VARCHAR(16),
     points INTEGER,
-	CONSTRAINT users_countries_fk FOREIGN KEY (nationality) REFERENCES countries(country_id)
+	CONSTRAINT users_countries_fk FOREIGN KEY (nationality) REFERENCES countries(country_id),
+	CONSTRAINT users_payments_fk FOREIGN KEY (payment_id) REFERENCES payments(payment_id)
 );
 
 -- Table airports
