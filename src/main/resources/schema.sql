@@ -55,21 +55,148 @@ FLUSH PRIVILEGES;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `user_id`  int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(40) NOT NULL,
-  `last_name` varchar(40) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `gender` enum('M','F', 'X') NOT NULL,
-  `address` varchar(50) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
+
+
+-- ----------------------
+-- Drop tables if exist -
+-- ---------------------- 
+
+DROP TABLE IF EXISTS distance_fares;
+DROP TABLE IF EXISTS bag_fares;
+DROP TABLE IF EXISTS passengers;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS flights;
+DROP TABLE IF EXISTS plane_services;
+DROP TABLE IF EXISTS seats;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS classes;
+DROP TABLE IF EXISTS planes;
+DROP TABLE IF EXISTS airports;
+DROP TABLE IF EXISTS users;
+
+-- Table countries
+CREATE TABLE distance_fares (
+	country_id VARCHAR(2) PRIMARY KEY,
+	name VARCHAR(25) NOT NULL
+);
+
+-- Table users
+CREATE TABLE users (
+	email VARCHAR(25) PRIMARY KEY,
+	password VARCHAR(20) NOT NULL,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+	birth_date DATE NOT NULL,
+	nationality VARCHAR(2) NOT NULL;
+	genre VARCHAR(15),
+	phone VARCHAR(10) NOT NULL,
+    points INTEGER,
+	CONSTRAINT users_countries_fk FOREIGN KEY (nationality) REFERENCES countries(country_id)
+);
+
+-- Table airports
+CREATE TABLE airports (
+    airport_id VARCHAR(3) PRIMARY KEY,
+    city VARCHAR(25) NOT NULL,
+    country VARCHAR(25) NOT NULL,
+	latitude DECIMAL NOT NULL,
+	longitude DECIMAL NOT NULL
+);
+
+-- Table planes
+CREATE TABLE planes (
+    plane_id VARCHAR(6) PRIMARY KEY,
+	manufacturer VARCHAR(20) NOT NULL,
+	model VARCHAR(20) NOT NULL,
+	base_price DECIMAL NOT NULL
+);
+
+-- Table classes
+CREATE TABLE classes (
+	class_id INTEGER PRIMARY KEY,
+	bags INTEGER NOT NULL,
+	price_multiplier DECIMAL NOT NULL
+);
+
+-- Table services
+CREATE TABLE services (
+	service_id INTEGER PRIMARY KEY,
+	description VARCHAR(25) NOT NULL
+);
+
+-- Table seats
+CREATE TABLE seats (
+	seat_id INTEGER NOT NULL,
+	plane_id VARCHAR(6) NOT NULL,
+	class_id INTEGER NOT NULL,
+	PRIMARY KEY(seat_id, plane_id),
+	CONSTRAINT seats_plane_fk FOREIGN KEY (plane_id) REFERENCES planes(plane_id),
+	CONSTRAINT seats_class_fk FOREIGN KEY (class_id) REFERENCES classes(class_id)
+);
+
+-- Table plane_services
+CREATE TABLE plane_services (
+	plane_id VARCHAR(6) NOT NULL,
+	service_id INTEGER NOT NULL,
+	class_id INTEGER NOT NULL,
+	PRIMARY KEY(plane_id, service_id),
+	CONSTRAINT plane_services_plane_fk FOREIGN KEY (plane_id) REFERENCES planes(plane_id),
+	CONSTRAINT plane_services_services_fk FOREIGN KEY (service_id) REFERENCES services(service_id),
+	CONSTRAINT plane_services_class_fk FOREIGN KEY (class_id) REFERENCES classes(class_id)
+);
+
+-- Table flights
+CREATE TABLE flights (
+	flight_id INTEGER PRIMARY KEY,
+	id_from VARCHAR(3) NOT NULL,
+	id_to VARCHAR(3) NOT NULL,
+	plane_id VARCHAR(6) NOT NULL,
+	flight_date DATE NOT NULL,
+	CONSTRAINT flights_airports_from_fk FOREIGN KEY (id_from) REFERENCES airports(airport_id),
+	CONSTRAINT flights_airports_to_fk FOREIGN KEY (id_to) REFERENCES airports(airport_id),
+	CONSTRAINT flights_planes_fk FOREIGN KEY (plane_id) REFERENCES planes(plane_id)
+);
+
+-- Table orders
+CREATE TABLE orders (
+	order_id INTEGER PRIMARY KEY,
+	user_id VARCHAR(25),
+	flight_id INTEGER,
+	round_trip BOOLEAN,
+	CONSTRAINT orders_users_fk FOREIGN KEY (user_id) REFERENCES users(email),
+	CONSTRAINT orders_flights_fk FOREIGN KEY (flight_id) REFERENCES flights(flight_id)
+);
+
+-- Table passengers
+CREATE TABLE passengers (
+    passenger_id INTEGER NOT NULL,
+    flight_id INTEGER NOT NULL,
+    order_id INTEGER,
+	seat_id INTEGER,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+	birth_date DATE NOT NULL,
+	genre VARCHAR(15),
+	bags INTEGER,
+	PRIMARY KEY(passenger_id, flight_id),
+	CONSTRAINT passengers_flights_fk FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
+    CONSTRAINT passengers_orders_fk FOREIGN KEY (order_id) REFERENCES orders(order_id),
+	CONSTRAINT passengers_seats_fk FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
+);
+
+-- Table bag_fares
+CREATE TABLE bag_fares (
+	bag_count INTEGER PRIMARY KEY,
+	price DECIMAL NOT NULL
+);
+
+-- Table distance_fares
+CREATE TABLE distance_fares (
+	min_distance INTEGER NOT NULL,
+	max_distance INTEGER NOT NULL,
+	price_multiplier DECIMAL NOT NULL
+);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
