@@ -67,7 +67,8 @@ or
 git add .
 ```
 
-If we want to see the status of the files that have been modified or waiting to be committed we can run
+If we want to see the status of the files that have been modified on the current branch or waiting to be committed 
+we can run.
 ```shell
 git status 
 ```
