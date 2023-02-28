@@ -36,6 +36,9 @@ local.properties
 .settings/
 .loadpath
 
+# VSCode files
+*.code-workspace
+
 # External tool builders
 .externalToolBuilders/
 
