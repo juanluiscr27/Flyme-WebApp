@@ -8,7 +8,7 @@ public class User implements Serializable {
     private String password;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate;
+    private LocalDate dateOfBirth;
     private String nationality;
     private char gender;
     private String phone;
@@ -19,7 +19,7 @@ public class User implements Serializable {
                 String password,
                 String firstName,
                 String lastName,
-                LocalDate birthDate,
+                LocalDate dateOfBirth,
                 String nationality,
                 char gender,
                 String phone) {
@@ -27,7 +27,7 @@ public class User implements Serializable {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
+        this.dateOfBirth = dateOfBirth;
         this.nationality = nationality;
         this.gender = gender;
         this.phone = phone;
@@ -37,7 +37,7 @@ public class User implements Serializable {
                 String password,
                 String firstName,
                 String lastName,
-                LocalDate birthDate,
+                LocalDate dateOfBirth,
                 String nationality,
                 char gender,
                 String phone,
@@ -47,7 +47,7 @@ public class User implements Serializable {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
+        this.dateOfBirth = dateOfBirth;
         this.nationality = nationality;
         this.gender = gender;
         this.phone = phone;
@@ -60,7 +60,7 @@ public class User implements Serializable {
         this.password = request.getPassword();
         this.firstName = request.getFirstName();
         this.lastName = request.getLastName();
-        this.birthDate = request.getBirthDate();
+        this.dateOfBirth = request.getDateOfBirth();
         this.nationality = request.getNationality();
         this.gender = request.getGender();
         this.phone = request.getPhone();
@@ -74,8 +74,8 @@ public class User implements Serializable {
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
-    public LocalDate getBirthDate() { return birthDate; }
-    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
     public String getNationality() { return nationality; }
     public void setNationality(String nationality) { this.nationality = nationality; }
     public char getGender() { return gender;  }
@@ -92,7 +92,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
+                ", birthDate=" + dateOfBirth +
                 ", nationality='" + nationality + '\'' +
                 ", gender=" + gender +
                 ", phone='" + phone + '\'' +
