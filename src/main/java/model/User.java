@@ -53,21 +53,23 @@ public class User implements Serializable {
         this.phone = phone;
         this.points = points;
     }
-
-    public User(Long userID, User request) {
-        this.id = userID;
-        this.email = request.getEmail();
-        this.password = request.getPassword();
-        this.firstName = request.getFirstName();
-        this.lastName = request.getLastName();
-        this.dateOfBirth = request.getDateOfBirth();
-        this.nationality = request.getNationality();
-        this.gender = request.getGender();
-        this.phone = request.getPhone();
-        this.points = request.getPoints();
+    public User(User user) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.dateOfBirth = user.getDateOfBirth();
+        this.nationality = user.getNationality();
+        this.gender = user.getGender();
+        this.phone = user.getPhone();
+        this.points = user.getPoints();
     }
+
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
     public String getPassword() { return password;  }
     public void setPassword(String password) { this.password = password; }
     public String getFirstName() { return firstName; }
