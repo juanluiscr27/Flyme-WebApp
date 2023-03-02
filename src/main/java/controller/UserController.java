@@ -1,11 +1,11 @@
 package controller;
 
 import model.User;
-import repository.CrudRepository;
 import repository.UserDAO;
 import repository.UserRepository;
 import service.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +48,13 @@ public class UserController extends HttpServlet {
                 request.getParameter("phone-number")
         );
 
-        System.out.println(registrationRequest);
+        System.out.println("Registration Request:\n\t" + registrationRequest);
+
+        User registerdUser = userService.register(registrationRequest);
+        System.out.println("Registration Response:\n\t" + registerdUser);
+
+        /* If registration OK, go to Login page */
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/login.html");
+        requestDispatcher.forward(request, response);
     }
 }
