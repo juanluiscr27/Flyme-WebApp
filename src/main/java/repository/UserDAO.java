@@ -51,14 +51,17 @@ public class UserDAO implements UserRepository {
 
     @Override
     public Optional<User> find(Long userID) {
-        User user = null;
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
+        User user = null;
         try {
-            statement = connection.prepareStatement("SELECT * FROM users" +
-                    " WHERE email = ?");
+            statement = connection.prepareStatement("SELECT * FROM users"
+                    + " WHERE email = ?");
+
             statement.setString(1, "test@emaill.com");
+
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 user = map(resultSet);
             }
@@ -79,8 +82,41 @@ public class UserDAO implements UserRepository {
 
     @Override
     public User update(User user) {
-        // TODO: Update user account (password or phone number)
-        return null;
+        // TODO: Register new user
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement updateStatement = null;
+        PreparedStatement selectStatement = null;
+        ResultSet resultSet = null;
+        User updatedUser = null;
+        try {
+            updateStatement = connection.prepareStatement("UPDATE users "
+                    + "SET password = ?, phone = , points = ? WHERE id = ? ");
+
+            updateStatement.setString(1, user.getPassword());
+            updateStatement.setString(2, user.getPhone());
+            updateStatement.setInt(3, user.getPoints());
+            updateStatement.setLong(9, user.getId());
+
+            updateStatement.executeUpdate();
+
+            selectStatement = connection.prepareStatement("SELECT * FROM users"
+                    + " WHERE email = ?");
+            selectStatement.setString(1, "test@emaill.com");
+
+            resultSet = selectStatement.executeQuery();
+
+            while (resultSet.next()) {
+                updatedUser = map(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());;
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(updateStatement);
+            DatabaseConnectionPool.close(selectStatement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return updatedUser;
     }
 
     @Override
