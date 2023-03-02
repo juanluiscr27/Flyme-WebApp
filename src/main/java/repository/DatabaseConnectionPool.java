@@ -1,6 +1,8 @@
 package repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -32,6 +34,27 @@ public class DatabaseConnectionPool {
             System.out.println(e.getMessage());
         }
         return connection;
+    }
+    public static void close(ResultSet resultSet){
+        try {
+            resultSet.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void close(PreparedStatement statement){
+        try {
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void close(Connection connection){
+        try {
+            connection.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
 
