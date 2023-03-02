@@ -20,13 +20,12 @@
 -- Create Database
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE DATABASE flyme;
 
 USE flyme;
 
 --
--- CREATE USER --
+-- CREATE USER
 --
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'secret';
@@ -47,10 +46,6 @@ TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 
 -- SHOW GRANTS FOR 'admin'@'localhost';
-
---
--- Table structure for table `users`
---
 
 -- ----------------------
 -- Drop tables if exist -
