@@ -1,7 +1,6 @@
 package repository;
 
 import model.User;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,10 +17,10 @@ public class UserDAOTest {
 
         userRepo = new UserDAO();
         expectedUser = new User(
-                "test@emaill.com",
-                "zXcVbNm12345",
                 "John",
                 "Doe",
+                "test@emaill.com",
+                "zXcVbNm12345",
                 LocalDate.parse("1995-07-24"),
                 "CA",
                 'M',
@@ -33,11 +32,11 @@ public class UserDAOTest {
 
         assertEquals(expectedUser.getEmail(), actualUser.getEmail());
         // Delete User from the Database after test
-        userRepo.delete(expectedUser);
+        userRepo.delete(actualUser);
     }
     @Test
     public void testDeleteNewUser() {
-        // Insert User in the Database before test
+        // Insert User into the Database before test
         expectedUser = userRepo.add(expectedUser);
         Long expectedUserID = expectedUser.getId();
 

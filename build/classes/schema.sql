@@ -25,7 +25,7 @@ CREATE DATABASE flyme;
 USE flyme;
 
 --
--- CREATE USER
+-- CREATE Database User
 --
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'secret';
@@ -47,157 +47,275 @@ FLUSH PRIVILEGES;
 
 -- SHOW GRANTS FOR 'admin'@'localhost';
 
--- ----------------------
--- Drop tables if exist -
--- ---------------------- 
+--
+-- DROP Tables
+--
 
-DROP TABLE IF EXISTS countries;
-DROP TABLE IF EXISTS distance_fares;
-DROP TABLE IF EXISTS bag_fares;
-DROP TABLE IF EXISTS passengers;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS flights;
-DROP TABLE IF EXISTS plane_services;
-DROP TABLE IF EXISTS seats;
-DROP TABLE IF EXISTS services;
-DROP TABLE IF EXISTS classes;
-DROP TABLE IF EXISTS planes;
-DROP TABLE IF EXISTS airports;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS `bag_fares`;
+DROP TABLE IF EXISTS `distance_fares`;
+DROP TABLE IF EXISTS `payments`;
+DROP TABLE IF EXISTS `passengers`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `flights`;
+DROP TABLE IF EXISTS `plane_services`;
+DROP TABLE IF EXISTS `seats`;
+DROP TABLE IF EXISTS `services`;
+DROP TABLE IF EXISTS `classes`;
+DROP TABLE IF EXISTS `planes`;
+DROP TABLE IF EXISTS `airports`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `countries`;
 
--- Table countries
-CREATE TABLE countries (
-	country_id VARCHAR(2) PRIMARY KEY,
-	country_name VARCHAR(25) NOT NULL
-);
+--
+-- Table structure for table `bag_fares`
+--
 
--- Table payments
-CREATE TABLE payments (
-	payment_id VARCHAR(16) PRIMARY KEY,
-	expiry_date VARCHAR(4) NOT NULL,
-	name VARCHAR(25) NOT NULL,
-	security_code VARCHAR(3) NOT NULL
-);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bag_fares` (
+  `bag_count` int NOT NULL,
+  `fee` decimal(7,2) NOT NULL,
+  PRIMARY KEY (`bag_count`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Table users
-CREATE TABLE users (
-	email VARCHAR(25) PRIMARY KEY,
-	password VARCHAR(20) NOT NULL,
-    first_name VARCHAR(25) NOT NULL,
-    last_name VARCHAR(25) NOT NULL,
-	birth_date DATE NOT NULL,
-	nationality VARCHAR(2) NOT NULL,
-	genre VARCHAR(15),
-	phone VARCHAR(10) NOT NULL,
-	payment_id VARCHAR(16),
-    points INTEGER,
-	CONSTRAINT users_countries_fk FOREIGN KEY (nationality) REFERENCES countries(country_id),
-	CONSTRAINT users_payments_fk FOREIGN KEY (payment_id) REFERENCES payments(payment_id)
-);
+--
+-- Table structure for table `classes`
+--
 
--- Table airports
-CREATE TABLE airports (
-    airport_id VARCHAR(3) PRIMARY KEY,
-    city VARCHAR(25) NOT NULL,
-    country VARCHAR(25) NOT NULL,
-	latitude DECIMAL NOT NULL,
-	longitude DECIMAL NOT NULL
-);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `classes` (
+  `class_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL,
+  `checked_bags` int NOT NULL,
+  `price_multiplier` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`class_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Table planes
-CREATE TABLE planes (
-    plane_id VARCHAR(6) PRIMARY KEY,
-	manufacturer VARCHAR(20) NOT NULL,
-	model VARCHAR(20) NOT NULL,
-	base_price DECIMAL NOT NULL
-);
+--
+-- Table structure for table `countries`
+--
 
--- Table classes
-CREATE TABLE classes (
-	class_id INTEGER PRIMARY KEY,
-	bags INTEGER NOT NULL,
-	price_multiplier DECIMAL NOT NULL
-);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `countries` (
+  `country_id` char(2) NOT NULL,
+  `country_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`country_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Table services
-CREATE TABLE services (
-	service_id INTEGER PRIMARY KEY,
-	description VARCHAR(25) NOT NULL
-);
+--
+-- Table structure for table `distance_fares`
+--
 
--- Table seats
-CREATE TABLE seats (
-	seat_id INTEGER NOT NULL,
-	plane_id VARCHAR(6) NOT NULL,
-	class_id INTEGER NOT NULL,
-	PRIMARY KEY(seat_id, plane_id),
-	CONSTRAINT seats_plane_fk FOREIGN KEY (plane_id) REFERENCES planes(plane_id),
-	CONSTRAINT seats_class_fk FOREIGN KEY (class_id) REFERENCES classes(class_id)
-);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `distance_fares` (
+  `min_distance` int NOT NULL,
+  `max_distance` int NOT NULL,
+  `price_multiplier` decimal(5,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Table plane_services
-CREATE TABLE plane_services (
-	plane_id VARCHAR(6) NOT NULL,
-	service_id INTEGER NOT NULL,
-	class_id INTEGER NOT NULL,
-	PRIMARY KEY(plane_id, service_id),
-	CONSTRAINT plane_services_plane_fk FOREIGN KEY (plane_id) REFERENCES planes(plane_id),
-	CONSTRAINT plane_services_services_fk FOREIGN KEY (service_id) REFERENCES services(service_id),
-	CONSTRAINT plane_services_class_fk FOREIGN KEY (class_id) REFERENCES classes(class_id)
-);
 
--- Table flights
-CREATE TABLE flights (
-	flight_id INTEGER PRIMARY KEY,
-	id_from VARCHAR(3) NOT NULL,
-	id_to VARCHAR(3) NOT NULL,
-	plane_id VARCHAR(6) NOT NULL,
-	flight_date DATE NOT NULL,
-	CONSTRAINT flights_airports_from_fk FOREIGN KEY (id_from) REFERENCES airports(airport_id),
-	CONSTRAINT flights_airports_to_fk FOREIGN KEY (id_to) REFERENCES airports(airport_id),
-	CONSTRAINT flights_planes_fk FOREIGN KEY (plane_id) REFERENCES planes(plane_id)
-);
+--
+-- Table structure for table `airports`
+--
 
--- Table orders
-CREATE TABLE orders (
-	order_id INTEGER PRIMARY KEY,
-	user_id VARCHAR(25) NOT NULL,
-	flight_id INTEGER NOT NULL,
-	round_trip BOOLEAN NOT NULL,
-	price DECIMAL NOT NULL,
-	CONSTRAINT orders_users_fk FOREIGN KEY (user_id) REFERENCES users(email),
-	CONSTRAINT orders_flights_fk FOREIGN KEY (flight_id) REFERENCES flights(flight_id)
-);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `airports` (
+  `airport_id` char(3) NOT NULL,
+  `city` varchar(25) NOT NULL,
+  `country` char(2) NOT NULL,
+  `latitude` decimal(10,7) NOT NULL,
+  `longitude` decimal(10,7) NOT NULL,
+  PRIMARY KEY (`airport_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Table passengers
-CREATE TABLE passengers (
-    passenger_id INTEGER NOT NULL,
-    flight_id INTEGER NOT NULL,
-    order_id INTEGER NOT NULL,
-	seat_id INTEGER NOT NULL,
-    first_name VARCHAR(25) NOT NULL,
-    last_name VARCHAR(25) NOT NULL,
-	birth_date DATE NOT NULL,
-	genre VARCHAR(15),
-	bags INTEGER NOT NULL,
-	PRIMARY KEY(passenger_id, flight_id),
-	CONSTRAINT passengers_flights_fk FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
-    CONSTRAINT passengers_orders_fk FOREIGN KEY (order_id) REFERENCES orders(order_id),
-	CONSTRAINT passengers_seats_fk FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
-);
+--
+-- Table structure for table `planes`
+--
 
--- Table bag_fares
-CREATE TABLE bag_fares (
-	bag_count INTEGER PRIMARY KEY,
-	price DECIMAL NOT NULL
-);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `planes` (
+  `plane_id` int NOT NULL AUTO_INCREMENT,
+  `registration` varchar(6) NOT NULL,
+  `manufacturer` varchar(25) NOT NULL,
+  `model` varchar(25) NOT NULL,
+  `price_multiplier` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`plane_id`),
+  UNIQUE KEY `registration` (`registration`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Table distance_fares
-CREATE TABLE distance_fares (
-	min_distance INTEGER NOT NULL,
-	max_distance INTEGER NOT NULL,
-	price_multiplier DECIMAL NOT NULL
-);
+--
+-- Table structure for table `flights`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `flights` (
+  `flight_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `flight_number` char(6) NOT NULL,
+  `origin` char(3) NOT NULL,
+  `destination` char(3) NOT NULL,
+  `plane_id` int NOT NULL,
+  `departure` datetime NOT NULL,
+  `arrival` datetime NOT NULL,
+  PRIMARY KEY (`flight_id`),
+  KEY `flights_origin_idx` (`origin`),
+  KEY `flights_destination_idx` (`destination`),
+  KEY `flights_plane_idx` (`plane_id`),
+  CONSTRAINT `flights_destination_fk` FOREIGN KEY (`destination`) REFERENCES `airports` (`airport_id`),
+  CONSTRAINT `flights_origin_fk` FOREIGN KEY (`origin`) REFERENCES `airports` (`airport_id`),
+  CONSTRAINT `flights_plane_fk` FOREIGN KEY (`plane_id`) REFERENCES `planes` (`plane_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `user_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(25) NOT NULL,
+  `last_name` varchar(25) NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `birth_date` date NOT NULL,
+  `nationality` char(2) NOT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `phone` varchar(10) NOT NULL,
+  `points` int DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `users_email_idx` (`email`),
+  KEY `users_country_idx` (`nationality`),
+  CONSTRAINT `users_country_fk` FOREIGN KEY (`nationality`) REFERENCES `countries` (`country_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
+-- Table structure for table `orders`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `order_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `confirmation_number` char(6) DEFAULT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  `order_date` datetime DEFAULT NULL,
+  `price` decimal(7,2) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  KEY `orders_user_idx` (`user_id`),
+  CONSTRAINT `orders_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `seats`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `seats` (
+  `seat_id` int NOT NULL,
+  `plane_id` int NOT NULL,
+  `class_id` int NOT NULL,
+  PRIMARY KEY (`seat_id`,`plane_id`),
+  KEY `seats_plane_idx` (`plane_id`),
+  KEY `seats_class_idx` (`class_id`),
+  CONSTRAINT `seats_class_fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
+  CONSTRAINT `seats_plane_fk` FOREIGN KEY (`plane_id`) REFERENCES `planes` (`plane_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `passengers`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `passengers` (
+  `passenger_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` bigint unsigned NOT NULL,
+  `flight_id` bigint unsigned NOT NULL,
+  `seat_id` int NOT NULL,
+  `first_name` varchar(25) NOT NULL,
+  `last_name` varchar(25) NOT NULL,
+  `birth_date` date NOT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `bags` int NOT NULL,
+  PRIMARY KEY (`passenger_id`),
+  KEY `passengers_flight_idx` (`flight_id`),
+  KEY `passengers_order_idx` (`order_id`),
+  KEY `passengers_seat_idx` (`seat_id`),
+  CONSTRAINT `passengers_flight_fk` FOREIGN KEY (`flight_id`) REFERENCES `flights` (`flight_id`),
+  CONSTRAINT `passengers_order_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  CONSTRAINT `passengers_seat_fk` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`seat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `payments`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `payments` (
+  `payment_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `card_number` varchar(16) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `expiry_date` date NOT NULL,
+  `security_code` varchar(3) NOT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`payment_id`),
+  UNIQUE KEY `card_number` (`card_number`),
+  KEY `payments_user_idx` (`user_id`),
+  CONSTRAINT `payments_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `services`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `services` (
+  `service_id` int NOT NULL AUTO_INCREMENT,
+  `description` varchar(25) NOT NULL,
+  PRIMARY KEY (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `plane_services`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `plane_services` (
+  `plane_id` int NOT NULL,
+  `service_id` int NOT NULL,
+  `class_id` int NOT NULL,
+  PRIMARY KEY (`plane_id`,`service_id`),
+  KEY `plane_services_service_idx` (`service_id`),
+  KEY `plane_services_class_idx` (`class_id`),
+  CONSTRAINT `plane_services_class_fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
+  CONSTRAINT `plane_services_plane_fk` FOREIGN KEY (`plane_id`) REFERENCES `planes` (`plane_id`),
+  CONSTRAINT `plane_services_service_fk` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

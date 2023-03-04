@@ -7,25 +7,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Date;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 public class UserDAO implements UserRepository {
     @Override
     public User add(User registrationRequest) {
-        // TODO: Register new user
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
-//        ResultSet keys = null;
+        ResultSet keys = null;
         User registeredUser = null;
         try {
-            statement = connection.prepareStatement("INSERT INTO users "
-                    + "(email, password, first_name, last_name, birth_date, nationality, genre, phone, points) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+            statement = connection.prepareStatement("INSERT INTO users " +
+                    "(user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points) " +
+                    "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, registrationRequest.getEmail());
-            statement.setString(2, registrationRequest.getPassword());
-            statement.setString(3, registrationRequest.getFirstName());
-            statement.setString(4, registrationRequest.getLastName());
+            statement.setString(1, registrationRequest.getFirstName());
+            statement.setString(2, registrationRequest.getLastName());
+            statement.setString(3, registrationRequest.getEmail().toLowerCase());
+            statement.setString(4, registrationRequest.getPassword());
             statement.setDate(5, Date.valueOf(registrationRequest.getDateOfBirth()));
             statement.setString(6, registrationRequest.getNationality());
             statement.setString(7, Character.toString(registrationRequest.getGender()));
@@ -33,16 +34,15 @@ public class UserDAO implements UserRepository {
             statement.setInt(9, registrationRequest.getPoints());
 
             statement.executeUpdate();
-//            keys = statement.getGeneratedKeys();
-//            keys.next();
-            // registeredUser = new User(keys.getLong(1), registrationRequest);
+            keys = statement.getGeneratedKeys();
+            keys.next();
             registeredUser = new User(registrationRequest);
-            registeredUser.setId(0L);
+            registeredUser.setId(keys.getLong("GENERATED_KEY"));
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         } finally {
-            // DatabaseConnectionPool.close(keys);
+            DatabaseConnectionPool.close(keys);
             DatabaseConnectionPool.close(statement);
             DatabaseConnectionPool.close(connection);
         }
@@ -50,17 +50,19 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public Optional<User> find(Long userID) {
+    public Optional<User> find(Long userId) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         User user = null;
         try {
-            statement = connection.prepareStatement("SELECT * FROM users"
-                    + " WHERE email = ?");
+            statement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
+                    "FROM users WHERE user_id = ? ");
 
-            statement.setString(1, "test@emaill.com");
+            statement.setLong(1, userId);
 
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 user = map(resultSet);
@@ -68,6 +70,7 @@ public class UserDAO implements UserRepository {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
+            DatabaseConnectionPool.close(resultSet);
             DatabaseConnectionPool.close(statement);
             DatabaseConnectionPool.close(connection);
         }
@@ -76,8 +79,28 @@ public class UserDAO implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        // TODO: Find all users
-        return null;
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<User> allUsers = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
+                    "FROM users ");
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                allUsers.add(map(resultSet));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return allUsers;
     }
 
     @Override
@@ -90,7 +113,7 @@ public class UserDAO implements UserRepository {
         User updatedUser = null;
         try {
             updateStatement = connection.prepareStatement("UPDATE users "
-                    + "SET password = ?, phone = , points = ? WHERE id = ? ");
+                    + "SET password = ?, phone = ?, points = ? WHERE user_id = ? ");
 
             updateStatement.setString(1, user.getPassword());
             updateStatement.setString(2, user.getPhone());
@@ -99,9 +122,10 @@ public class UserDAO implements UserRepository {
 
             updateStatement.executeUpdate();
 
-            selectStatement = connection.prepareStatement("SELECT * FROM users"
-                    + " WHERE email = ?");
-            selectStatement.setString(1, "test@emaill.com");
+            selectStatement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
+                    " FROM users WHERE user_id = ? ");
+            selectStatement.setLong(1, user.getId());
 
             resultSet = selectStatement.executeQuery();
 
@@ -109,7 +133,7 @@ public class UserDAO implements UserRepository {
                 updatedUser = map(resultSet);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         } finally {
             DatabaseConnectionPool.close(resultSet);
             DatabaseConnectionPool.close(updateStatement);
@@ -124,11 +148,11 @@ public class UserDAO implements UserRepository {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement("DELETE FROM users WHERE email = ? ");
-            statement.setString(1, user.getEmail());
+            statement = connection.prepareStatement("DELETE FROM users WHERE user_id = ? ");
+            statement.setLong(1, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         } finally {
             DatabaseConnectionPool.close(statement);
             DatabaseConnectionPool.close(connection);
@@ -137,14 +161,58 @@ public class UserDAO implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        // TODO: Find a user by email
-        return Optional.empty();
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = null;
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
+                    "FROM users WHERE email = ? ");
+
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                user = map(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return Optional.ofNullable(user);
     }
 
     @Override
-    public List<String> findAllEmails() {
-        // TODO: Find all users emails
-        return null;
+    public List<String> findAllEmails(String startWith) {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<String> allEmails = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "email " +
+                    "FROM users WHERE email LIKE ? ");
+
+            statement.setString(1, startWith + "%");
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                allEmails.add(resultSet.getString("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return allEmails;
     }
     /**
      * Map the current row of the given ResultSet to a User.
@@ -154,14 +222,14 @@ public class UserDAO implements UserRepository {
      */
     private static User map(ResultSet resultSet) throws SQLException {
         return new User(
-                resultSet.getLong("id"),
-                resultSet.getString("email"),
-                resultSet.getString("password"),
+                resultSet.getLong("user_id"),
                 resultSet.getString("first_name"),
                 resultSet.getString("last_name"),
+                resultSet.getString("email"),
+                resultSet.getString("password"),
                 resultSet.getDate("birth_date").toLocalDate(),
                 resultSet.getString("nationality"),
-                resultSet.getString("genre").charAt(0),
+                resultSet.getString("gender").charAt(0),
                 resultSet.getString("phone"),
                 resultSet.getInt("points")
         );
