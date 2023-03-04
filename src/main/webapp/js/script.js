@@ -73,3 +73,4 @@ document.querySelector("input[name=round]").addEventListener("click", function()
         inputDepartDate.disabled = false;
     }
 });
+

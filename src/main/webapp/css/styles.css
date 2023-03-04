@@ -1,39 +1,18 @@
+body {
+    background-image: url('../images/airplane.jpg');
+    background-attachment: fixed;
+    background-size: 100%;
+    font-size: large;
+/*	color: goldenrod;*/
+}
+
+.gradient-custom {
+    background: linear-gradient(to bottom, rgba(0, 0, 100, 1), rgba(255, 255, 255, 0))
+}
+
 label {
-    color: #B4886B;
-    font-weight: bold;
+/*	color: goldenrod;*/
     display: block;
     width: 150px;
     float: left;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-}
-
-/* Style the submit button */
-input[type=submit] {
-    background-color: darkgray;
-    color: white;
-    width: 20%;
-}
-
-/* Style the container for inputs */
-.container {
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    background: navy;
-}
-
-.label {
-    color: #4CAF50;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
 }
