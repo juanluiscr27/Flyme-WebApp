@@ -170,7 +170,7 @@ public class UserDAO implements UserRepository {
                     "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
                     "FROM users WHERE email = ? ");
 
-            statement.setString(1, email);
+            statement.setString(1, email.toLowerCase());
 
             resultSet = statement.executeQuery();
 
@@ -198,7 +198,7 @@ public class UserDAO implements UserRepository {
                     "email " +
                     "FROM users WHERE email LIKE ? ");
 
-            statement.setString(1, startWith + "%");
+            statement.setString(1, startWith.toLowerCase() + "%");
 
             resultSet = statement.executeQuery();
 

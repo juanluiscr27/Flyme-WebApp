@@ -24,7 +24,8 @@ public class UserDAOTest {
                 LocalDate.parse("1995-07-24"),
                 "CA",
                 'M',
-                "1234567890");
+                "1234567890",
+                8500);
     }
     @Test
     public void testAddNewUser() {

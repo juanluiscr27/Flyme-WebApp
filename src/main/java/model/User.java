@@ -22,7 +22,8 @@ public class User implements Serializable {
                 LocalDate dateOfBirth,
                 String nationality,
                 char gender,
-                String phone) {
+                String phone,
+                int points) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,6 +32,7 @@ public class User implements Serializable {
         this.nationality = nationality;
         this.gender = gender;
         this.phone = phone;
+        this.points = points;
     }
     public User(Long userId,
                 String firstName,
@@ -91,10 +93,10 @@ public class User implements Serializable {
     public String toString() {
         return "User {" +
                 "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", birthDate=" + dateOfBirth +
                 ", nationality='" + nationality + '\'' +
                 ", gender=" + gender +

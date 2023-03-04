@@ -38,14 +38,15 @@ public class UserController extends HttpServlet {
         UserService userService = new UserService(userRepo);
 
         User registrationRequest = new User(
-                request.getParameter("email"),
-                request.getParameter("password"),
                 request.getParameter("first-name"),
                 request.getParameter("last-name"),
+                request.getParameter("email"),
+                request.getParameter("password"),
                 LocalDate.parse(request.getParameter("date-of-birth")),
                 request.getParameter("nationality"),
                 request.getParameter("gender").charAt(0),
-                request.getParameter("phone-number")
+                request.getParameter("phone-number"),
+                0
         );
 
         System.out.println("Registration Request:\n\t" + registrationRequest);
