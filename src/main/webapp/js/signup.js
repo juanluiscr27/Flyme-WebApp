@@ -1,20 +1,20 @@
 /** JavaScript for SignUp Page */
 
-//Create references to the dropdown's
+//Create references to the dropdowns
 const yearSelect = document.getElementById("year");
 const monthSelect = document.getElementById("month");
 const daySelect = document.getElementById("day");
 
-const months = ['January', 'February', 'March', 'April', 
-'May', 'June', 'July', 'August', 'September', 'October',
-'November', 'December'];
+const months = {1:'January', 2:'February', 3:'March', 4:'April',
+5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October',
+11:'November', 12:'December'};
 
 //Months are always the same
 (function populateMonths(){
-    for(let i = 0; i < months.length; i++){
+    for(const month in months) {
         const option = document.createElement('option');
-        option.textContent = months[i];
-        option.value = i + 1;
+        option.textContent = months[month];
+        option.value = month;
         monthSelect.appendChild(option);
     }
     //monthSelect.value = "January";
@@ -28,6 +28,8 @@ function populateDays(month){
     while(daySelect.firstChild){
         daySelect.removeChild(daySelect.firstChild);
     }
+    //Reassign the value of the month from number to text
+    month = months[month];
     //Holds the number of days in the month
     let dayNum;
     //Get the current year
@@ -93,8 +95,8 @@ const setDateOfBirth = function() {
   dateOfBirth.value = date.toISOString().split('T')[0];
 };
 
-populateDays(monthSelect.value);
 populateYears();
+populateDays(monthSelect.value);
 
 yearSelect.onchange = function() {
     populateDays(monthSelect.value);
