@@ -4,141 +4,150 @@
 ### Airline Reservation System JavaEE WebApp 
 Group 6 Final Project for CSD 4464 – Programming Java EE Term 2023W 
 
+## Requirements
+**Functional Requirements:**
 
-## The GitHub Work Flow
-The Simplified Git Flow with GitHub. How is it going to work?
-![GitHub Workflow](https://github.com/hbeltrane/Assignment2/blob/main/src/main/webapp/images/github-workflow.jpg)
-## 1. Initialize the local repository
-Once a centralized remote repository is created on GitHub, we have to clone it on our local directory to
-create a reference to the project in our local computer.
+- The system should allow the user create an account and request authentication credential to log in.
+- The system should allow the user to save their profile information
+- Flight search for location, destination, and date. One way or two ways
+- The app should show a list of all available flights with, price, dates and destinations
+- The system should let the user search and booking flights, add bags and other passengers.
+- The system should allow the user cancel booked flights.
+- ~~Have an admin module to manage available flights~~
+- The system should hava a points(mileage) system that get accumulated and rewarded to the user based on the traveled miles.
 
-That can be done with "Open a project from remote repository" option in Eclipse or typing the following 
-command in a window terminal:
 
-```shell
-git clone <repository URL>
-```
+## Entity-Relationship Diagram 
+**Flyme Database Design**
 
-### 2. Set global configuration
-After done that, with the terminal open rooted to project local directory, we set the global configuration
-variables, name and email. The same email we used to create our GitHub account. This way our local repository
-will set our authentication credentials when we try to push changes to the remote repository.
+[![Entity-Relationship Diagram](src/main/resources/assets/Flyme ERD.png)](src/main/resources/assets/Flyme ERD.png)
 
-```shell
-git config --global user.name "<Your Name>"
-```
-```shell
-git config --global user.email "<your email>"
-```
+## Views
 
-### 3. Set up the Working directory
-We rename our local master branch to "main".
-```shell
-git branch -M main
-```
+### Sign Up Page
+Inputs:
+* First name (Text)
+* Last name (Text)
+* Date of birth (Date)
+* Nationality (Drop down)
+* Genre (Drop down)
+* Phone (Text)
+* Email (Text)
+* Password (Password)
+* Confirm password (Password)
+  * Create account (Button)
 
-### 4. Make changes and commit
-To avoid making changes directly to the main branch we have to create a new branch with a meaningful name 
-and switch to work on it. The new features that we are going to be adding to the project are all changed 
-there. Then, when finnish that feature, we commit to save them.
+### Login Page
+Inputs:
+* Username (Text)
+* Password (Password)
+  * Login (Button)
 
-To create and switch to a new branch:
-```shell
-git branch <branch name>
-```
-```shell
-git switch <branch name>
-```
-or simply in one command
-```shell
-git switch -c <branch name>
-```
+### Profile Page
+Initial view: Profile information.
 
-So, here is where you star working with your part of the project. After you finish with all your files, then you add
-and commit those changes.
+**Menu options:**
+* Profile information
+    * Username
+    * Reward points total
+    * Personal information (First name, Last name, Date of birth, Genre, Phone, Email)
+      * Edit personal information (Button)
 
-To add all modified files to the staging area.
+* Trips 1…N (Table)
+  * Trip id
+  * From
+  * To
+  * Depart date/time
+  * Return date/time
+  * Passengers list, class, services included & bag count
+  * Plane
+    * Cancel trip (Button)
+* Payment method (Only one)
+  * Card number (Text)
+  * Expiry date (2 drop down)
+  * Name on card (Text)
+  * Security code (Text)
+    * Save (Button)
+OR
+  * Card number
+  * Expiry date
+  * Name on card
+    * Edit payment method (Button)
 
-```shell
-git add --all
-```
-or 
-```shell
-git add .
-```
+### Home
+  * Login (Button)
+  * Sign up (Button)
+  * News and articles related to travel destinations.
+### Search flight
+  * Round trip (Check box)
+  * From (Dropdown)
+  * Depart date (Date)
+  * To (Dropdown)
+  * Return date (Optional) (Date)
+  * Passengers (Dropdown)
+    * Search (Button)
+### Flight
 
-If we want to see the status of the files that have been modified on the current branch or waiting to be committed 
-we can run.
-```shell
-git status 
-```
+* Depart: From - To
 
-To save the changes we execute the following command including a comment that summarize the changes been 
-made.
-```shell
-git commit -m "A descriptive message"
-```
+[Depart date -2, Depart date -1, Depart date (Selected), Depart date +1, Depart date +2]
 
-### 5. Merge the feature branch
-After we finnish making changes on the feature branch and tested the new changes are working well in our local
-machine, we have to merge those new changes to the main branch. For that, we switch to the main branch first:
-```shell
-git switch main
-```
-And on the main branch we merge the feature branch back to main:
-```shell
-git merge <branch name>
-```
-Finally, we delete the branch we don't need anymore:
-```shell
-git branch --delete <branch name>
-```
+(Table)
+[Flight option 1…N Plane, Class 1 - Price, Class 2 - Price, Class 3 Price]
+* Next (Button)
 
-### 6. Push new commits to remote repository
-We all our changes saved on our local version of the main branch, now we would need to synchronize the remote 
-and most updated repository to our local one. So that, if someone has pushed changes to the remote main branch 
-before, we get those changes first in our local main branch before upload our changes to that GitHub 
-repository.
+### Return flight (optional)
+* Return: From - To
+[Return date -2, Return date -1, Return date (Selected), Return date +1, Return date +2]
 
-To download, update and join references on the GitHub with our local repository:
-```shell
-git pull
-```
-And when everything is merged, we test again our code but in the main branch. We may sure that everything is
-working as should be. After all done, we can finally send back all changes together unto GitHub from our 
-main branch:
-```shell
-git pull
-```
+(Table)
+[Flight option 1…N Plane, Class 1 - Price, Class 2 - Price, Class 3  Price]
+* Next (Button)
 
-### 7. Managing conflicts
-**IMPORTANT ⚠️** If any conflict emerge in any of the previous steps, we must locate source of conflict and solve it.
-The remote repository represents the official project, so its commit history should be treated as sacred and 
-immutable. If a one of our local commits diverge from the main branch, We should not push those changes 
-because this would overwrite official commits. Again, we first solve the conflict and later continue with the merge.
+### Passengers information
+* Passenger 1…N (Table)
+    * First name (Text)
+    * Last name (Text)
+    * Date of birth (Date)
+    * Genre (Drop down)
+    * Bags (Drop down)
+      * Next (Button)
 
-The following command can only be run after a merge attempt has resulted in conflicts.
-```shell
-git merge --continue
-```
+### Flight seats + bags
+  * Passenger 1…N (Table)
+  * Class (Dropdown) Display services available
+    * Seat (Drop down)
+    * Bags (Drop down)
+      * Next (Button)
 
-### 8. Start over again
-After we finish the previous series of changes, we can start all over again but with a new feature. For that 
-we just need to repeat process from step **4** and on.
+### Return flight seat + bags (optional)
+* Passenger 1…N (Table)
+  * Class (Dropdown) Display services available
+  * Seat (Drop down)
+  * Bags (Drop down)
+    * Next (Button)
 
-To see commits history we can type the commands:
-```shell
-git log
-```
-or
-```shell
-git log --oneline
-```
-We can all see all our branches in our local repository with:
-```shell
-git branch 
-```
-Or list all local and remote branches:
-```shell
-git branch -a
-```
+### Summary
+* Flight From – To, depart date
+  * Passenger 1…N
+  * Full name
+      * Class
+      * Seat
+      * Bags
+      * Price
+* Return From – To, return date
+* Passenger 1…N
+  * Full name
+  * Class
+  * Seat
+  * Bags
+  * Price
+* Sub total
+    * Next (Button)
+
+### Pay
+* Sub total
+* Taxes
+* Total
+  * Pay (Button)
+  * Pay with reward points (Button)
