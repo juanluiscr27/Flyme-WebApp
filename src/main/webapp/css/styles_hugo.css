@@ -3,6 +3,7 @@ body {
     background-attachment: fixed;
     background-size: 100%;
     font-size: large;
+/*	color: goldenrod;*/
 }
 
 .gradient-custom {
@@ -10,7 +11,7 @@ body {
 }
 
 label {
-    color: goldenrod;
+/*	color: goldenrod;*/
     display: block;
     width: 150px;
     float: left;
