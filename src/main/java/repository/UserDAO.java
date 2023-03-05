@@ -188,7 +188,7 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public List<String> findAllEmails(String startWith) {
+    public List<String> findAllEmails(String startsWith) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -198,7 +198,7 @@ public class UserDAO implements UserRepository {
                     "email " +
                     "FROM users WHERE email LIKE ? ");
 
-            statement.setString(1, startWith.toLowerCase() + "%");
+            statement.setString(1, startsWith.toLowerCase() + "%");
 
             resultSet = statement.executeQuery();
 
