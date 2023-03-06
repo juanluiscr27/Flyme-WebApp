@@ -24,8 +24,9 @@
     <orderEntry type="library" name="org.apache.commons-dbcp2:2.9.0" level="project" />
     <orderEntry type="library" name="org.apache.commons-pool2:2.10.0" level="project" />
     <orderEntry type="library" name="commons-logging:1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="org.hamcrest-core:3.1" level="project" />
+    <orderEntry type="library" name="com.google.code-gson:2.10" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-junit:4.13.1" level="project" />
     <orderEntry type="library" scope="TEST" name="mysql-connector-java:8.0.32" level="project" />
+    <orderEntry type="library" scope="TEST" name="org.hamcrest-core:3.1" level="project" />
   </component>
 </module>

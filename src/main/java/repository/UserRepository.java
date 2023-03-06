@@ -2,6 +2,7 @@ package repository;
 
 import model.User;
 
+import java.util.Set;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,5 +20,5 @@ public interface UserRepository {
 
     Optional<User> findByEmail(String email);
 
-    List<String> findAllEmails(String startWith);
+    Set<String> findAllEmails(String startsWith);
 }

@@ -4,6 +4,8 @@ import model.User;
 import repository.UserRepository;
 import util.PasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -25,5 +27,9 @@ public class UserService {
         if (!encodedPassword.equals(verifiedUser.getPassword()))
             throw new IllegalArgumentException("Incorrect password");
         return verifiedUser;
+    }
+
+    public List<String> findAllEmails(String startsWith) {
+        return new ArrayList<>(userRepo.findAllEmails(startsWith));
     }
 }

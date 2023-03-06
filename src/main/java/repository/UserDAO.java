@@ -9,8 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.Date;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 public class UserDAO implements UserRepository {
     @Override
     public User add(User registrationRequest) {
@@ -188,11 +191,11 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public List<String> findAllEmails(String startsWith) {
+    public Set<String> findAllEmails(String startsWith) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<String> allEmails = new ArrayList<>();
+        Set<String> allEmails = new HashSet<>();
         try {
             statement = connection.prepareStatement("SELECT " +
                     "email " +
