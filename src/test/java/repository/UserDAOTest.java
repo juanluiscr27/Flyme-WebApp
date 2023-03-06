@@ -19,8 +19,8 @@ public class UserDAOTest {
         expectedUser = new User(
                 "John",
                 "Doe",
-                "test@emaill.com",
-                "zXcVbNm12345",
+                "john.doe@email.com",
+                "zXcVbNm@23",
                 LocalDate.parse("1995-07-24"),
                 "CA",
                 'M',

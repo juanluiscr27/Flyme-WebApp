@@ -34,6 +34,7 @@ public class UserController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         UserRepository userRepo = new UserDAO();
         UserService userService = new UserService(userRepo);
 
@@ -49,10 +50,7 @@ public class UserController extends HttpServlet {
                 0
         );
 
-        System.out.println("Registration Request:\n\t" + registrationRequest);
-
         User registerdUser = userService.register(registrationRequest);
-        System.out.println("Registration Response:\n\t" + registerdUser);
 
         /* If registration OK, go to Login page */
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/login.html");
