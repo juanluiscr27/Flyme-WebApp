@@ -38,8 +38,11 @@ public class LoginServlet extends HttpServlet {
             User authenticatedUser = userService.login(email, password);
 
             HttpSession session = request.getSession();
+            session.setAttribute("user", authenticatedUser);
+
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
             requestDispatcher.forward(request, response);
+
         } catch (IllegalArgumentException e) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
             requestDispatcher.forward(request, response);
