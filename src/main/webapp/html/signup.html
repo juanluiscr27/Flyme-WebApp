@@ -11,13 +11,13 @@
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 		crossorigin="anonymous"></script>
 	<link href="../css/styles.css" rel="stylesheet" type="text/css">
-	<script defer src="js/script.js"></script>
+	<script defer src="../js/script.js"></script>
 </head>
 
 <body>
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="javascript:void(0)"><img src="images/logo.jpg"></a>
+			<a class="navbar-brand" href="javascript:void(0)"><img src="../images/logo.jpg"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -45,7 +45,7 @@
 		<section class="gradient-custom">
 			<div class="container py-3 h-100">
 				<div class="row justify-content-center align-items-center h-100">
-					<div class="col-12 col-lg-9 col-xl-7">
+					<div class="col-12 col-lg-9 col-xl-10">
 						<div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Sign up form</h3>
@@ -69,17 +69,14 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-3 mb-4">
+										<div class="col-md-6 mb-4">
 											<label for="nationality" class="form-label select-label">Nationality</label>
-										</div>
-										<div class="col-md-9 mb-4">
+											<br>
 											<select class="select form-control-lg" id="nationality" name="nationality">
 												<option value="FM">Federated States of Micronesia</option>
 											</select>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 mb-4">
+										<div class="col-md-3 mb-4">
 											<div class="form-outline datepicker w-100">
 												<label for="date-of-birth" class="form-label">Date of birth</label>
 												<br>
@@ -87,7 +84,7 @@
 													id="date-of-birth" name="date-of-birth" />
 											</div>
 										</div>
-										<div class="col-md-4 mb-4">
+										<div class="col-md-3 mb-4">
 											<label for="gender" class="form-label select-label">Gender</label>
 											<br>
 											<select class="select form-control-lg" id="gender" name="gender">
