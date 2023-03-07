@@ -53,7 +53,7 @@ public class UserController extends HttpServlet {
         User registerdUser = userService.register(registrationRequest);
 
         /* If registration OK, go to Login page */
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/login.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
         requestDispatcher.forward(request, response);
     }
 }

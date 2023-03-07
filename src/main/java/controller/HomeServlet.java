@@ -17,7 +17,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/search.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
         requestDispatcher.forward(request, response);
     }
 }
