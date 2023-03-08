@@ -32,6 +32,9 @@ public class UserService {
         Optional<User> optionalUser = userRepo.findByEmail(email);
         return optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
+    public User update(User user) {
+        return userRepo.update(user);
+    }
     public List<String> findAllEmails(String startsWith) {
         return new ArrayList<>(userRepo.findAllEmails(startsWith));
     }
