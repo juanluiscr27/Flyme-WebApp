@@ -75,7 +75,6 @@ public class UserController extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         String password = request.getParameter("password");
         String phone = request.getParameter("phone-number");
         User user = (User) request.getAttribute("user");
@@ -92,6 +91,23 @@ public class UserController extends HttpServlet {
         session.setAttribute("user", updatedUser);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+        requestDispatcher.forward(request, response);
+    }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        User user = (User) request.getAttribute("user");
+
+        UserRepository userRepo = new UserDAO();
+        UserService userService = new UserService(userRepo);
+
+        userService.delete(user);
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.HOME.path);
         requestDispatcher.forward(request, response);
     }
 }
