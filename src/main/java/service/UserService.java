@@ -28,7 +28,10 @@ public class UserService {
             throw new IllegalArgumentException("Incorrect password");
         return verifiedUser;
     }
-
+    public User find(String email) throws IllegalArgumentException {
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+        return optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
     public List<String> findAllEmails(String startsWith) {
         return new ArrayList<>(userRepo.findAllEmails(startsWith));
     }
