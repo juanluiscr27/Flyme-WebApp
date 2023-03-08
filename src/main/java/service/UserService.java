@@ -40,4 +40,7 @@ public class UserService {
     public List<String> findAllEmails(String startsWith) {
         return new ArrayList<>(userRepo.findAllEmails(startsWith));
     }
+    public void delete(User user) {
+        userRepo.delete(user);
+    }
 }
