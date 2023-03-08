@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             User authenticatedUser = userService.login(email, password);
 
             HttpSession session = request.getSession();
-            session.setAttribute("user", authenticatedUser);
+            session.setAttribute("username", authenticatedUser.getEmail());
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
             requestDispatcher.forward(request, response);

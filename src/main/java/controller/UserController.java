@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serial;
 import java.time.LocalDate;
 
@@ -22,10 +22,26 @@ public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<h2>User Profile</h2>");
-        out.close();
+
+        String username = (String) request.getAttribute("username");
+
+        UserRepository userRepo = new UserDAO();
+        UserService userService = new UserService(userRepo);
+
+        try {
+            User user = userService.find(username);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+            requestDispatcher.forward(request, response);
+
+        } catch (IllegalArgumentException e) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+            requestDispatcher.forward(request, response);
+            System.out.println(e.getMessage());
+        }
     }
     /**
      * Register a new user to the app
