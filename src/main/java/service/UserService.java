@@ -33,6 +33,8 @@ public class UserService {
         return optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
     public User update(User user) {
+        String encodedPassword = PasswordEncoder.encodePassword(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepo.update(user);
     }
     public List<String> findAllEmails(String startsWith) {

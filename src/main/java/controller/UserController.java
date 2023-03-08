@@ -72,4 +72,26 @@ public class UserController extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
         requestDispatcher.forward(request, response);
     }
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+
+        String password = request.getParameter("password");
+        String phone = request.getParameter("phone-number");
+        User user = (User) request.getAttribute("user");
+
+        user.setPassword(password);
+        user.setPhone(phone);
+
+        UserRepository userRepo = new UserDAO();
+        UserService userService = new UserService(userRepo);
+
+        User updatedUser = userService.update(user);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("user", updatedUser);
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+        requestDispatcher.forward(request, response);
+    }
 }
