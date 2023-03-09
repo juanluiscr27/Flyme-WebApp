@@ -68,7 +68,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = map(resultSet);
+                user = mapUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -94,7 +94,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                allUsers.add(map(resultSet));
+                allUsers.add(mapUser(resultSet));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -133,7 +133,7 @@ public class UserDAO implements UserRepository {
             resultSet = selectStatement.executeQuery();
 
             while (resultSet.next()) {
-                updatedUser = map(resultSet);
+                updatedUser = mapUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -178,7 +178,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = map(resultSet);
+                user = mapUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -223,7 +223,7 @@ public class UserDAO implements UserRepository {
      * @return The mapped User from the current row of the given ResultSet.
      * @throws SQLException If something fails at database level.
      */
-    private static User map(ResultSet resultSet) throws SQLException {
+    private static User mapUser(ResultSet resultSet) throws SQLException {
         return new User(
                 resultSet.getLong("user_id"),
                 resultSet.getString("first_name"),

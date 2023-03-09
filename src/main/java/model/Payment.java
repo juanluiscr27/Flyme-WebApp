@@ -23,6 +23,14 @@ public class Payment implements Serializable {
         this.expiryDate = expiryDate;
         this.securityCode = securityCode;
     }
+    public Payment(Payment payment) {
+        this.id = payment.getId();
+        this.cardNumber = payment.getCardNumber();
+        this.nameOnCard = payment.getNameOnCard();
+        this.expiryDate = payment.getExpiryDate();
+        this.securityCode = payment.getSecurityCode();
+    }
+
     public long getId() {
         return id;
     }
