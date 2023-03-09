@@ -1,0 +1,22 @@
+body {
+    background-image: url('../images/airplane.jpg');
+    background-attachment: fixed;
+    background-size: 100%;
+    font-size: large;
+/*	color: goldenrod;*/
+}
+
+.gradient-custom {
+    background: linear-gradient(to bottom, rgba(0, 0, 100, 1), rgba(255, 255, 255, 0))
+}
+
+label {
+/*	color: goldenrod;*/
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=tel], input[type=date], select {
+    border: 1px solid lightgray;
+}
