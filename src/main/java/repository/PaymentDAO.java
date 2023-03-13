@@ -108,7 +108,36 @@ public class PaymentDAO implements PaymentRepository {
         PreparedStatement selectStatement = null;
         ResultSet resultSet = null;
         Payment updatedPayment = null;
+        try {
+            updateStatement = connection.prepareStatement("UPDATE payment "
+                    + "card_number = ?, name = ?, expiry_date = ?, security_code = ? WHERE user_id = ? ");
 
+            updateStatement.setString(1, payment.getCardNumber());
+            updateStatement.setString(2, payment.getNameOnCard());
+            updateStatement.setDate(3, Date.valueOf(payment.getExpiryDate()));
+            updateStatement.setInt(4, payment.getSecurityCode());
+            updateStatement.setLong(5, payment.getId());
+
+            updateStatement.executeUpdate();
+
+            selectStatement = connection.prepareStatement("SELECT " +
+                            "payment_id, card_number, name, expiry_date, security_code, user_id " +
+                            "FROM payments WHERE payment_id = ? ");
+            selectStatement.setLong(1, payment.getId());
+
+            resultSet = selectStatement.executeQuery();
+
+            while (resultSet.next()) {
+                updatedPayment = mapPayment(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(updateStatement);
+            DatabaseConnectionPool.close(selectStatement);
+            DatabaseConnectionPool.close(connection);
+        }
         return updatedPayment;
     }
 
