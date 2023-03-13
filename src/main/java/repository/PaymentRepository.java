@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PaymentRepository {
-    Payment add(Payment newPayment, User user);
+    Payment add(Payment newPayment);
 
     Optional<Payment> find(Long paymentId);
 
-    Optional<User> findByUser(User user);
+    Optional<Payment> findByUser(User user);
 
     Payment update(Payment payment);
 

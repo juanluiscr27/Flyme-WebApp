@@ -108,7 +108,6 @@ public class UserDAO implements UserRepository {
 
     @Override
     public User update(User user) {
-        // TODO: Register new user
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement updateStatement = null;
         PreparedStatement selectStatement = null;

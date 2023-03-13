@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class PaymentDAO implements PaymentRepository {
     @Override
-    public Payment add(Payment newPayment, User user) {
+    public Payment add(Payment newPayment) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet keys = null;
@@ -27,7 +27,7 @@ public class PaymentDAO implements PaymentRepository {
             statement.setString(2, newPayment.getNameOnCard());
             statement.setDate(3, Date.valueOf(newPayment.getExpiryDate()));
             statement.setInt(4, newPayment.getSecurityCode());
-            statement.setLong(5, user.getId());
+            statement.setLong(5, newPayment.getUserId());
 
             statement.executeUpdate();
             keys = statement.getGeneratedKeys();
@@ -74,13 +74,42 @@ public class PaymentDAO implements PaymentRepository {
     }
 
     @Override
-    public Optional<User> findByUser(User user) {
-        return Optional.empty();
+    public Optional<Payment> findByUser(User user) {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Payment payment = null;
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "payment_id, card_number, name, expiry_date, security_code, user_id " +
+                    "FROM payments WHERE user_id = ? ");
+
+            statement.setLong(1, user.getId());
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                payment = mapPayment(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return Optional.ofNullable(payment);
     }
 
     @Override
     public Payment update(Payment payment) {
-        return null;
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement updateStatement = null;
+        PreparedStatement selectStatement = null;
+        ResultSet resultSet = null;
+        Payment updatedPayment = null;
+
+        return updatedPayment;
     }
 
     @Override
