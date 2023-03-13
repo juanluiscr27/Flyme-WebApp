@@ -68,7 +68,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = mapUser(resultSet);
+                user = UserMapper.toUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -94,7 +94,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                allUsers.add(mapUser(resultSet));
+                allUsers.add(UserMapper.toUser(resultSet));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -133,7 +133,7 @@ public class UserDAO implements UserRepository {
             resultSet = selectStatement.executeQuery();
 
             while (resultSet.next()) {
-                updatedUser = mapUser(resultSet);
+                updatedUser = UserMapper.toUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -178,7 +178,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = mapUser(resultSet);
+                user = UserMapper.toUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -216,25 +216,5 @@ public class UserDAO implements UserRepository {
             DatabaseConnectionPool.close(connection);
         }
         return allEmails;
-    }
-    /**
-     * Map the current row of the given ResultSet to a User.
-     * @param resultSet The ResultSet of which the current row is to be mapped to a User.
-     * @return The mapped User from the current row of the given ResultSet.
-     * @throws SQLException If something fails at database level.
-     */
-    private static User mapUser(ResultSet resultSet) throws SQLException {
-        return new User(
-                resultSet.getLong("user_id"),
-                resultSet.getString("first_name"),
-                resultSet.getString("last_name"),
-                resultSet.getString("email"),
-                resultSet.getString("password"),
-                resultSet.getDate("birth_date").toLocalDate(),
-                resultSet.getString("nationality"),
-                resultSet.getString("gender").charAt(0),
-                resultSet.getString("phone"),
-                resultSet.getInt("points")
-        );
     }
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PaymentRepository {
     Payment add(Payment newPayment, User user);
 
-    Optional<Payment> find(Long id);
+    Optional<Payment> find(Long paymentId);
 
     Optional<User> findByUser(User user);
 

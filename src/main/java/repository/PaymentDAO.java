@@ -46,8 +46,31 @@ public class PaymentDAO implements PaymentRepository {
     }
 
     @Override
-    public Optional<Payment> find(Long id) {
-        return Optional.empty();
+    public Optional<Payment> find(Long paymentId) {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Payment payment = null;
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "payment_id, card_number, name, expiry_date, security_code, user_id " +
+                    "FROM payments WHERE payment_id = ? ");
+
+            statement.setLong(1, paymentId);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                payment = mapPayment(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return Optional.ofNullable(payment);
     }
 
     @Override
@@ -63,5 +86,15 @@ public class PaymentDAO implements PaymentRepository {
     @Override
     public void delete(Payment payment) {
 
+    }
+    private static Payment mapPayment(ResultSet resultSet) throws SQLException {
+        return new Payment(
+                resultSet.getLong("payment_id"),
+                resultSet.getString("card_number"),
+                resultSet.getString("name"),
+                resultSet.getDate("expiry_date").toLocalDate(),
+                0,
+                resultSet.getLong("user_id")
+        );
     }
 }
