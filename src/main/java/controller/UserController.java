@@ -23,15 +23,14 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = (String) request.getAttribute("username");
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
 
         UserRepository userRepo = new UserDAO();
         UserService userService = new UserService(userRepo);
 
         try {
             User user = userService.find(username);
-
-            HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
@@ -97,14 +96,14 @@ public class UserController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        User user = (User) request.getAttribute("user");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
         UserRepository userRepo = new UserDAO();
         UserService userService = new UserService(userRepo);
 
         userService.delete(user);
 
-        HttpSession session = request.getSession();
         session.invalidate();
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.HOME.path);

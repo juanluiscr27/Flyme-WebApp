@@ -23,7 +23,12 @@ public class PaymentService {
         return paymentRepo.update(payment);
     }
 
-    public void delete(Payment payment) {
-        paymentRepo.delete(payment);
+    public void delete(User user) {
+        try {
+            Payment userPayment = findByUser(user);
+            paymentRepo.delete(userPayment);
+        } catch (IllegalArgumentException e ){
+            System.out.println(e.getMessage());
+        }
     }
 }
