@@ -109,8 +109,8 @@ public class PaymentDAO implements PaymentRepository {
         ResultSet resultSet = null;
         Payment updatedPayment = null;
         try {
-            updateStatement = connection.prepareStatement("UPDATE payment "
-                    + "card_number = ?, name = ?, expiry_date = ?, security_code = ? WHERE user_id = ? ");
+            updateStatement = connection.prepareStatement("UPDATE payments "
+                    + "card_number = ?, name = ?, expiry_date = ?, security_code = ? WHERE payment_id = ? ");
 
             updateStatement.setString(1, payment.getCardNumber());
             updateStatement.setString(2, payment.getNameOnCard());
@@ -143,7 +143,18 @@ public class PaymentDAO implements PaymentRepository {
 
     @Override
     public void delete(Payment payment) {
-
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("DELETE FROM payments WHERE payment_id = ? ");
+            statement.setLong(1, payment.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
     }
     private static Payment mapPayment(ResultSet resultSet) throws SQLException {
         return new Payment(
