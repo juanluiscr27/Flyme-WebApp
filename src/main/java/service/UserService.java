@@ -4,6 +4,8 @@ import model.User;
 import repository.UserRepository;
 import util.PasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -25,5 +27,20 @@ public class UserService {
         if (!encodedPassword.equals(verifiedUser.getPassword()))
             throw new IllegalArgumentException("Incorrect password");
         return verifiedUser;
+    }
+    public User find(String email) throws IllegalArgumentException {
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+        return optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+    public User update(User user) {
+        String encodedPassword = PasswordEncoder.encodePassword(user.getPassword());
+        user.setPassword(encodedPassword);
+        return userRepo.update(user);
+    }
+    public List<String> findAllEmails(String startsWith) {
+        return new ArrayList<>(userRepo.findAllEmails(startsWith));
+    }
+    public void delete(User user) {
+        userRepo.delete(user);
     }
 }

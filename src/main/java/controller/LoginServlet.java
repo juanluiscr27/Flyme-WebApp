@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
-import java.time.LocalDate;
-
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @Serial
@@ -24,7 +22,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/login.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
         requestDispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,10 +38,13 @@ public class LoginServlet extends HttpServlet {
             User authenticatedUser = userService.login(email, password);
 
             HttpSession session = request.getSession();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/search.html");
+            session.setAttribute("username", authenticatedUser.getEmail());
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
             requestDispatcher.forward(request, response);
+
         } catch (IllegalArgumentException e) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/html/login.html");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
             requestDispatcher.forward(request, response);
             System.out.println(e.getMessage());
         }
