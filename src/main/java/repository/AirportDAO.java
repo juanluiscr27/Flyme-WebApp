@@ -1,6 +1,6 @@
 package repository;
 
-import model.Airport;
+import model.AirportDTO;
 import model.CountryDTO;
 
 import java.sql.Connection;
@@ -13,31 +13,41 @@ import java.util.Optional;
 
 public class AirportDAO implements AirportRepository {
     @Override
-    public Optional<Airport> find(String code) {
+    public Optional<AirportDTO> find(String code) {
         return Optional.empty();
     }
 
     @Override
-    public List<Airport> findAll(String search) {
+    public List<AirportDTO> findAll(String search) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<Airport> airports = new ArrayList<>();
+        List<AirportDTO> airports = new ArrayList<>();
         try {
             statement = connection.prepareStatement("SELECT " +
-                    "airports.airport_id, airports.name, airports.city, airports.country, " +
-                    "countries.country_name, airports.latitude, airports.longitude " +
-                    "FROM airports " +
-                    "INNER JOIN countries ON airports.country = countries.country_id " +
-                    "WHERE airports.airport_id LIKE ? OR airports.name LIKE ? " +
-                    "OR airports.city LIKE ? OR airports.country LIKE ? OR countries.country_name LIKE ? ");
+                    "a.airport_id, a.name, a.city, a.country, " +
+                    "c.country_name, a.latitude, a.longitude " +
+                    "FROM airports AS a " +
+                    "INNER JOIN countries AS c ON a.country = c.country_id " +
+                    "WHERE a.airport_id LIKE ? OR a.name LIKE ? " +
+                    "OR a.city LIKE ? OR a.country LIKE ? OR c.country_name LIKE ? ");
 
             statement.setString(1, search.toLowerCase() + "%");
 
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                airports.add(new Airport());
+                airports.add(new AirportDTO(
+                        resultSet.getString("a.airport_id"),
+                        resultSet.getString("a.name"),
+                        resultSet.getString("a.city"),
+                        new CountryDTO(
+                                resultSet.getString("a.country"),
+                                resultSet.getString("c.country_name")
+                        ),
+                        resultSet.getBigDecimal("a.latitude"),
+                        resultSet.getBigDecimal("a.longitude")
+                ));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
