@@ -1,22 +1,23 @@
 package service;
 
 import model.CountryDTO;
+import repository.AirportRepository;
 import repository.FlightRepository;
 
 import java.util.List;
 
-public class FlightService {
-    private final FlightRepository flightRepo;
+public class AirportService {
+    private final AirportRepository airportRepo;
 
-    public FlightService(FlightRepository flightRepo) {
-        this.flightRepo = flightRepo;
+    public AirportService(AirportRepository airportRepo) {
+        this.airportRepo = airportRepo;
     }
 
     public List<CountryDTO> findAllCountries(String startsWith) {
         if (startsWith == null || startsWith .equals("")) {
-            return flightRepo.findAllCountries();
+            return airportRepo.findAllCountries();
         } else {
-            return flightRepo.findAllCountries(startsWith);
+            return airportRepo.findAllCountries(startsWith);
         }
     }
 }

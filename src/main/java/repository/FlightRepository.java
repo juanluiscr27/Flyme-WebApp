@@ -13,8 +13,4 @@ public interface FlightRepository {
     List<Flight> findAll();
 
     List<Flight> findAllByCountry(CountryDTO countryDTO);
-
-    List<CountryDTO> findAllCountries();
-
-    List<CountryDTO> findAllCountries(String startsWith);
 }
