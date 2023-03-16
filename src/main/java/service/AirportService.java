@@ -1,5 +1,6 @@
 package service;
 
+import model.AirportDTO;
 import model.CountryDTO;
 import repository.AirportRepository;
 import repository.FlightRepository;
@@ -12,7 +13,9 @@ public class AirportService {
     public AirportService(AirportRepository airportRepo) {
         this.airportRepo = airportRepo;
     }
-
+    public List<AirportDTO> findAll(String search) {
+        return airportRepo.findAll(search);
+    }
     public List<CountryDTO> findAllCountries(String startsWith) {
         if (startsWith == null || startsWith .equals("")) {
             return airportRepo.findAllCountries();
