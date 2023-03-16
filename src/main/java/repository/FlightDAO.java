@@ -41,7 +41,7 @@ public class FlightDAO implements FlightRepository {
             statement = connection.prepareStatement("SELECT " +
                     "country_id, country_name " +
                     "FROM countries WHERE country_id LIKE ? OR lower(country_name) LIKE ? " +
-                    "ORDER BY country_name DESC");
+                    "ORDER BY country_id DESC");
 
             statement.setString(1, startsWith.toUpperCase().substring(0,2) + "%");
             statement.setString(2, startsWith.toLowerCase() + "%");
