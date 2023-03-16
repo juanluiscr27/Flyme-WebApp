@@ -257,3 +257,11 @@ INSERT INTO `countries` VALUES ('YU', 'Yugoslavia');
 INSERT INTO `countries` VALUES ('ZR', 'Zaire');
 INSERT INTO `countries` VALUES ('ZM', 'Zambia');
 INSERT INTO `countries` VALUES ('ZW', 'Zimbabwe');
+
+--
+-- Inserts for table `airports`
+--
+
+INSERT INTO `airports` VALUES ('BOG', 'El Dorado International Airport', 'Bogota', 'CO', 4.7009693, -74.1466885);
+INSERT INTO `airports` VALUES ('SDQ', 'Las Americas International Airport', 'Santo Domingo', 'DO', 18.4302189, -69.6771733);
+INSERT INTO `airports` VALUES ('YYZ', 'Toronto Pearson International Airport', 'Toronto', 'CA', 43.6777176, -79.6248196);
