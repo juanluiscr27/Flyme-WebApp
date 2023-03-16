@@ -3,7 +3,6 @@ package service;
 import model.CountryDTO;
 import repository.FlightRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FlightService {
@@ -14,6 +13,10 @@ public class FlightService {
     }
 
     public List<CountryDTO> findAllCountries(String startsWith) {
-        return flightRepo.findAllCountries(startsWith);
+        if (startsWith == null || startsWith .equals("")) {
+            return flightRepo.findAllCountries();
+        } else {
+            return flightRepo.findAllCountries(startsWith);
+        }
     }
 }
