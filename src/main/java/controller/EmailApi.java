@@ -1,5 +1,6 @@
 package controller;
 
+import model.EmailDTO;
 import repository.UserDAO;
 import repository.UserRepository;
 import service.UserService;
@@ -25,15 +26,19 @@ public class EmailApi extends HttpServlet {
 
         UserRepository userRepo = new UserDAO();
         UserService userService = new UserService(userRepo);
-        List<String> allEmails = userService.findAllEmails(search);
 
-        String emailsListJSON = Json.parseJson(allEmails);
+        EmailDTO emailDTO = new EmailDTO(
+                search,
+                userService.isEmailAvailable(search)
+        );
+
+        String emailJSON = Json.parseJson(emailDTO);
 
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        out.print(emailsListJSON);
+        out.print(emailJSON);
         out.flush();
 
     }

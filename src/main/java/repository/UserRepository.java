@@ -21,4 +21,6 @@ public interface UserRepository {
     Optional<User> findByEmail(String email);
 
     Set<String> findAllEmails(String startsWith);
+    
+    public boolean isEmailPresent(String email);
 }
