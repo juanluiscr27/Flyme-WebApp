@@ -129,11 +129,13 @@ CREATE TABLE `distance_fares` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airports` (
   `airport_id` char(3) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `city` varchar(25) NOT NULL,
   `country` char(2) NOT NULL,
   `latitude` decimal(10,7) NOT NULL,
   `longitude` decimal(10,7) NOT NULL,
-  PRIMARY KEY (`airport_id`)
+  PRIMARY KEY (`airport_id`),
+  CONSTRAINT `airports_country_fk` FOREIGN KEY (`country`) REFERENCES `countries` (`country_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
