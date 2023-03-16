@@ -4,8 +4,6 @@ import model.User;
 import repository.UserRepository;
 import util.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -37,8 +35,8 @@ public class UserService {
         user.setPassword(encodedPassword);
         return userRepo.update(user);
     }
-    public List<String> findAllEmails(String startsWith) {
-        return new ArrayList<>(userRepo.findAllEmails(startsWith));
+    public boolean isEmailAvailable(String email) {
+        return !userRepo.isEmailPresent(email);
     }
     public void delete(User user) {
         userRepo.delete(user);

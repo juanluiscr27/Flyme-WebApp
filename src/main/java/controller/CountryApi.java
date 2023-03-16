@@ -1,9 +1,9 @@
 package controller;
 
-import model.EmailDTO;
-import repository.UserDAO;
-import repository.UserRepository;
-import service.UserService;
+import model.CountryDTO;
+import repository.FlightDAO;
+import repository.FlightRepository;
+import service.FlightService;
 import util.Json;
 
 import javax.servlet.ServletException;
@@ -15,8 +15,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serial;
 import java.util.List;
-@WebServlet("/api/v1/emails")
-public class EmailApi extends HttpServlet {
+
+@WebServlet("/api/v1/countries")
+public class CountryApi extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,22 +25,17 @@ public class EmailApi extends HttpServlet {
 
         String search = request.getParameter("search");
 
-        UserRepository userRepo = new UserDAO();
-        UserService userService = new UserService(userRepo);
+        FlightRepository flightRepo = new FlightDAO();
+        FlightService flightService = new FlightService(flightRepo);
+        List<CountryDTO> countries = flightService.findAllCountries(search);
 
-        EmailDTO emailDTO = new EmailDTO(
-                search,
-                userService.isEmailAvailable(search)
-        );
-
-        String emailJSON = Json.parseJson(emailDTO);
+        String countriesListJSON = Json.parseJson(countries);
 
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        out.print(emailJSON);
+        out.print(countriesListJSON);
         out.flush();
-
     }
 }
