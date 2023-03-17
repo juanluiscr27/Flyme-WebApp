@@ -1,7 +1,7 @@
 package controller;
 
 public enum StaticPage {
-    HOME("/html/search.html"),
+    HOME("/html/index.html"),
     SIGNUP("/html/signup.html"),
     LOGIN("/html/login.html"),
     PROFILE("/html/profile.html"),

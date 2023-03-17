@@ -1,7 +1,6 @@
 package controller;
 
 import model.AirportDTO;
-import model.CountryDTO;
 import repository.AirportDAO;
 import repository.AirportRepository;
 import service.AirportService;
