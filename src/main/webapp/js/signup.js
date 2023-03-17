@@ -1,84 +1,34 @@
 /**
 *
 */
-const getInputDate = function(input) {
-    const inputDate = document.querySelector(input);
-    return new Date(inputDate.value); 
+
+const message = document.querySelector("#message");
+const userContainer = document.querySelector("#users");
+
+const URL = "../api/v1/countries";
+
+const setErrorMessage = function(element, message) {
+    element.classList.add("alert");
+    element.classList.add("alert-dangers");
+    element.textContent = message;
 }
 
-const isValidBirthDate = function() {
-    let birthDate = getInputDate("input[name=date-of-birth]");
-    let today = new Date();
-    if (birthDate = "Invalid date"){
-        alert("Please enter a valid birth date");
-        return false;
-    } else if (birthDate.getDate() < today.getDate()){
-        alert("You must be at least 18 years old to create a user.");
-        return false;
-    } else return true;
- }
-
- const isValidReturnDate = function() {
-    let returnDate = getInputDate("input[name=return]");
-    let departDate = getInputDate("input[name=depart]");
-    return returnDate > departDate
- }
-
-const isRoundTrip = function() {
-    const roundChk = document.querySelector("input[name=round]");
-    return roundChk.checked;
-}
-
-function dateValidation () {
-    if (!isValidDepartDate()) {
-        alert('Please choose a valid departure date');
-        return false;
-    }
-    if (isRoundTrip() && !isValidReturnDate()) {
-        alert('Please choose a valid return date');
-        return false;
-    }
-    return true;
-}
-
-function FormValidation() {
-
-//    let origin = document.querySelector("select[name=from]");
-//    let destination = document.querySelector("select[name=to]");
-
-    if (isValidBirthDate()) {
-        return true;
-    }
-/*
-    if(origin.value == "") {
-        alert('Please select a origin');
-        return false;
-    }
-    if(isRoundTrip() && destination.value == "") {
-        alert('Please select a destination');
-        return false;
-    }
-    if(origin.value == destination.value) {
-        alert('Origin and destination cannot be the same');
-        return false;
-    }
- */   
-}
-
-document.querySelector("form").onsubmit = function() {
-/*    if (!(dateValidation())){
-        return false;
-    }*/
-    return FormValidation();
-};
-
-document.querySelector("input[name=round]").addEventListener("click", function(){
-    const inputDepartDate = document.querySelector("input[name=return]");
-    if(!isRoundTrip()) {
-        inputDepartDate.value = "";
-        inputDepartDate.disabled = true;
+fetch(URL).then(response => {
+    if (response.ok) {
+        return response.json();
     } else {
-        inputDepartDate.disabled = false;
+        setErrorMessage(message,"Request unsuccessful");
     }
+}).then(data => {
+    if (data)  {
+		var input = document.getElementById("nationality");
+        data.forEach(country => {
+        let option = document.createElement("option");
+        option.value = country.id;
+        option.text = country.name;
+        input.add(option);
+    });
+    } else {
+        setErrorMessage(message,"<p>Error - No User Found</p>");
+    }
 });
-
