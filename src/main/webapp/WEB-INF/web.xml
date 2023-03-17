@@ -4,7 +4,6 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>FlyMe</display-name>
   <welcome-file-list>
-    <welcome-file>/html/search.html</welcome-file>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -12,4 +11,18 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+<!--
+  <error-page>
+    <error-code>401</error-code>
+    <location>/WEB-INF/jsp/401.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/jsp/403.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/jsp/404.jsp</location>
+  </error-page>
+-->
 </web-app>
