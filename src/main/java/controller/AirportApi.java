@@ -1,10 +1,8 @@
 package controller;
 
-import model.CountryDTO;
+import model.AirportDTO;
 import repository.AirportDAO;
 import repository.AirportRepository;
-import repository.FlightDAO;
-import repository.FlightRepository;
 import service.AirportService;
 import util.Json;
 
@@ -18,8 +16,8 @@ import java.io.PrintWriter;
 import java.io.Serial;
 import java.util.List;
 
-@WebServlet("/api/v1/countries")
-public class CountryApi extends HttpServlet {
+@WebServlet("/api/v1/airports")
+public class AirportApi extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,9 +27,9 @@ public class CountryApi extends HttpServlet {
 
         AirportRepository airportRepo = new AirportDAO();
         AirportService airportService = new AirportService(airportRepo);
-        List<CountryDTO> countries = airportService.findAllCountries(search);
+        List<AirportDTO> airports = airportService.findAll(search);
 
-        String countriesListJSON = Json.parseJson(countries);
+        String countriesListJSON = Json.parseJson(airports);
 
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");

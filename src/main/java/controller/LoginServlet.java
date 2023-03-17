@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("username", authenticatedUser.getEmail());
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.HOME.path);
             requestDispatcher.forward(request, response);
 
         } catch (IllegalArgumentException e) {
