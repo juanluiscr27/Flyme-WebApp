@@ -216,4 +216,29 @@ public class UserDAO implements UserRepository {
         }
         return allEmails;
     }
+
+    public boolean isEmailPresent(String email) {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean isPresent = false;
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "user_id FROM users WHERE email = ? LIMIT 1 ");
+
+            statement.setString(1, email.toLowerCase());
+
+            resultSet = statement.executeQuery();
+
+            isPresent = resultSet.next();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return isPresent;
+    }
 }

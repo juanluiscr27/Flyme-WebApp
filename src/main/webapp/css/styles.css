@@ -17,6 +17,6 @@ label {
     float: left;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=tel], input[type=date], select, #daterange {
+input[type=text], input[type=password], input[type=email], input[type=tel], input[type=date], select {
     border: 1px solid lightgray;
 }
