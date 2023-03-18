@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class Json {
-    private static Gson gson;
+    private static final Gson gson;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     static {
@@ -35,11 +35,9 @@ public class Json {
     public static String parseJson(Object object) {
         return gson.toJson(object);
     }
-    public Object toObject(String jsonObject, Type classOfObject){
+    public static Object toObject(String jsonObject, Type classOfObject){
         return gson.fromJson(jsonObject, classOfObject);
     }
-
-
     private static class LocalDateSerializer implements JsonSerializer<LocalDate> {
         @Override
         public JsonElement serialize(LocalDate localDate, Type type, JsonSerializationContext context) {

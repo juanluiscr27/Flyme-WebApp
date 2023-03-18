@@ -3,8 +3,6 @@ package controller;
 import model.CountryDTO;
 import repository.AirportDAO;
 import repository.AirportRepository;
-import repository.FlightDAO;
-import repository.FlightRepository;
 import service.AirportService;
 import util.Json;
 

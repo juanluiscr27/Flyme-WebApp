@@ -3,7 +3,6 @@ package repository;
 import model.Payment;
 import model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface PaymentRepository {

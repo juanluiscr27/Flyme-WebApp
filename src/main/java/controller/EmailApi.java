@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serial;
-import java.util.List;
 @WebServlet("/api/v1/emails")
 public class EmailApi extends HttpServlet {
     @Serial

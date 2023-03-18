@@ -3,7 +3,6 @@ package service;
 import model.AirportDTO;
 import model.CountryDTO;
 import repository.AirportRepository;
-import repository.FlightRepository;
 
 import java.util.List;
 
