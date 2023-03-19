@@ -265,3 +265,17 @@ INSERT INTO `countries` VALUES ('ZW', 'Zimbabwe');
 INSERT INTO `airports` VALUES ('BOG', 'El Dorado International Airport', 'Bogota', 'CO', 4.7009693, -74.1466885);
 INSERT INTO `airports` VALUES ('SDQ', 'Las Americas International Airport', 'Santo Domingo', 'DO', 18.4302189, -69.6771733);
 INSERT INTO `airports` VALUES ('YYZ', 'Toronto Pearson International Airport', 'Toronto', 'CA', 43.6777176, -79.6248196);
+
+--
+-- Inserts for table `planes`
+--
+
+INSERT INTO `planes`` VALUES
+(NULL, 'C-FAAA','Boeing', '747', 1.0);
+
+--
+-- Inserts for table `flights`
+--
+
+INSERT INTO `flights` VALUES (NULL, 'FM1211', 'YYZ', 'SDQ', 1, '2023-03-30 10:30:00','2023-03-30 14:50:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1112', 'SDQ', 'YYZ', 1, '2023-03-30 18:30:00','2023-03-30 22:50:00');
