@@ -98,10 +98,10 @@ To download, update and join references on the GitHub with our local repository:
 git pull
 ```
 And when everything is merged, we test again our code but in the main branch. We may sure that everything is
-working as should be. After all done, we can finally send back all changes together unto GitHub from our
+working as should be. After all done, we can finally send back all changes together up to GitHub from our
 main branch:
 ```shell
-git pull
+git push
 ```
 
 ## 7. Managing conflicts
