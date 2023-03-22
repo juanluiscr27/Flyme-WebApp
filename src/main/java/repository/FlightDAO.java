@@ -3,6 +3,7 @@ package repository;
 import model.CountryDTO;
 import model.Flight;
 import model.FlightSearchDTO;
+import util.EntityMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +47,7 @@ public class FlightDAO implements FlightRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                allFlights.add(mapFlight(resultSet));
+                allFlights.add(EntityMapper.mapFlight(resultSet));
             }
 
         } catch (SQLException e) {
@@ -62,17 +63,4 @@ public class FlightDAO implements FlightRepository {
     public List<Flight> findAllByCountry(CountryDTO countryDTO) {
         return null;
     }
-
-    private Flight mapFlight(ResultSet resultSet) throws SQLException {
-        return new Flight(
-                resultSet.getLong("flight_id"),
-                resultSet.getString("flight_number"),
-                resultSet.getString("origin"),
-                resultSet.getString("destination"),
-                resultSet.getInt("plane_id"),
-                resultSet.getTimestamp("departure").toLocalDateTime(),
-                resultSet.getTimestamp("arrival").toLocalDateTime()
-        );
-    }
-
 }

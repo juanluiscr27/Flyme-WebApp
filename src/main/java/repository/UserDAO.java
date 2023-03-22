@@ -1,6 +1,7 @@
 package repository;
 
 import model.User;
+import util.EntityMapper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -68,7 +69,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = UserMapper.toUser(resultSet);
+                user = EntityMapper.toUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -94,7 +95,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                allUsers.add(UserMapper.toUser(resultSet));
+                allUsers.add(EntityMapper.toUser(resultSet));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -132,7 +133,7 @@ public class UserDAO implements UserRepository {
             resultSet = selectStatement.executeQuery();
 
             while (resultSet.next()) {
-                updatedUser = UserMapper.toUser(resultSet);
+                updatedUser = EntityMapper.toUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -177,7 +178,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = UserMapper.toUser(resultSet);
+                user = EntityMapper.toUser(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
