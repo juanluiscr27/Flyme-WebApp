@@ -1,6 +1,7 @@
 package util;
 
 import model.AirportDTO;
+import model.Coordinate;
 import model.CountryDTO;
 import model.Flight;
 import model.Payment;
@@ -103,8 +104,10 @@ public class EntityMapper {
                         resultSet.getString("a.country"),
                         resultSet.getString("c.country_name")
                 ),
-                resultSet.getBigDecimal("a.latitude"),
-                resultSet.getBigDecimal("a.longitude")
+                new Coordinate(
+                        resultSet.getBigDecimal("a.latitude"),
+                        resultSet.getBigDecimal("a.longitude")
+                )
         );
     }
 }
