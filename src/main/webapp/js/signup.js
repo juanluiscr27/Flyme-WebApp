@@ -2,9 +2,6 @@
 *
 */
 
-const message = document.querySelector("#message");
-const userContainer = document.querySelector("#users");
-
 const URL = "../api/v1/countries";
 
 const setErrorMessage = function(element, message) {
@@ -20,15 +17,15 @@ fetch(URL).then(response => {
         setErrorMessage(message,"Request unsuccessful");
     }
 }).then(data => {
-    if (data)  {
+    if (data) {
 		var input = document.getElementById("nationality");
         data.forEach(country => {
-        let option = document.createElement("option");
-        option.value = country.id;
-        option.text = country.name;
-        input.add(option);
-    });
+        	let option = document.createElement("option");
+        	option.value = country.id;
+        	option.text = country.name;
+        	input.add(option);
+        });
     } else {
         setErrorMessage(message,"<p>Error - No User Found</p>");
-    }
+    }
 });

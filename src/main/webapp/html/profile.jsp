@@ -2,41 +2,42 @@
 <html>
 
 <head>
-	<title>FlyMe - Profile</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-		crossorigin="anonymous"></script>
-	<link href="../css/styles.css" rel="stylesheet" type="text/css">
-	<script defer src="../js/profile.js"></script>
+<title>FlyMe - Profile</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+	crossorigin="anonymous"></script>
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+<script defer src="js/profile.js"></script>
 </head>
 
 <body>
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html"><img src="../images/logo.jpg"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+			<a class="navbar-brand" href="home"><img src="images/logo.jpg"></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="search.html">Search flights</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="profile.html">Profile</a>
+					<li class="nav-item"><a class="nav-link" href="search">Search
+							flights</a></li>
+					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav d-flex">
-					<li class="nav-item">
-						<a class="nav-link" href="login.html">Login</a>
+					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="signup.html">Sign up</a>
-					</li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign
+							up</a></li>
 				</ul>
 			</div>
 		</div>
@@ -46,9 +47,11 @@
 			<div class="container py-3 h-100">
 				<div class="row justify-content-center align-items-center h-100">
 					<div class="col-12 col-lg-9 col-xl-10">
-						<div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+						<div class="card shadow-2-strong card-registration"
+							style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
-								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My profile</h3>
+								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My
+									profile</h3>
 								<form id="sign-up" action="user" method="POST">
 									<section>
 										<div class="row">
@@ -90,14 +93,15 @@
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="date-of-birth">Date of birth</label>
+													<label class="form-label" for="date-of-birth">Date
+														of birth</label>
 												</div>
 											</div>
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="date-of-birth" name="date-of-birth"
-														class="form-control form-control-lg" value="January 10, 1982"
-														disabled />
+														class="form-control form-control-lg"
+														value="January 10, 1982" disabled />
 												</div>
 											</div>
 										</div>
@@ -153,8 +157,8 @@
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
 													<input class="btn btn-secondary btn-sm" type="button"
-														value="Edit" />
-													<input class="btn btn-primary btn-sm" type="button" value="Save" />
+														value="Edit" /> <input class="btn btn-primary btn-sm"
+														type="button" value="Save" />
 												</div>
 											</div>
 										</div>
@@ -169,14 +173,15 @@
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="card-number">Card number</label>
+													<label class="form-label" for="card-number">Card
+														number</label>
 												</div>
 											</div>
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="card-number" name="card-number"
-														class="form-control form-control-lg" value="1234567890123456"
-														disabled />
+														class="form-control form-control-lg"
+														value="1234567890123456" disabled />
 												</div>
 											</div>
 										</div>
@@ -184,7 +189,8 @@
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="card-name">Name on card</label>
+													<label class="form-label" for="card-name">Name on
+														card</label>
 												</div>
 											</div>
 											<div class="col-md-8 mb-4">
@@ -199,13 +205,15 @@
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="expiry-date">Expiry date</label>
+													<label class="form-label" for="expiry-date">Expiry
+														date</label>
 												</div>
 											</div>
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="text" id="expiry-date" name="expiry-date"
-														class="form-control form-control-lg" value="24/08" disabled />
+														class="form-control form-control-lg" value="24/08"
+														disabled />
 												</div>
 											</div>
 											<div class="col-md-2 mb-4">
@@ -224,8 +232,8 @@
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
 													<input class="btn btn-secondary btn-sm" type="button"
-														value="Edit" />
-													<input class="btn btn-primary btn-sm" type="button" value="Save" />
+														value="Edit" /> <input class="btn btn-primary btn-sm"
+														type="button" value="Save" />
 												</div>
 											</div>
 										</div>
@@ -264,9 +272,8 @@
 												<div class="form-outline">
 													<input class="btn btn-secondary btn-sm" type="button"
 														data-bs-toggle="collapse" data-bs-target="#flight1"
-														value="Details" />
-													<input class="btn btn-primary btn-sm" type="button"
-														value="Cancel" />
+														value="Details" /> <input class="btn btn-primary btn-sm"
+														type="button" value="Cancel" />
 												</div>
 											</div>
 										</div>
@@ -276,9 +283,9 @@
 													<div class="row font-small">
 														<p>
 															<b>From: </b>Pearson International <b>To: </b>New York
-															International<br>
-															<b>Depart: </b>March 15th, 2023 - 17:00<br>
-															<b>Aircraft: </b>Airbus A380 <b>Class: </b>Economy
+															International<br> <b>Depart: </b>March 15th, 2023 -
+															17:00<br> <b>Aircraft: </b>Airbus A380 <b>Class:
+															</b>Economy
 														</p>
 													</div>
 													<div class="row font-small">
@@ -329,9 +336,8 @@
 												<div class="form-outline">
 													<input class="btn btn-secondary btn-sm" type="button"
 														data-bs-toggle="collapse" data-bs-target="#flight2"
-														value="Details" />
-													<input class="btn btn-primary btn-sm" type="button"
-														value="Cancel" />
+														value="Details" /> <input class="btn btn-primary btn-sm"
+														type="button" value="Cancel" />
 												</div>
 											</div>
 										</div>
@@ -342,9 +348,9 @@
 													<div class="row font-small">
 														<p>
 															<b>From: </b>Pearson International <b>To: </b>New York
-															International<br>
-															<b>Depart: </b>March 15th, 2023 - 17:00<br>
-															<b>Aircraft: </b>Airbus A380 <b>Class: </b>Economy
+															International<br> <b>Depart: </b>March 15th, 2023 -
+															17:00<br> <b>Aircraft: </b>Airbus A380 <b>Class:
+															</b>Economy
 														</p>
 													</div>
 													<div class="row font-small">

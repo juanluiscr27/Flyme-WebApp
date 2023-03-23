@@ -19,7 +19,7 @@ import java.io.Serial;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet("/flights")
+@WebServlet("/flight")
 public class FlightServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;

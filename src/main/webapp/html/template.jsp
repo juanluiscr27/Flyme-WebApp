@@ -10,33 +10,30 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 		crossorigin="anonymous"></script>
-	<link href="../css/styles.css" rel="stylesheet" type="text/css">
-	<script defer src="../js/template.js"></script>
+	<link href="css/styles.css" rel="stylesheet" type="text/css">
+	<script defer src="js/template.js"></script>
 </head>
 
 <body>
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html"><img src="../images/logo.jpg"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+			<a class="navbar-brand" href="home"><img src="images/logo.jpg"></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="search.html">Search flights</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="profile.html">Profile</a>
+					<li class="nav-item"><a class="nav-link" href="search">Search
+							flights</a></li>
+					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav d-flex">
-					<li class="nav-item">
-						<a class="nav-link" href="login.html">Login</a>
+					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="signup.html">Sign up</a>
-					</li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign
+							up</a></li>
 				</ul>
 			</div>
 		</div>
