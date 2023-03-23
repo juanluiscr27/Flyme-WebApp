@@ -2,7 +2,7 @@
 *
 */
 
-const URL = "../api/v1/countries";
+const URL = "api/v1/countries";
 
 const setErrorMessage = function(element, message) {
     element.classList.add("alert");
