@@ -21,8 +21,9 @@ public class Geodesy {
         double y2 = Math.toRadians(destination.longitude().doubleValue());
 
         // a and c are sides from the haversine spherical triangle.
-        double a = Math.pow(Math.sin(x2 - x1 / 2), 2) + Math.pow(Math.sin(y2 - y1 / 2), 2) * Math.cos(x1) * Math.cos(x2);
+        double a = Math.pow(Math.sin((x2 - x1) / 2), 2) + Math.pow(Math.sin((y2 - y1) / 2), 2) * Math.cos(x1) * Math.cos(x2);
         double c = 2 * Math.asin(Math.sqrt(a));
+
         // The distance between origin and destination
         BigDecimal distance = BigDecimal.valueOf(EARTH_RADIUS * c);
         return distance.setScale(2, RoundingMode.HALF_UP);
