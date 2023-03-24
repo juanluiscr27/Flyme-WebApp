@@ -8,6 +8,23 @@
 /*!40103 SET TIME_ZONE='+00:00' */;
 
 --
+-- Inserts  for table `bag_fares`
+--
+
+INSERT INTO `bag_fares` VALUES (1, 70.00);
+INSERT INTO `bag_fares` VALUES (2, 120.00);
+INSERT INTO `bag_fares` VALUES (3, 180.00);
+INSERT INTO `bag_fares` VALUES (4, 230.00);
+
+--
+-- Inserts for table `classes`
+--
+
+INSERT INTO `classes` VALUES (1, 'First', 2, 2.0);
+INSERT INTO `classes` VALUES (2, 'Business', 1, 1.5);
+INSERT INTO `classes` VALUES (3, 'Economy', 0, 1.0);
+
+--
 -- Inserts for table `countries`
 --
 
@@ -259,23 +276,133 @@ INSERT INTO `countries` VALUES ('ZM', 'Zambia');
 INSERT INTO `countries` VALUES ('ZW', 'Zimbabwe');
 
 --
+-- Inserts for table `distance_fares`
+--
+
+INSERT INTO `distance_fares` VALUES (1, 500, 1.10);
+INSERT INTO `distance_fares` VALUES (501, 1000, 1.50);
+INSERT INTO `distance_fares` VALUES (1001, 2500, 1.75);
+INSERT INTO `distance_fares` VALUES (2501, 5000, 2.00);
+INSERT INTO `distance_fares` VALUES (5001, 10000, 2.50);
+INSERT INTO `distance_fares` VALUES (10001, 20000, 3.50);
+
+--
 -- Inserts for table `airports`
 --
 
-INSERT INTO `airports` VALUES ('BOG', 'El Dorado International Airport', 'Bogota', 'CO', 4.7009693, -74.1466885);
-INSERT INTO `airports` VALUES ('SDQ', 'Las Americas International Airport', 'Santo Domingo', 'DO', 18.4302189, -69.6771733);
 INSERT INTO `airports` VALUES ('YYZ', 'Toronto Pearson International Airport', 'Toronto', 'CA', 43.6777176, -79.6248196);
+INSERT INTO `airports` VALUES ('SDQ', 'Las Americas International Airport', 'Santo Domingo', 'DO', 18.4302189, -69.6771733);
+INSERT INTO `airports` VALUES ('BOG', 'El Dorado International Airport', 'Bogota', 'CO', 4.7009693, -74.1466885);
+INSERT INTO `airports` VALUES ('DXB', 'Dubai International Airport', 'Dubai', 'AE', 25.2518578, 55.3649996);
+INSERT INTO `airports` VALUES ('JFK', 'John F. Kennedy International Airport', 'New York', 'US', 40.6413286,-73.778342);
+INSERT INTO `airports` VALUES ('LHR', 'Heathrow Airport', 'London', 'GB', 51.4702756,-0.4554869);
 
 --
 -- Inserts for table `planes`
 --
 
-INSERT INTO `planes`` VALUES
-(NULL, 'C-FAAA','Boeing', '747', 1.0);
+INSERT INTO `planes` VALUES (1, 'C-FAAA','Boeing', '747', 1.0);
+INSERT INTO `planes` VALUES (2, 'N1001A','Airbus', 'A320', 1.0);
+INSERT INTO `planes` VALUES (3, 'EI-DYR','Boeing', '737', 1.0);
+INSERT INTO `planes` VALUES (4, 'C-FZZZ','Embraer', '175', 1.0);
 
 --
 -- Inserts for table `flights`
 --
 
-INSERT INTO `flights` VALUES (NULL, 'FM1211', 'YYZ', 'SDQ', 1, '2023-03-30 10:30:00','2023-03-30 14:50:00');
-INSERT INTO `flights` VALUES (NULL, 'FM1112', 'SDQ', 'YYZ', 1, '2023-03-30 18:30:00','2023-03-30 22:50:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1112', 'YYZ', 'SDQ', 1, '2023-03-30 10:30:00','2023-03-30 14:50:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1211', 'SDQ', 'YYZ', 1, '2023-03-30 18:30:00','2023-03-30 22:50:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1516', 'JFK', 'LHR', 3, '2023-03-31 06:10:00','2023-03-30 13:15:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1614', 'LHR', 'DXB', 2, '2023-03-31 09:00:00','2023-03-30 16:45:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1113', 'YYZ', 'BOG', 1, '2023-03-30 08:05:00','2023-03-30 14:25:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1511', 'JFK', 'YYZ', 4, '2023-03-30 14:00:00','2023-03-30 13:45:00');
+
+--
+-- Inserts for table `seats`
+--
+
+INSERT INTO `seats` VALUES (NULL, 1, 1, 'A', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 1, 'C', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 1, 'H', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 1, 'K', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 2, 'A', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 2, 'C', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 2, 'H', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 2, 'K', 1);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'A', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'B', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'C', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'D', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'E', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'F', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'G', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'H', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'J', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 21, 'K', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'A', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'B', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'C', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'D', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'E', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'F', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'G', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'H', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'J', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 22, 'K', 2);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'A', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'B', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'C', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'D', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'E', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'F', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'G', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'H', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'J', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 29, 'K', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'A', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'B', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'C', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'D', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'E', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'F', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'G', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'H', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'J', 3);
+INSERT INTO `seats` VALUES (NULL, 1, 30, 'K', 3);
+
+--
+-- Inserts for table `services`
+--
+
+INSERT INTO `services` VALUES (1,'Meals');
+INSERT INTO `services` VALUES (2,'Snacks');
+INSERT INTO `services` VALUES (3,'Complementary Beverage');
+INSERT INTO `services` VALUES (4,'Wi-Fi');
+INSERT INTO `services` VALUES (5,'In-seat power outlet');
+INSERT INTO `services` VALUES (6,'Media streaming');
+INSERT INTO `services` VALUES (7,'Extra Comfort seating');
+INSERT INTO `services` VALUES (8,'Sleep Amenities');
+INSERT INTO `services` VALUES (9,'Separate boarding');
+
+--
+-- Inserts for table `plane_services`
+--
+
+INSERT INTO `plane_services` VALUES (1, 1, 1);
+INSERT INTO `plane_services` VALUES (1, 1, 2);
+INSERT INTO `plane_services` VALUES (1, 1, 3);
+INSERT INTO `plane_services` VALUES (1, 1, 4);
+INSERT INTO `plane_services` VALUES (1, 1, 5);
+INSERT INTO `plane_services` VALUES (1, 1, 6);
+INSERT INTO `plane_services` VALUES (1, 1, 7);
+INSERT INTO `plane_services` VALUES (1, 1, 8);
+INSERT INTO `plane_services` VALUES (1, 1, 9);
+INSERT INTO `plane_services` VALUES (1, 2, 1);
+INSERT INTO `plane_services` VALUES (1, 2, 2);
+INSERT INTO `plane_services` VALUES (1, 2, 4);
+INSERT INTO `plane_services` VALUES (1, 2, 5);
+INSERT INTO `plane_services` VALUES (1, 2, 6);
+INSERT INTO `plane_services` VALUES (1, 2, 7);
+INSERT INTO `plane_services` VALUES (1, 3, 2);
+INSERT INTO `plane_services` VALUES (1, 3, 4);
+INSERT INTO `plane_services` VALUES (1, 3, 6);
