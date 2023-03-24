@@ -1,16 +1,16 @@
 package controller;
 
 public enum StaticPage {
-    HOME("/html/index.html"),
-    SIGNUP("/html/signup.html"),
-    LOGIN("/html/login.html"),
-    PROFILE("/html/profile.html"),
-    SEARCH("/html/search.html"),
-    FLIGHT("/html/flight.html"),
-    PASSENGERS("/html/passengers.html"),
-    SEATS("/html/seats.html"),
-    SUMMARY("/html/summary.html"),
-    PAY("/html/pay.html");
+    HOME("/html/index.jsp"),
+    SIGNUP("/html/signup.jsp"),
+    LOGIN("/html/login.jsp"),
+    PROFILE("/html/profile.jsp"),
+    SEARCH("/html/search.jsp"),
+    FLIGHT("/html/flight.jsp"),
+    PASSENGERS("/html/passengers.jsp"),
+    SEATS("/html/seats.jsp"),
+    SUMMARY("/html/summary.jsp"),
+    PAY("/html/pay.jsp");
 
     final String path;
 

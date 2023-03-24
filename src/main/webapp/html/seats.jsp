@@ -10,33 +10,30 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 		crossorigin="anonymous"></script>
-	<link href="../css/styles.css" rel="stylesheet" type="text/css">
-	<script defer src="../js/seats.js"></script>
+	<link href="css/styles.css" rel="stylesheet" type="text/css">
+	<script defer src="js/seats.js"></script>
 </head>
 
 <body>
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html"><img src="../images/logo.jpg"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+			<a class="navbar-brand" href="home"><img src="images/logo.jpg"></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="search.html">Search flights</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="profile.html">Profile</a>
+					<li class="nav-item"><a class="nav-link" href="search">Search
+							flights</a></li>
+					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav d-flex">
-					<li class="nav-item">
-						<a class="nav-link" href="login.html">Login</a>
+					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="signup.html">Sign up</a>
-					</li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign
+							up</a></li>
 				</ul>
 			</div>
 		</div>
@@ -54,7 +51,7 @@
 								<div class="row justify-content-center d-flex align-items-center">
 									<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-										<form id="sign-up" action="summary.html" method="POST">
+										<form id="sign-up" action="SeatsServlet" method="POST">
 											<div class="row d-flex align-items-center">
 												<div class="col-md-1 mb-4"></div>
 												<div class="col-md-8 mb-4">
@@ -101,7 +98,7 @@
 												<div class="col-md-12 mb-4 text-center">
 													<input class="btn btn-primary btn-lg" type="submit"
 														value="Summary" />
-													<input class="btn btn-secondary btn-lg" type="button" onclick="window.location.href='passengers.html';"
+													<input class="btn btn-secondary btn-lg" type="button" onclick="window.location.href='passengers';"
 														value="Back" />
 												</div>
 											</div>
