@@ -1,5 +1,6 @@
 package util;
 
+import model.AirPlaneDTO;
 import model.AirportDTO;
 import model.Coordinate;
 import model.CountryDTO;
@@ -85,13 +86,43 @@ public class EntityMapper {
 
     public static Flight mapFlight(ResultSet resultSet) throws SQLException {
         return new Flight(
-                resultSet.getLong("flight_id"),
-                resultSet.getString("flight_number"),
-                resultSet.getString("origin"),
-                resultSet.getString("destination"),
-                resultSet.getInt("plane_id"),
-                resultSet.getTimestamp("departure").toLocalDateTime(),
-                resultSet.getTimestamp("arrival").toLocalDateTime()
+                resultSet.getLong("f.flight_id"),
+                resultSet.getString("f.flight_number"),
+                new AirportDTO(
+                        resultSet.getString("f.origin"),
+                        resultSet.getString("oa.name"),
+                        resultSet.getString("oa.city"),
+                        new CountryDTO(
+                                resultSet.getString("oa.country"),
+                                resultSet.getString("oc.country_name")
+                        ),
+                        new Coordinate(
+                                resultSet.getBigDecimal("oa.latitude"),
+                                resultSet.getBigDecimal("oa.longitude")
+                        )
+                ),
+                new AirportDTO(
+                        resultSet.getString("f.destination"),
+                        resultSet.getString("da.name"),
+                        resultSet.getString("da.city"),
+                        new CountryDTO(
+                                resultSet.getString("da.country"),
+                                resultSet.getString("dc.country_name")
+                        ),
+                        new Coordinate(
+                                resultSet.getBigDecimal("da.latitude"),
+                                resultSet.getBigDecimal("da.longitude")
+                        )
+                ),
+                new AirPlaneDTO(
+                        resultSet.getInt("f.plane_id"),
+                        resultSet.getString("p.registration"),
+                        resultSet.getString("p.manufacturer"),
+                        resultSet.getString("p.model"),
+                        resultSet.getBigDecimal("p.price_multiplier")
+                ),
+                resultSet.getTimestamp("f.departure").toLocalDateTime(),
+                resultSet.getTimestamp("f.arrival").toLocalDateTime()
         );
     }
 
