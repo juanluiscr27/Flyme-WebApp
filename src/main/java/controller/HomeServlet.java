@@ -9,7 +9,7 @@ import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.Serial;
 
-@WebServlet("/home")
+@WebServlet(value = {"/home"})
 public class HomeServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;

@@ -1,70 +1,74 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Flight {
-    long flight_id;
-    String flight_number;
-    String origin;
-    String destination;
-    int plane_id;
+    long flightId;
+    String flightNumber;
+    AirportDTO origin;
+    AirportDTO destination;
+    AirPlaneDTO airPlane;
     LocalDateTime departure;
     LocalDateTime arrival;
+    List<FlightClassDTO> classes;
 
-    public Flight(long flight_id,
-                  String flight_number,
-                  String origin,
-                  String destination,
-                  int plane_id,
+    public Flight(long flightId,
+                  String flightNumber,
+                  AirportDTO origin,
+                  AirportDTO destination,
+                  AirPlaneDTO planeId,
                   LocalDateTime departure,
                   LocalDateTime arrival) {
-        this.flight_id = flight_id;
-        this.flight_number = flight_number;
+        this.flightId = flightId;
+        this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
-        this.plane_id = plane_id;
+        this.airPlane = planeId;
         this.departure = departure;
         this.arrival = arrival;
+        this.classes = new ArrayList<>();
     }
 
-    public long getFlight_id() {
-        return flight_id;
+    public long getFlightId() {
+        return flightId;
     }
 
-    public void setFlight_id(long flight_id) {
-        this.flight_id = flight_id;
+    public void setFlightId(long flightId) {
+        this.flightId = flightId;
     }
 
-    public String getFlight_number() {
-        return flight_number;
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
-    public void setFlight_number(String flight_number) {
-        this.flight_number = flight_number;
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
-    public String getOrigin() {
+    public AirportDTO getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(AirportDTO origin) {
         this.origin = origin;
     }
 
-    public String getDestination() {
+    public AirportDTO getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(AirportDTO destination) {
         this.destination = destination;
     }
 
-    public int getPlane_id() {
-        return plane_id;
+    public AirPlaneDTO getAirPlane() {
+        return airPlane;
     }
 
-    public void setPlane_id(int plane_id) {
-        this.plane_id = plane_id;
+    public void setAirPlane(AirPlaneDTO airPlane) {
+        this.airPlane = airPlane;
     }
 
     public LocalDateTime getDeparture() {
@@ -83,16 +87,25 @@ public class Flight {
         this.arrival = arrival;
     }
 
+    public List<FlightClassDTO> getClasses() {
+        return classes;
+    }
+
+    public void addFlightClass(FlightClassDTO flightClass) {
+        this.classes.add(flightClass);
+    }
+
     @Override
     public String toString() {
         return "Flight{" +
-                "flight_id=" + flight_id +
-                ", flight_number='" + flight_number + '\'' +
-                ", origin='" + origin + '\'' +
-                ", destination='" + destination + '\'' +
-                ", plane_id=" + plane_id +
+                "flight_id=" + flightId +
+                ", flight_number='" + flightNumber + '\'' +
+                ", origin=" + origin +
+                ", destination=" + destination +
+                ", airPlane=" + airPlane +
                 ", departure=" + departure +
                 ", arrival=" + arrival +
+                ", classes=" + classes +
                 '}';
     }
 }

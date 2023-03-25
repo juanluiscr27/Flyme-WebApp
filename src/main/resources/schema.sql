@@ -86,7 +86,7 @@ CREATE TABLE `bag_fares` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `classes` (
-  `class_id` int NOT NULL AUTO_INCREMENT,
+  `class_id` int NOT NULL,
   `name` varchar(25) NOT NULL,
   `checked_bags` int NOT NULL,
   `price_multiplier` decimal(5,2) NOT NULL,
@@ -114,12 +114,11 @@ CREATE TABLE `countries` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `distance_fares` (
-  `min_distance` int NOT NULL,
-  `max_distance` int NOT NULL,
+  `min_distance` decimal(7,2) NOT NULL,
+  `max_distance` decimal(7,2) NOT NULL,
   `price_multiplier` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `airports`
@@ -146,7 +145,7 @@ CREATE TABLE `airports` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `planes` (
-  `plane_id` int NOT NULL AUTO_INCREMENT,
+  `plane_id` int NOT NULL,
   `registration` varchar(6) NOT NULL,
   `manufacturer` varchar(25) NOT NULL,
   `model` varchar(25) NOT NULL,
@@ -203,7 +202,6 @@ CREATE TABLE `users` (
   CONSTRAINT `users_country_fk` FOREIGN KEY (`nationality`) REFERENCES `countries` (`country_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `orders`
@@ -230,10 +228,12 @@ CREATE TABLE `orders` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seats` (
-  `seat_id` int NOT NULL,
+  `seat_id` int NOT NULL AUTO_INCREMENT,
   `plane_id` int NOT NULL,
+  `row` int NOT NULL,
+  `column` char(1) NOT NULL,
   `class_id` int NOT NULL,
-  PRIMARY KEY (`seat_id`,`plane_id`),
+  PRIMARY KEY (`seat_id`),
   KEY `seats_plane_idx` (`plane_id`),
   KEY `seats_class_idx` (`class_id`),
   CONSTRAINT `seats_class_fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
@@ -294,7 +294,7 @@ CREATE TABLE `payments` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `services` (
-  `service_id` int NOT NULL AUTO_INCREMENT,
+  `service_id` int NOT NULL,
   `description` varchar(25) NOT NULL,
   PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -308,9 +308,9 @@ CREATE TABLE `services` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `plane_services` (
   `plane_id` int NOT NULL,
-  `service_id` int NOT NULL,
   `class_id` int NOT NULL,
-  PRIMARY KEY (`plane_id`,`service_id`),
+  `service_id` int NOT NULL,
+  PRIMARY KEY (`plane_id`,`service_id`, `class_id`),
   KEY `plane_services_service_idx` (`service_id`),
   KEY `plane_services_class_idx` (`class_id`),
   CONSTRAINT `plane_services_class_fk` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),

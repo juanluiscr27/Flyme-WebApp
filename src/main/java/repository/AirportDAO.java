@@ -2,6 +2,7 @@ package repository;
 
 import model.AirportDTO;
 import model.CountryDTO;
+import util.EntityMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,17 +42,7 @@ public class AirportDAO implements AirportRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                airports.add(new AirportDTO(
-                        resultSet.getString("a.airport_id"),
-                        resultSet.getString("a.name"),
-                        resultSet.getString("a.city"),
-                        new CountryDTO(
-                                resultSet.getString("a.country"),
-                                resultSet.getString("c.country_name")
-                        ),
-                        resultSet.getBigDecimal("a.latitude"),
-                        resultSet.getBigDecimal("a.longitude")
-                ));
+                airports.add(EntityMapper.mapAirportDTO(resultSet));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -2,6 +2,7 @@ package repository;
 
 import model.Payment;
 import model.User;
+import util.EntityMapper;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -61,7 +62,7 @@ public class PaymentDAO implements PaymentRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                payment = mapPayment(resultSet);
+                payment = EntityMapper.mapPayment(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -89,7 +90,7 @@ public class PaymentDAO implements PaymentRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                payment = mapPayment(resultSet);
+                payment = EntityMapper.mapPayment(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -128,7 +129,7 @@ public class PaymentDAO implements PaymentRepository {
             resultSet = selectStatement.executeQuery();
 
             while (resultSet.next()) {
-                updatedPayment = mapPayment(resultSet);
+                updatedPayment = EntityMapper.mapPayment(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -155,15 +156,5 @@ public class PaymentDAO implements PaymentRepository {
             DatabaseConnectionPool.close(statement);
             DatabaseConnectionPool.close(connection);
         }
-    }
-    private static Payment mapPayment(ResultSet resultSet) throws SQLException {
-        return new Payment(
-                resultSet.getLong("payment_id"),
-                resultSet.getString("card_number"),
-                resultSet.getString("name"),
-                resultSet.getDate("expiry_date").toLocalDate(),
-                0,
-                resultSet.getLong("user_id")
-        );
     }
 }

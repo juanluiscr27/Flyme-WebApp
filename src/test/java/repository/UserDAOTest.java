@@ -44,6 +44,6 @@ public class UserDAOTest {
         userRepo.delete(expectedUser);
         Optional<User> actualUser = userRepo.find(expectedUserID);
 
-        assertEquals(actualUser, Optional.empty());
+        assertEquals(Optional.empty(), actualUser);
     }
 }

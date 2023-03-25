@@ -6,6 +6,7 @@ import model.FlightSearchDTO;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface FlightRepository {
@@ -14,7 +15,7 @@ public interface FlightRepository {
 
     List<Flight> findAll();
 
-    List<Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate);
+    Map<String, Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate);
 
 
     List<Flight> findAllByCountry(CountryDTO countryDTO);
