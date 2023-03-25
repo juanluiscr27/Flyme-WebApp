@@ -90,7 +90,7 @@
 											<label for="nationality" class="form-label select-label">Nationality</label>
 											<br> <select class="select form-control-lg"
 												id="nationality" name="nationality">
-
+												<option value="CA">Canada</option>
 											</select>
 										</div>
 										<div class="col-md-3 mb-4">
