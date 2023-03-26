@@ -4,6 +4,7 @@ import model.CountryDTO;
 import model.Flight;
 import model.FlightClassDTO;
 import model.FlightSearchDTO;
+import model.SeatDTO;
 import util.EntityMapper;
 
 import java.sql.Connection;
@@ -105,5 +106,41 @@ public class FlightDAO implements FlightRepository {
     @Override
     public List<Flight> findAllByCountry(CountryDTO countryDTO) {
         return null;
+    }
+
+    @Override
+    public List<SeatDTO> findSeats(Flight flight) {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<SeatDTO> seats = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "s.seat_id, s.plane_id, s.row, s.column, s.class_id, c.name, c.checked_bags, c.price_multiplier, " +
+                    "  (SELECT COUNT(p.passenger_id) " +
+                    "  FROM passengers AS p " +
+                    "  WHERE p.seat_id = s.seat_id " +
+                    "  AND p.flight_id = ?) AS is_reserved " +
+                    "FROM seats AS s " +
+                    "INNER JOIN flights AS f ON s.plane_id = f.plane_id "  +
+                    "INNER JOIN classes AS c ON s.class_id = c.class_id " +
+                    "WHERE f.flight_id = ? ");
+
+            statement.setLong(1, flight.getFlightId());
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                seats.add(EntityMapper.mapSeatDTO(resultSet) );
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return seats;
     }
 }
