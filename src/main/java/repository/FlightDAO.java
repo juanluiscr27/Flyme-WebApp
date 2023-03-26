@@ -80,7 +80,16 @@ public class FlightDAO implements FlightRepository {
                             )
                     );
                 } else {
-                    flightResult.put(flightNumber, EntityMapper.mapFlight(resultSet));
+                    Flight newFlight = EntityMapper.mapFlight(resultSet);
+                    newFlight.addFlightClass(
+                            new FlightClassDTO(
+                                    resultSet.getInt("c.class_id"),
+                                    resultSet.getString("c.name"),
+                                    resultSet.getInt("seat"),
+                                    resultSet.getInt("passenger")
+                            )
+                    );
+                    flightResult.put(flightNumber, newFlight);
                 }
             }
 
