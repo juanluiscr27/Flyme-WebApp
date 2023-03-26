@@ -64,7 +64,7 @@ public class AirportDAO implements AirportRepository {
             statement = connection.prepareStatement("SELECT " +
                     "country_id, country_name " +
                     "FROM countries " +
-                    "ORDER BY country_id ASC");
+                    "ORDER BY country_name ASC ");
 
             resultSet = statement.executeQuery();
 
@@ -94,7 +94,7 @@ public class AirportDAO implements AirportRepository {
             statement = connection.prepareStatement("SELECT " +
                     "country_id, country_name " +
                     "FROM countries WHERE country_id LIKE ? OR lower(country_name) LIKE ? " +
-                    "ORDER BY country_id ASC");
+                    "ORDER BY country_name ASC ");
 
             statement.setString(1, startsWith.toUpperCase().substring(0,2) + "%");
             statement.setString(2, startsWith.toLowerCase() + "%");
