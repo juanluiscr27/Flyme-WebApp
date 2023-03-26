@@ -4,8 +4,7 @@ import model.Flight;
 import model.FlightSearchDTO;
 import repository.FlightRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class FlightService {
 
@@ -14,10 +13,10 @@ public class FlightService {
         this.flightRepo = flightRepo;
     }
 
-    public List<Flight> findAllOneWay(FlightSearchDTO flightSearch) {
-        return new ArrayList<>(flightRepo.findAllWithSearchCriteria(flightSearch, flightSearch.departureDate()).values());
+    public Map<String,Flight> findAllOneWay(FlightSearchDTO flightSearch) {
+        return flightRepo.findAllWithSearchCriteria(flightSearch, flightSearch.departureDate());
     }
-    public List<Flight> findAllRoundTrip(FlightSearchDTO flightSearch) {
-        return new ArrayList<>(flightRepo.findAllWithSearchCriteria(flightSearch, flightSearch.returnDate()).values());
+    public Map<String,Flight> findAllRoundTrip(FlightSearchDTO flightSearch) {
+        return flightRepo.findAllWithSearchCriteria(flightSearch, flightSearch.returnDate());
     }
 }
