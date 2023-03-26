@@ -29,7 +29,7 @@ public class PassengerServlet extends HttpServlet {
 
         String flightJSON = request.getParameter("flight");
 
-        Flight flight = (Flight) Json.toObject(flightJSON, Flight.class);
+        Flight flight = Json.toObject(flightJSON, Flight.class);
         // TODO: Add the flight to the reservation object
         session.setAttribute("reservation", reservation);
 

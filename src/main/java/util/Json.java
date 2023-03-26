@@ -35,7 +35,7 @@ public class Json {
     public static String parseJson(Object object) {
         return gson.toJson(object);
     }
-    public static Object toObject(String jsonObject, Type classOfObject){
+    public static <T> T toObject(String jsonObject, Type classOfObject){
         return gson.fromJson(jsonObject, classOfObject);
     }
     private static class LocalDateSerializer implements JsonSerializer<LocalDate> {
