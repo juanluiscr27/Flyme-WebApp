@@ -6,6 +6,7 @@ public record SeatClassDTO(
         int classId,
         String className,
         int checkedBags,
-        BigDecimal priceMultiplier
+        BigDecimal priceMultiplier,
+        Boolean isReserved
 ) {
 }

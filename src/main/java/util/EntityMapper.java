@@ -6,6 +6,8 @@ import model.Coordinate;
 import model.CountryDTO;
 import model.Flight;
 import model.Payment;
+import model.SeatClassDTO;
+import model.SeatDTO;
 import model.User;
 import model.UserDTO;
 
@@ -138,6 +140,22 @@ public class EntityMapper {
                 new Coordinate(
                         resultSet.getBigDecimal("a.latitude"),
                         resultSet.getBigDecimal("a.longitude")
+                )
+        );
+    }
+
+    public static SeatDTO mapSeatDTO(ResultSet resultSet) throws SQLException {
+        return new SeatDTO(
+                resultSet.getInt("s.seat_id"),
+                resultSet.getInt("s.plane_id"),
+                resultSet.getInt("s.s.row"),
+                resultSet.getString("s.column").charAt(0),
+                new SeatClassDTO(
+                        resultSet.getInt("s.class_id"),
+                        resultSet.getString("c.name"),
+                        resultSet.getInt("c.checked_bags"),
+                        resultSet.getBigDecimal("c.price_multiplier"),
+                        resultSet.getInt("is_reserved") != 0
                 )
         );
     }
