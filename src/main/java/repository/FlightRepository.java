@@ -3,6 +3,7 @@ package repository;
 import model.CountryDTO;
 import model.Flight;
 import model.FlightSearchDTO;
+import model.SeatDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +18,7 @@ public interface FlightRepository {
 
     Map<String, Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate);
 
-
     List<Flight> findAllByCountry(CountryDTO countryDTO);
+
+    List<SeatDTO> findSeats(Flight flight);
 }
