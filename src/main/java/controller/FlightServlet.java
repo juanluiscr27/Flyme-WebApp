@@ -17,9 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 
-@WebServlet("/flight")
+@WebServlet("/flights")
 public class FlightServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -40,11 +40,10 @@ public class FlightServlet extends HttpServlet {
         Boolean isRoundTrip = Boolean.valueOf(request.getParameter("round-trip"));
         Reservation reservation = new Reservation();
 
-        List<Flight> allFlights = flightService.findAllOneWay(flightSearch);
+        Map<String,Flight> allFlights = flightService.findAllOneWay(flightSearch);
 
-        System.out.println(allFlights);
         HttpSession session = request.getSession();
-        session.setAttribute("allFlights", allFlights);
+        request.setAttribute("allFlights", allFlights);
         session.setAttribute("reservation", reservation);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.FLIGHT.path);
