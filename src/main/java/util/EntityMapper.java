@@ -148,7 +148,7 @@ public class EntityMapper {
         return new SeatDTO(
                 resultSet.getInt("s.seat_id"),
                 resultSet.getInt("s.plane_id"),
-                resultSet.getInt("s.s.row"),
+                resultSet.getInt("s.row"),
                 resultSet.getString("s.column").charAt(0),
                 new SeatClassDTO(
                         resultSet.getInt("s.class_id"),
