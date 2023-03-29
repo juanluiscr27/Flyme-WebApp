@@ -109,7 +109,7 @@ public class FlightDAO implements FlightRepository {
     }
 
     @Override
-    public List<SeatDTO> findSeats(Flight flight) {
+    public List<SeatDTO> findAllSeats(Flight flight) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -126,7 +126,8 @@ public class FlightDAO implements FlightRepository {
                     "INNER JOIN classes AS c ON s.class_id = c.class_id " +
                     "WHERE f.flight_id = ? ");
 
-            statement.setLong(1, flight.getFlightId());
+            statement.setLong(1, flight.getId());
+            statement.setLong(2, flight.getId());
 
             resultSet = statement.executeQuery();
 
