@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Flight {
-    long flightId;
+    long id;
     String flightNumber;
     AirportDTO origin;
     AirportDTO destination;
@@ -14,14 +14,14 @@ public class Flight {
     LocalDateTime arrival;
     List<FlightClassDTO> classes;
 
-    public Flight(long flightId,
+    public Flight(long id,
                   String flightNumber,
                   AirportDTO origin,
                   AirportDTO destination,
                   AirPlaneDTO planeId,
                   LocalDateTime departure,
                   LocalDateTime arrival) {
-        this.flightId = flightId;
+        this.id = id;
         this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
@@ -31,12 +31,12 @@ public class Flight {
         this.classes = new ArrayList<>();
     }
 
-    public long getFlightId() {
-        return flightId;
+    public long getId() {
+        return id;
     }
 
-    public void setFlightId(long flightId) {
-        this.flightId = flightId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFlightNumber() {
@@ -98,7 +98,7 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight{" +
-                "flight_id=" + flightId +
+                "id=" + id +
                 ", flight_number='" + flightNumber + '\'' +
                 ", origin=" + origin +
                 ", destination=" + destination +
