@@ -20,5 +20,5 @@ public interface FlightRepository {
 
     List<Flight> findAllByCountry(CountryDTO countryDTO);
 
-    List<SeatDTO> findSeats(Flight flight);
+    List<SeatDTO> findAllSeats(Flight flight);
 }
