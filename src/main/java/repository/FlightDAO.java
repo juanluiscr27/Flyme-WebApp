@@ -58,6 +58,7 @@ public class FlightDAO implements FlightRepository {
                     "INNER JOIN countries AS dc ON da.country = dc.country_id " +
                     "WHERE origin = ? AND destination = ? " +
                     "AND departure BETWEEN ? AND ? " +
+                    "AND f.status_id = 1 " +
                     "GROUP BY f.flight_id, f.flight_number, f.plane_id, c.class_id, c.name, passenger " +
                     "HAVING seat - passenger >= ? ");
 
