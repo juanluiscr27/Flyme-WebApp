@@ -31,11 +31,11 @@ public class FlightDAO implements FlightRepository {
     }
 
     @Override
-    public Map<String, Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate) {
+    public Map<Long, Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Map<String, Flight> flightResult = new HashMap<>();
+        Map<Long, Flight> flightResult = new HashMap<>();
         try {
             statement = connection.prepareStatement("SELECT " +
                     "f.flight_id, f.flight_number, f.plane_id, p.registration, p.manufacturer, p.model, p.price_multiplier, " +
@@ -70,9 +70,9 @@ public class FlightDAO implements FlightRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String flightNumber = resultSet.getString("f.flight_number");
-                if (flightResult.containsKey(flightNumber)){
-                    flightResult.get(flightNumber).addFlightClass(
+                long flightId = resultSet.getLong("f.flight_id");
+                if (flightResult.containsKey(flightId)){
+                    flightResult.get(flightId).addFlightClass(
                             new FlightClassDTO(
                                     resultSet.getInt("c.class_id"),
                                     resultSet.getString("c.name"),
@@ -90,7 +90,7 @@ public class FlightDAO implements FlightRepository {
                                     resultSet.getInt("passenger")
                             )
                     );
-                    flightResult.put(flightNumber, newFlight);
+                    flightResult.put(flightId, newFlight);
                 }
             }
 
