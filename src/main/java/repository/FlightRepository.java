@@ -16,7 +16,7 @@ public interface FlightRepository {
 
     List<Flight> findAll();
 
-    Map<String, Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate);
+    Map<Long, Flight> findAllWithSearchCriteria(FlightSearchDTO flightSearch, LocalDate travelDate);
 
     List<Flight> findAllByCountry(CountryDTO countryDTO);
 
