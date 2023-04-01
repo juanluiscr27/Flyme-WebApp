@@ -40,10 +40,10 @@ public class FlightServlet extends HttpServlet {
         Boolean isRoundTrip = Boolean.valueOf(request.getParameter("round-trip"));
         Reservation reservation = new Reservation();
 
-        Map<String,Flight> allFlights = flightService.findAllOneWay(flightSearch);
+        Flight[] allFlights = flightService.findAllOneWay(flightSearch);
 
         HttpSession session = request.getSession();
-        request.setAttribute("allFlights", allFlights);
+        session.setAttribute("allFlights", allFlights);
         session.setAttribute("reservation", reservation);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.FLIGHT.path);

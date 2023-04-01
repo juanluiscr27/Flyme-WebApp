@@ -26,10 +26,8 @@ public class PassengerServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Reservation reservation = (Reservation) session.getAttribute("reservation");
+        Flight[] allFlights = (Flight[]) session.getAttribute("allFlights");
 
-        String flightJSON = request.getParameter("flight");
-
-        Flight flight = Json.toObject(flightJSON, Flight.class);
         // TODO: Add the flight to the reservation object
         session.setAttribute("reservation", reservation);
 
