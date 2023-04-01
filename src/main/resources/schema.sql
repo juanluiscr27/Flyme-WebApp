@@ -156,6 +156,19 @@ CREATE TABLE `planes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `flight_status`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `flight_status` (
+  `status_id` int NOT NULL,
+  `status` varchar(25) NOT NULL,
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `flights`
 --
 
@@ -169,13 +182,14 @@ CREATE TABLE `flights` (
   `plane_id` int NOT NULL,
   `departure` datetime NOT NULL,
   `arrival` datetime NOT NULL,
+  `status_id` int NOT NULL,
   PRIMARY KEY (`flight_id`),
   KEY `flights_origin_idx` (`origin`),
   KEY `flights_destination_idx` (`destination`),
-  KEY `flights_plane_idx` (`plane_id`),
   CONSTRAINT `flights_destination_fk` FOREIGN KEY (`destination`) REFERENCES `airports` (`airport_id`),
   CONSTRAINT `flights_origin_fk` FOREIGN KEY (`origin`) REFERENCES `airports` (`airport_id`),
-  CONSTRAINT `flights_plane_fk` FOREIGN KEY (`plane_id`) REFERENCES `planes` (`plane_id`)
+  CONSTRAINT `flights_plane_fk` FOREIGN KEY (`plane_id`) REFERENCES `planes` (`plane_id`),
+  CONSTRAINT `flights_status_fk` FOREIGN KEY (`status_id`) REFERENCES `flight_status` (`status_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,7 +212,6 @@ CREATE TABLE `users` (
   `points` int DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_email_idx` (`email`),
-  KEY `users_country_idx` (`nationality`),
   CONSTRAINT `users_country_fk` FOREIGN KEY (`nationality`) REFERENCES `countries` (`country_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -275,7 +288,7 @@ CREATE TABLE `passengers` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payments` (
   `payment_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `card_number` varchar(16) NOT NULL,
+  `card_number` char(16) NOT NULL,
   `name` varchar(25) NOT NULL,
   `expiry_date` date NOT NULL,
   `security_code` varchar(3) NOT NULL,

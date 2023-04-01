@@ -307,15 +307,27 @@ INSERT INTO `planes` VALUES (3, 'EI-DYR','Boeing', '737', 1.0);
 INSERT INTO `planes` VALUES (4, 'C-FZZZ','Embraer', '175', 1.0);
 
 --
+-- Inserts for table `flight_status`
+--
+
+INSERT INTO `flight_status` VALUES (1, 'Scheduled');
+INSERT INTO `flight_status` VALUES (2, 'Boarding');
+INSERT INTO `flight_status` VALUES (3, 'Departed');
+INSERT INTO `flight_status` VALUES (4, 'In Air');
+INSERT INTO `flight_status` VALUES (5, 'Arrived');
+INSERT INTO `flight_status` VALUES (6, 'Delayed');
+INSERT INTO `flight_status` VALUES (7, 'Canceled');
+
+--
 -- Inserts for table `flights`
 --
 
-INSERT INTO `flights` VALUES (NULL, 'FM1112', 'YYZ', 'SDQ', 1, '2023-03-30 10:30:00','2023-03-30 14:50:00');
-INSERT INTO `flights` VALUES (NULL, 'FM1211', 'SDQ', 'YYZ', 1, '2023-03-30 18:30:00','2023-03-30 22:50:00');
-INSERT INTO `flights` VALUES (NULL, 'FM1516', 'JFK', 'LHR', 3, '2023-03-31 06:10:00','2023-03-30 13:15:00');
-INSERT INTO `flights` VALUES (NULL, 'FM1614', 'LHR', 'DXB', 2, '2023-03-31 09:00:00','2023-03-30 16:45:00');
-INSERT INTO `flights` VALUES (NULL, 'FM1113', 'YYZ', 'BOG', 1, '2023-03-30 08:05:00','2023-03-30 14:25:00');
-INSERT INTO `flights` VALUES (NULL, 'FM1511', 'JFK', 'YYZ', 4, '2023-03-30 14:00:00','2023-03-30 13:45:00');
+INSERT INTO `flights` VALUES (NULL, 'FM1112', 'YYZ', 'SDQ', 1, '2023-03-30 10:30:00','2023-03-30 14:50:00', 1);
+INSERT INTO `flights` VALUES (NULL, 'FM1211', 'SDQ', 'YYZ', 1, '2023-03-30 18:30:00','2023-03-30 22:50:00', 1);
+INSERT INTO `flights` VALUES (NULL, 'FM1516', 'JFK', 'LHR', 3, '2023-03-31 06:10:00','2023-03-30 13:15:00', 1);
+INSERT INTO `flights` VALUES (NULL, 'FM1614', 'LHR', 'DXB', 2, '2023-03-31 09:00:00','2023-03-30 16:45:00', 1);
+INSERT INTO `flights` VALUES (NULL, 'FM1113', 'YYZ', 'BOG', 1, '2023-03-30 08:05:00','2023-03-30 14:25:00', 1);
+INSERT INTO `flights` VALUES (NULL, 'FM1511', 'JFK', 'YYZ', 4, '2023-03-30 14:00:00','2023-03-30 13:45:00', 1);
 
 --
 -- Inserts for table `seats`
