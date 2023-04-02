@@ -150,7 +150,7 @@ CREATE TABLE `planes` (
   `registration` varchar(6) NOT NULL,
   `manufacturer` varchar(25) NOT NULL,
   `model` varchar(25) NOT NULL,
-  `price_multiplier` decimal(5,2) NOT NULL,
+  `base_price` decimal(5,2) NOT NULL,
   PRIMARY KEY (`plane_id`),
   UNIQUE KEY `registration` (`registration`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

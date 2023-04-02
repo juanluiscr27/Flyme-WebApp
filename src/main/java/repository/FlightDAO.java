@@ -38,7 +38,7 @@ public class FlightDAO implements FlightRepository {
         Map<Long, Flight> flightResult = new HashMap<>();
         try {
             statement = connection.prepareStatement("SELECT " +
-                    "f.flight_id, f.flight_number, f.plane_id, p.registration, p.manufacturer, p.model, p.price_multiplier, " +
+                    "f.flight_id, f.flight_number, f.plane_id, p.registration, p.manufacturer, p.model, p.base_price, " +
                     "f.departure, f.origin, oa.name, oa.city, oa.country, oc.country_name, oa.latitude, oa.longitude, " +
                     "f.arrival, f.destination, da.name, da.city, da.country, dc.country_name, da.latitude, da.longitude, " +
                     "c.class_id, c.name, COUNT( s.seat_id ) AS seat , ( " +
