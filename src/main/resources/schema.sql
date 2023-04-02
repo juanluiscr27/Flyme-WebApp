@@ -57,6 +57,7 @@ DROP TABLE IF EXISTS `payments`;
 DROP TABLE IF EXISTS `passengers`;
 DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `flights`;
+DROP TABLE IF EXISTS `flight_status`;
 DROP TABLE IF EXISTS `plane_services`;
 DROP TABLE IF EXISTS `seats`;
 DROP TABLE IF EXISTS `services`;
