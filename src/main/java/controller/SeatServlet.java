@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
-import java.util.List;
 
 @WebServlet("/seats")
 public class SeatServlet extends HttpServlet {
@@ -55,6 +54,5 @@ public class SeatServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
             requestDispatcher.forward(request, response);
         }
-
     }
 }

@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
 import java.time.LocalDate;
-import java.util.Map;
 
 @WebServlet("/flights")
 public class FlightServlet extends HttpServlet {
