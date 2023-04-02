@@ -4,11 +4,7 @@ import model.EmailDTO;
 import org.junit.Test;
 import util.Json;
 
-import javax.validation.constraints.AssertFalse;
-import javax.validation.constraints.AssertTrue;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -25,6 +21,8 @@ public class EmailApiTest {
 
         String url = path + '?' + parameter + '=' + email;
 
+        EmailDTO emailDTO = new EmailDTO("", false);
+
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(url))
@@ -35,12 +33,12 @@ public class EmailApiTest {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            EmailDTO emailDTO = Json.toObject(response.body(), EmailDTO.class);
-
-            assertFalse(emailDTO.isAvailable());
+            emailDTO = Json.toObject(response.body(), EmailDTO.class);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            assertFalse(emailDTO.isAvailable());
         }
     }
 
