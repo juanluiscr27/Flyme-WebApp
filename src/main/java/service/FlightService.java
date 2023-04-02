@@ -24,7 +24,7 @@ public class FlightService {
         Collection<Flight> flights = flightRepo.findAllWithSearchCriteria(flightSearch, flightSearch.returnDate()).values();
         return flights.toArray(new Flight[0]);
     }
-    public List<SeatDTO> findAllFlightSeats(Flight flight) {
-        return flightRepo.findAllSeats(flight);
+    public SeatDTO[] findAllFlightSeats(Flight flight) {
+        return flightRepo.findAllSeats(flight).toArray(new SeatDTO[0]);
     }
 }
