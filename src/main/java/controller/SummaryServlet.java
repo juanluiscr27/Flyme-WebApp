@@ -1,7 +1,7 @@
 package controller;
 
+import model.PassengerRequest;
 import model.Reservation;
-import model.SeatDTO;
 import util.Json;
 
 import javax.servlet.RequestDispatcher;
@@ -19,19 +19,17 @@ public class SummaryServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         Reservation reservation = (Reservation) session.getAttribute("reservation");
 
-        String seatsJSON = request.getParameter("seats");
+        String passengersJSON = request.getParameter("passengers");
+        PassengerRequest[] passengers = Json.toObject(passengersJSON, PassengerRequest[].class);
+        reservation.setFlightPassengers(passengers);
 
-        SeatDTO seats = Json.toObject(seatsJSON, SeatDTO.class);
-
-        // TODO: Add the seats to the reservation object
         session.setAttribute("reservation", reservation);
-
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SUMMARY.path);
         requestDispatcher.forward(request, response);
