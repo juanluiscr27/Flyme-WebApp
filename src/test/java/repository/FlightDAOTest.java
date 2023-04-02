@@ -77,8 +77,8 @@ public class FlightDAOTest {
                 LocalDateTime.parse("2023-03-30T14:50:00")
         );
 
-        List<SeatDTO> flightSeats = flightService.findAllFlightSeats(flight);
+        SeatDTO[] flightSeats = flightService.findAllFlightSeats(flight);
 
-        assertTrue(flightSeats.size() > 0);
+        assertTrue(flightSeats.length > 0);
     }
 }
