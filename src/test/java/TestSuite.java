@@ -1,4 +1,5 @@
 
+import controller.EmailApiTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import repository.DatabaseConnectionPoolTest;
@@ -13,6 +14,7 @@ import util.GeodesyTest;
         DatabaseConnectionPoolTest.class,
         UserDAOTest.class,
         GeodesyTest.class,
+        EmailApiTest.class,
 })
 
 public class TestSuite {
