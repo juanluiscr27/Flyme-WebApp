@@ -1,11 +1,18 @@
 package model;
 
-import java.util.List;
-
 public class Reservation {
+    private User user;
     private Flight flight;
     private SeatDTO[] flightSeats;
     private PassengerRequest[] passengers;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Flight getFlight() {
         return flight;
