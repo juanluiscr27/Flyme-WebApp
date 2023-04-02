@@ -1,8 +1,5 @@
 package controller;
 
-import model.AirportDTO;
-import model.Coordinate;
-import model.CountryDTO;
 import model.Flight;
 import model.PassengerRequest;
 import model.Reservation;
@@ -21,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
-import java.math.BigDecimal;
 import java.util.List;
 
 @WebServlet("/seats")
@@ -29,26 +25,36 @@ public class SeatServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         Reservation reservation = (Reservation) session.getAttribute("reservation");
-        // TODO: Get the flight instance from the reservation
 
         String passengersJSON = request.getParameter("passengers");
-
-        FlightRepository flightRepo = new FlightDAO();
-        FlightService flightService = new FlightService(flightRepo);
-
-        // List<SeatDTO> flightSeats = flightService.findAllFlightSeats(flight);
-
         PassengerRequest[] passengers = Json.toObject(passengersJSON, PassengerRequest[].class);
+        reservation.setFlightPassengers(passengers);
 
-        // TODO: Add the passengers to the reservation object
-        session.setAttribute("reservation", reservation);
+        try {
+            Flight flight = reservation.getFlight();
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEATS.path);
-        requestDispatcher.forward(request, response);
+            FlightRepository flightRepo = new FlightDAO();
+            FlightService flightService = new FlightService(flightRepo);
+
+            SeatDTO[] flightSeats = flightService.findAllFlightSeats(flight);
+
+            reservation.setFlightSeats(flightSeats);
+            session.setAttribute("reservation", reservation);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEATS.path);
+            requestDispatcher.forward(request, response);
+
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
+            requestDispatcher.forward(request, response);
+        }
+
     }
 }
