@@ -32,13 +32,13 @@ public class PaymentController extends HttpServlet {
 
         try {
             Payment payment = paymentService.findByUser(user);
-
+            System.out.println("Payment found");
             request.setAttribute("payment", payment);
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } finally {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.MYPAYMENTS.path);
             requestDispatcher.forward(request, response);
         }
     }
@@ -61,7 +61,7 @@ public class PaymentController extends HttpServlet {
 
         Payment payment = paymentService.add(newPayment);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
         requestDispatcher.forward(request, response);
     }
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
@@ -85,7 +85,7 @@ public class PaymentController extends HttpServlet {
 
         Payment payment = paymentService.update(newPayment);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
         requestDispatcher.forward(request, response);
     }
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
@@ -99,7 +99,7 @@ public class PaymentController extends HttpServlet {
 
         paymentService.delete(user);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
         requestDispatcher.forward(request, response);
     }
 }
