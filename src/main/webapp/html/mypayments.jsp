@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<title>FlyMe - Profile</title>
+<title>FlyMe - Payments</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
@@ -15,7 +15,7 @@
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link href="css/styles.css" rel="stylesheet" type="text/css">
-<script defer src="js/profile.js"></script>
+<script defer src="js/mypayments.js"></script>
 </head>
 
 <body>
@@ -56,18 +56,19 @@
 			<div class="container py-3 h-100">
 				<div class="row justify-content-center align-items-center h-100">
 					<div class="col-12 col-lg-9 col-xl-10">
-						<div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+						<div class="card shadow-2-strong card-registration"
+							style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
 									<div class="row text-center">
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a class="btn btn-secondary btn-sm disabled"/>My profile</a>
+												<a href="profile" class="btn btn-primary btn-sm"/>My profile</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a href="payment" class="btn btn-primary btn-sm"/>My payments</a>
+												<a class="btn btn-secondary btn-sm disabled"/>My payments</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
@@ -77,25 +78,44 @@
 										</div>
 									</div>
 									<br>
-								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My profile</h3>
-								<form id="sign-up" action="user" method="POST">
+								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My
+									payment methods</h3>
+								<form id="sign-up" action="payment" method="POST">
+									
 									<section>
 										<div class="row">
 											<div class="col-md-12 mb-4">
-												<h4>Personal information</h4>
+												<h4>Payment method</h4>
 											</div>
 										</div>
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="full-name">Name</label>
+													<label class="form-label" for="card-number">Card
+														number</label>
 												</div>
 											</div>
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
-													<input type="text" id="full-name" name="full-name"
-														class="form-control form-control-lg" value="${user.firstName} ${user.lastName}"
+													<input type="text" id="card-number" name="card-number"
+														class="form-control form-control-lg"
+														value="1234567890123456" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="row d-flex align-items-center">
+											<div class="col-md-1 mb-4"></div>
+											<div class="col-md-2 mb-4">
+												<div class="form-outline">
+													<label class="form-label" for="card-name">Name on
+														card</label>
+												</div>
+											</div>
+											<div class="col-md-8 mb-4">
+												<div class="form-outline">
+													<input type="text" id="card-name" name="card-name"
+														class="form-control form-control-lg" value="HUGO BELTRAN"
 														disabled />
 												</div>
 											</div>
@@ -104,78 +124,26 @@
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="nationality">Nationality</label>
+													<label class="form-label" for="expiry-date">Expiry
+														date</label>
 												</div>
 											</div>
-											<div class="col-md-8 mb-4">
+											<div class="col-md-3 mb-4">
 												<div class="form-outline">
-													<input type="text" id="nationality" name="nationality"
-														class="form-control form-control-lg" value="${user.nationality}"
+													<input type="text" id="expiry-date" name="expiry-date"
+														class="form-control form-control-lg" value="24/08"
 														disabled />
 												</div>
 											</div>
-										</div>
-										<div class="row d-flex align-items-center">
-											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
-													<label class="form-label" for="date-of-birth">Date
-														of birth</label>
+													<label class="form-label" for="cvc">CVC</label>
 												</div>
 											</div>
-											<div class="col-md-8 mb-4">
+											<div class="col-md-3 mb-4">
 												<div class="form-outline">
-													<input type="text" id="date-of-birth" name="date-of-birth"
-														class="form-control form-control-lg"
-														value="${user.dateOfBirth}" disabled />
-												</div>
-											</div>
-										</div>
-										<div class="row d-flex align-items-center">
-											<div class="col-md-1 mb-4"></div>
-											<div class="col-md-2 mb-4">
-												<div class="form-outline">
-													<label class="form-label" for="gender">Gender</label>
-												</div>
-											</div>
-											<div class="col-md-8 mb-4">
-												<div class="form-outline">
-													<input type="text" id="gender" name="gender"
-														class="form-control form-control-lg" value="${user.gender}" disabled />
-												</div>
-											</div>
-										</div>
-										<div class="row d-flex align-items-center">
-											<div class="col-md-1 mb-4"></div>
-											<div class="col-md-2 mb-4">
-												<div class="form-outline">
-													<label class="form-label" for="email">Email</label>
-												</div>
-											</div>
-											<div class="col-md-8 mb-4">
-												<div class="form-outline">
-													<input type="email" id="email" name="email"
-														class="form-control form-control-lg"
-														value="${user.email}" disabled />
-												</div>
-											</div>
-										</div>
-										<div class="row d-flex align-items-center">
-											<div class="col-md-1 mb-4"></div>
-											<div class="col-md-2 mb-4">
-												<div class="form-outline">
-													<label class="form-label" for="phone">Phone</label>
-												</div>
-											</div>
-											<div class="col-md-8 mb-4">
-												<div class="form-outline">
-													<div class="input-group">
-														<span class="input-group-text" id="inputGroupPrepend">+1</span>
-														<input type="tel" class="form-control form-control-lg"
-															id="phone-number" name="phone-number"
-															aria-describedby="inputGroupPrepend" value="${user.phone}"
-															disabled>
-													</div>
+													<input type="password" id="cvc" name="cvc"
+														class="form-control form-control-lg" value="123" disabled />
 												</div>
 											</div>
 										</div>

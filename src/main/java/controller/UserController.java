@@ -18,95 +18,97 @@ import java.time.LocalDate;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        UserRepository userRepo = new UserDAO();
-        UserService userService = new UserService(userRepo);
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
 
-        try {
-            User user = userService.find(username);
-            session.setAttribute("user", user);
+		UserRepository userRepo = new UserDAO();
+		UserService userService = new UserService(userRepo);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
-            requestDispatcher.forward(request, response);
+		try {
+			if (username != "") {
+				User user = userService.find(username);
+				session.setAttribute("user", user);
 
-        } catch (IllegalArgumentException e) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
-            requestDispatcher.forward(request, response);
-            System.out.println(e.getMessage());
-        }
-    }
-    /**
-     * Register a new user to the app
-     * @param request HTTP Request
-     * @param response HTTP Response
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+				requestDispatcher.forward(request, response);
+			} else {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+				requestDispatcher.forward(request, response);
+			}
 
-        UserRepository userRepo = new UserDAO();
-        UserService userService = new UserService(userRepo);
+		} catch (IllegalArgumentException e) {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+			requestDispatcher.forward(request, response);
+			System.out.println(e.getMessage());
+		}
+	}
 
-        User registrationRequest = new User(
-                request.getParameter("first-name"),
-                request.getParameter("last-name"),
-                request.getParameter("email"),
-                request.getParameter("password"),
-                LocalDate.parse(request.getParameter("date-of-birth")),
-                request.getParameter("nationality"),
-                request.getParameter("gender").charAt(0),
-                request.getParameter("phone-number"),
-                0
-        );
+	/**
+	 * Register a new user to the app
+	 * 
+	 * @param request  HTTP Request
+	 * @param response HTTP Response
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        User registerdUser = userService.register(registrationRequest);
+		UserRepository userRepo = new UserDAO();
+		UserService userService = new UserService(userRepo);
 
-        /* If registration OK, go to Login page */
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
-        requestDispatcher.forward(request, response);
-    }
-    protected void doPut(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+		User registrationRequest = new User(request.getParameter("first-name"), request.getParameter("last-name"),
+				request.getParameter("email"), request.getParameter("password"),
+				LocalDate.parse(request.getParameter("date-of-birth")), request.getParameter("nationality"),
+				request.getParameter("gender").charAt(0), request.getParameter("phone-number"), 0);
 
-        String password = request.getParameter("password");
-        String phone = request.getParameter("phone-number");
-        User user = (User) request.getAttribute("user");
+		User registerdUser = userService.register(registrationRequest);
 
-        user.setPassword(password);
-        user.setPhone(phone);
+		/* If registration OK, go to Login page */
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+		requestDispatcher.forward(request, response);
+	}
 
-        UserRepository userRepo = new UserDAO();
-        UserService userService = new UserService(userRepo);
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        User updatedUser = userService.update(user);
+		String password = request.getParameter("password");
+		String phone = request.getParameter("phone-number");
+		User user = (User) request.getAttribute("user");
 
-        HttpSession session = request.getSession();
-        session.setAttribute("user", updatedUser);
+		user.setPassword(password);
+		user.setPhone(phone);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
-        requestDispatcher.forward(request, response);
-    }
+		UserRepository userRepo = new UserDAO();
+		UserService userService = new UserService(userRepo);
 
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+		User updatedUser = userService.update(user);
 
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+		HttpSession session = request.getSession();
+		session.setAttribute("user", updatedUser);
 
-        UserRepository userRepo = new UserDAO();
-        UserService userService = new UserService(userRepo);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+		requestDispatcher.forward(request, response);
+	}
 
-        userService.delete(user);
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        session.invalidate();
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.HOME.path);
-        requestDispatcher.forward(request, response);
-    }
+		UserRepository userRepo = new UserDAO();
+		UserService userService = new UserService(userRepo);
+
+		userService.delete(user);
+
+		session.invalidate();
+
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.HOME.path);
+		requestDispatcher.forward(request, response);
+	}
 }

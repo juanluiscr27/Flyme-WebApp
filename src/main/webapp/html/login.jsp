@@ -30,14 +30,23 @@
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link" href="search">Search
 							flights</a></li>
-					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
-					</li>
 				</ul>
 				<ul class="navbar-nav d-flex">
+				<%
+					if(session.getAttribute("username") != null) {
+				%>
+				
+					<li class="nav-item"><a class="nav-link" href="user">Profile</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
+				<% } else {
+				%>
 					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="signup">Sign
-							up</a></li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign	up</a></li>
+				<%
+					}
+				%>	
 				</ul>
 			</div>
 		</div>
@@ -51,7 +60,7 @@
 							style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Log in</h3>
-								<form id="sign-up" action="LoginServlet" method="POST">
+								<form id="sign-up" action="login" method="POST">
 									<div class="row">
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-6 mb-4">

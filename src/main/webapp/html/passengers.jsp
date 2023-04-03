@@ -30,14 +30,23 @@
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link" href="search">Search
 							flights</a></li>
-					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
-					</li>
 				</ul>
 				<ul class="navbar-nav d-flex">
+				<%
+					if(session.getAttribute("username") != null) {
+				%>
+				
+					<li class="nav-item"><a class="nav-link" href="user">Profile</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
+				<% } else {
+				%>
 					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="signup">Sign
-							up</a></li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign	up</a></li>
+				<%
+					}
+				%>	
 				</ul>
 			</div>
 		</div>
@@ -95,7 +104,6 @@
 												<option value="2">2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
-												<option value="5">5</option>
 											</select>
 										</div>
 									</div>

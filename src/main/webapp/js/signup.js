@@ -18,14 +18,13 @@ fetch(URL).then(response => {
     }
 }).then(data => {
     if (data) {
+		data.filter(country => country.id != "CA");
 		var input = document.getElementById("nationality");
         data.forEach(country => {
-        	if (country.id != "CA") {
-        		let option = document.createElement("option");
-	        	option.value = country.id;
-	        	option.text = country.name;
-	        	input.add(option);
-	        }
+    		let option = document.createElement("option");
+        	option.value = country.id;
+        	option.text = country.name;
+        	input.add(option);
         });
     } else {
         setErrorMessage(message,"<p>Error - No User Found</p>");
