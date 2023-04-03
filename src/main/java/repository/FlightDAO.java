@@ -1,5 +1,6 @@
 package repository;
 
+import model.BagFareDTO;
 import model.CountryDTO;
 import model.Flight;
 import model.FlightClassDTO;
@@ -144,5 +145,35 @@ public class FlightDAO implements FlightRepository {
             DatabaseConnectionPool.close(connection);
         }
         return seats;
+    }
+
+    @Override
+    public List<BagFareDTO> findAllBagFares() {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<BagFareDTO> bagFares = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "bag_count, fee " +
+                    "FROM bag_fares " +
+                    "ORDER BY bag_count ASC ");
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                bagFares.add(new BagFareDTO(
+                        resultSet.getInt("bag_count"),
+                        resultSet.getBigDecimal("fee"))
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return bagFares;
     }
 }

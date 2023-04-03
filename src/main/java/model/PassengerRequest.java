@@ -3,13 +3,13 @@ package model;
 import java.time.LocalDate;
 
 public class PassengerRequest {
-    long flightId;
-    int seatId;
-    String firstName;
-    String lastName;
-    LocalDate dateOfBirth;
-    char gender;
-    int bags;
+    private long flightId;
+    private int seatId;
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
+    private char gender;
+    private int bags;
 
     public PassengerRequest(long flightId, String firstName, String lastName, LocalDate dateOfBirth, char gender, int bags) {
         this.flightId = flightId;
