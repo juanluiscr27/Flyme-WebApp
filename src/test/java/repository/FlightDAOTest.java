@@ -10,12 +10,10 @@ import model.SeatDTO;
 import org.junit.Test;
 import service.FlightService;
 
-import javax.validation.constraints.AssertTrue;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -72,7 +70,7 @@ public class FlightDAOTest {
                         BigDecimal.valueOf(18.4302189),
                         BigDecimal.valueOf(-69.6771733))),
                 new AirPlaneDTO(
-                1, "C-FAAA","Boeing", "747", BigDecimal.valueOf(1.0)),
+                1, "C-FAAA","Boeing", "747", BigDecimal.valueOf(750)),
                 LocalDateTime.parse("2023-03-30T10:30:00"),
                 LocalDateTime.parse("2023-03-30T14:50:00")
         );
