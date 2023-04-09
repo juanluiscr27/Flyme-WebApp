@@ -2,10 +2,15 @@ package model;
 
 public class Reservation {
     private User user;
-    private Flight flight;
+    private final Flight flight;
     private SeatDTO[] flightSeats;
     private PassengerRequest[] passengers;
     private Receipt receipt;
+
+    public Reservation(Flight flight) {
+        this.flight = flight;
+    }
+
     public User getUser() {
         return user;
     }
@@ -16,10 +21,6 @@ public class Reservation {
 
     public Flight getFlight() {
         return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
     }
 
     public SeatDTO[] getFlightSeats() {
@@ -39,8 +40,7 @@ public class Reservation {
     }
 
     public Receipt getReceipt() {
-        // TODO: Calc
-        receipt.generateTickets(flight.getAirPlane(), passengers, flightSeats);
+        receipt.generateTickets(flight, passengers, flightSeats);
         return receipt;
     }
 
