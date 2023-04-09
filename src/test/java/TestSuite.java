@@ -1,11 +1,14 @@
 
 import controller.EmailApiTest;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import model.ReceiptTest;
 import repository.DatabaseConnectionPoolTest;
+import repository.FlightDAOTest;
 import repository.PropertiesFileReaderTest;
 import repository.UserDAOTest;
 import util.GeodesyTest;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 
@@ -13,8 +16,10 @@ import util.GeodesyTest;
         PropertiesFileReaderTest.class,
         DatabaseConnectionPoolTest.class,
         UserDAOTest.class,
+        FlightDAOTest.class,
         GeodesyTest.class,
         EmailApiTest.class,
+        ReceiptTest.class,
 })
 
 public class TestSuite {

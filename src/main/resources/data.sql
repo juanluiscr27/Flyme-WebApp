@@ -11,18 +11,18 @@
 -- Inserts  for table `bag_fares`
 --
 
-INSERT INTO `bag_fares` VALUES (1, 70.00);
-INSERT INTO `bag_fares` VALUES (2, 120.00);
-INSERT INTO `bag_fares` VALUES (3, 180.00);
-INSERT INTO `bag_fares` VALUES (4, 230.00);
+INSERT INTO `bag_fares` VALUES (1, 50.00);
+INSERT INTO `bag_fares` VALUES (2, 80.00);
+INSERT INTO `bag_fares` VALUES (3, 120.00);
+INSERT INTO `bag_fares` VALUES (4, 175.00);
 
 --
 -- Inserts for table `classes`
 --
 
-INSERT INTO `classes` VALUES (1, 'First', 2, 2.0);
-INSERT INTO `classes` VALUES (2, 'Business', 1, 1.5);
-INSERT INTO `classes` VALUES (3, 'Economy', 0, 1.0);
+INSERT INTO `classes` VALUES (1, 'First', 2, 1.50);
+INSERT INTO `classes` VALUES (2, 'Business', 1, 1.25);
+INSERT INTO `classes` VALUES (3, 'Economy', 0, 1.10);
 
 --
 -- Inserts for table `countries`
@@ -279,12 +279,12 @@ INSERT INTO `countries` VALUES ('ZW', 'Zimbabwe');
 -- Inserts for table `distance_fares`
 --
 
-INSERT INTO `distance_fares` VALUES (1, 500, 1.10);
-INSERT INTO `distance_fares` VALUES (501, 1000, 1.50);
-INSERT INTO `distance_fares` VALUES (1001, 2500, 1.75);
-INSERT INTO `distance_fares` VALUES (2501, 5000, 2.00);
-INSERT INTO `distance_fares` VALUES (5001, 10000, 2.50);
-INSERT INTO `distance_fares` VALUES (10001, 20000, 3.50);
+INSERT INTO `distance_fares` VALUES (0, 500, 1.00);
+INSERT INTO `distance_fares` VALUES (501, 1000, 1.10);
+INSERT INTO `distance_fares` VALUES (1001, 2500, 1.20);
+INSERT INTO `distance_fares` VALUES (2501, 5000, 1.30);
+INSERT INTO `distance_fares` VALUES (5001, 10000, 1.40);
+INSERT INTO `distance_fares` VALUES (10001, 20000, 1.50);
 
 --
 -- Inserts for table `airports`
@@ -301,10 +301,10 @@ INSERT INTO `airports` VALUES ('LHR', 'Heathrow Airport', 'London', 'GB', 51.470
 -- Inserts for table `planes`
 --
 
-INSERT INTO `planes` VALUES (1, 'C-FAAA','Boeing', '747', 1.0);
-INSERT INTO `planes` VALUES (2, 'N1001A','Airbus', 'A320', 1.0);
-INSERT INTO `planes` VALUES (3, 'EI-DYR','Boeing', '737', 1.0);
-INSERT INTO `planes` VALUES (4, 'C-FZZZ','Embraer', '175', 1.0);
+INSERT INTO `planes` VALUES (1, 'C-FAAA','Boeing', '747', 700);
+INSERT INTO `planes` VALUES (2, 'N1001A','Airbus', 'A320', 550);
+INSERT INTO `planes` VALUES (3, 'EI-DYR','Boeing', '737', 550);
+INSERT INTO `planes` VALUES (4, 'C-FZZZ','Embraer', '175', 400);
 
 --
 -- Inserts for table `flight_status`

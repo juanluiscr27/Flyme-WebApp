@@ -7,6 +7,6 @@ public record AirPlaneDTO(
         String registration,
         String manufacturer,
         String model,
-        BigDecimal priceMultiplier
+        BigDecimal basePrice
 ) {
 }

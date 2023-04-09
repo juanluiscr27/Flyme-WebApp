@@ -1,7 +1,13 @@
 package controller;
 
+import model.BagFareDTO;
+import model.DistanceFareDTO;
 import model.PassengerRequest;
+import model.Receipt;
 import model.Reservation;
+import repository.FlightDAO;
+import repository.FlightRepository;
+import service.FlightService;
 import util.Json;
 
 import javax.servlet.RequestDispatcher;
@@ -22,12 +28,20 @@ public class SummaryServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        FlightRepository flightRepo = new FlightDAO();
+        FlightService flightService = new FlightService(flightRepo);
+
         HttpSession session = request.getSession();
         Reservation reservation = (Reservation) session.getAttribute("reservation");
 
         String passengersJSON = request.getParameter("passengers");
         PassengerRequest[] passengers = Json.toObject(passengersJSON, PassengerRequest[].class);
         reservation.setFlightPassengers(passengers);
+
+        BagFareDTO[] bagFares = flightService.findAllBagFares();
+        DistanceFareDTO[] distanceFares = flightService.findAllDistanceFares();
+        Receipt receipt = new Receipt(bagFares, distanceFares);
+        reservation.setReceipt(receipt);
 
         session.setAttribute("reservation", reservation);
 

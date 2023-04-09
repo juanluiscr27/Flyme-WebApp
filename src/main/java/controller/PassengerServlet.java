@@ -1,11 +1,7 @@
 package controller;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import model.Coordinate;
 import model.Flight;
 import model.Reservation;
-import util.Json;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
@@ -25,13 +21,26 @@ public class PassengerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Reservation reservation = (Reservation) session.getAttribute("reservation");
         Flight[] allFlights = (Flight[]) session.getAttribute("allFlights");
 
-        // TODO: Add the flight to the reservation object
-        session.setAttribute("reservation", reservation);
+        long flightId = Long.parseLong(request.getParameter("flight-id"));
+        Flight selectedFlight = null;
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PASSENGERS.path);
-        requestDispatcher.forward(request, response);
+        for (Flight flight: allFlights) {
+            if (flight.getId() == flightId){
+                selectedFlight = flight;
+                break;
+            }
+        }
+        if (selectedFlight != null) {
+            Reservation reservation = new Reservation(selectedFlight);
+            session.setAttribute("reservation", reservation);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PASSENGERS.path);
+            requestDispatcher.forward(request, response);
+        } else {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.FLIGHT.path);
+            requestDispatcher.forward(request, response);
+        }
     }
 }

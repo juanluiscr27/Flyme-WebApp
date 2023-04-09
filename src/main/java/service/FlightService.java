@@ -1,5 +1,7 @@
 package service;
 
+import model.BagFareDTO;
+import model.DistanceFareDTO;
 import model.Flight;
 import model.FlightSearchDTO;
 import model.SeatDTO;
@@ -26,5 +28,13 @@ public class FlightService {
     }
     public SeatDTO[] findAllFlightSeats(Flight flight) {
         return flightRepo.findAllSeats(flight).toArray(new SeatDTO[0]);
+    }
+
+    public BagFareDTO[] findAllBagFares() {
+        return flightRepo.findAllBagFares().toArray(new BagFareDTO[0]);
+    }
+
+    public DistanceFareDTO[] findAllDistanceFares() {
+        return flightRepo.findAllDistanceFares().toArray(new DistanceFareDTO[0]);
     }
 }

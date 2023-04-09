@@ -1,6 +1,8 @@
 package repository;
 
+import model.BagFareDTO;
 import model.CountryDTO;
+import model.DistanceFareDTO;
 import model.Flight;
 import model.FlightClassDTO;
 import model.FlightSearchDTO;
@@ -38,7 +40,7 @@ public class FlightDAO implements FlightRepository {
         Map<Long, Flight> flightResult = new HashMap<>();
         try {
             statement = connection.prepareStatement("SELECT " +
-                    "f.flight_id, f.flight_number, f.plane_id, p.registration, p.manufacturer, p.model, p.price_multiplier, " +
+                    "f.flight_id, f.flight_number, f.plane_id, p.registration, p.manufacturer, p.model, p.base_price, " +
                     "f.departure, f.origin, oa.name, oa.city, oa.country, oc.country_name, oa.latitude, oa.longitude, " +
                     "f.arrival, f.destination, da.name, da.city, da.country, dc.country_name, da.latitude, da.longitude, " +
                     "c.class_id, c.name, COUNT( s.seat_id ) AS seat , ( " +
@@ -144,5 +146,66 @@ public class FlightDAO implements FlightRepository {
             DatabaseConnectionPool.close(connection);
         }
         return seats;
+    }
+
+    @Override
+    public List<BagFareDTO> findAllBagFares() {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<BagFareDTO> bagFares = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "bag_count, fee " +
+                    "FROM bag_fares " +
+                    "ORDER BY bag_count ASC ");
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                bagFares.add(new BagFareDTO(
+                        resultSet.getInt("bag_count"),
+                        resultSet.getBigDecimal("fee"))
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return bagFares;
+    }
+
+    @Override
+    public List<DistanceFareDTO> findAllDistanceFares() {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<DistanceFareDTO> distanceFares = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "min_distance, max_distance, price_multiplier " +
+                    "FROM distance_fares " +
+                    "ORDER BY min_distance ASC ");
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                distanceFares.add(new DistanceFareDTO(
+                        resultSet.getBigDecimal("min_distance"),
+                        resultSet.getBigDecimal("max_distance"),
+                        resultSet.getBigDecimal("price_multiplier"))
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return distanceFares;
     }
 }

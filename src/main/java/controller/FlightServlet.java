@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
 import java.time.LocalDate;
-import java.util.Map;
 
 @WebServlet("/flights")
 public class FlightServlet extends HttpServlet {
@@ -38,13 +37,11 @@ public class FlightServlet extends HttpServlet {
         );
 
         Boolean isRoundTrip = Boolean.valueOf(request.getParameter("round-trip"));
-        Reservation reservation = new Reservation();
 
         Flight[] allFlights = flightService.findAllOneWay(flightSearch);
 
         HttpSession session = request.getSession();
         session.setAttribute("allFlights", allFlights);
-        session.setAttribute("reservation", reservation);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.FLIGHT.path);
         requestDispatcher.forward(request, response);
