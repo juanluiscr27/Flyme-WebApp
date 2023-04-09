@@ -1,26 +1,37 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Receipt {
     private BagFareDTO[] bagFares;
-    private AirPlaneDTO airPlane;
-    private PassengerRequest[] passengers;
-    private SeatDTO[] seats;
-    private Ticket[] tickets;
-    private BigDecimal price;
-    public Receipt(BagFareDTO[] bagFares) {
+    private DistanceFareDTO[] distanceFares;
+    private List<Ticket> tickets;
+    private BigDecimal totalPrice;
+    public Receipt(BagFareDTO[] bagFares, DistanceFareDTO[] distanceFares) {
         this.bagFares = bagFares;
-    }
-    public void generateTickets(AirPlaneDTO airPlane, PassengerRequest[] passengers, SeatDTO[] seats) {
-        this.airPlane = airPlane;
-        this.passengers = passengers;
-        this.seats = seats;
+        this.distanceFares = distanceFares;
     }
 
-    private void getPassengerSeat() {
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public List<Ticket> getTickets() {
+        if (tickets == null)
+            tickets = new ArrayList<>();
+        return tickets;
+    }
+
+    public void generateTickets(Flight flight, PassengerRequest[] passengers, SeatDTO[] seats) {
+        tickets = new ArrayList<>();
+        totalPrice = BigDecimal.valueOf(0L);
+
         for (PassengerRequest passenger : passengers) {
-            Ticket passengerTicket = new Ticket(passenger, seats, bagFares);
+            Ticket passengerTicket = new Ticket(passenger, flight, seats, bagFares, distanceFares);
+            tickets.add(passengerTicket);
+            totalPrice = totalPrice.add(passengerTicket.getPrice());
         }
     }
 }
