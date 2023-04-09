@@ -2,6 +2,7 @@ package repository;
 
 import model.BagFareDTO;
 import model.CountryDTO;
+import model.DistanceFareDTO;
 import model.Flight;
 import model.FlightClassDTO;
 import model.FlightSearchDTO;
@@ -175,5 +176,36 @@ public class FlightDAO implements FlightRepository {
             DatabaseConnectionPool.close(connection);
         }
         return bagFares;
+    }
+
+    @Override
+    public List<DistanceFareDTO> findAllDistanceFares() {
+        Connection connection = DatabaseConnectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<DistanceFareDTO> distanceFares = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT " +
+                    "min_distance, max_distance, price_multiplier " +
+                    "FROM distance_fares " +
+                    "ORDER BY min_distance ASC ");
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                distanceFares.add(new DistanceFareDTO(
+                        resultSet.getBigDecimal("min_distance"),
+                        resultSet.getBigDecimal("max_distance"),
+                        resultSet.getBigDecimal("price_multiplier"))
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(connection);
+        }
+        return distanceFares;
     }
 }

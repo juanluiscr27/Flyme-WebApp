@@ -2,6 +2,7 @@ package repository;
 
 import model.BagFareDTO;
 import model.CountryDTO;
+import model.DistanceFareDTO;
 import model.Flight;
 import model.FlightSearchDTO;
 import model.SeatDTO;
@@ -25,4 +26,5 @@ public interface FlightRepository {
     List<SeatDTO> findAllSeats(Flight flight);
 
     List<BagFareDTO> findAllBagFares();
+    List<DistanceFareDTO> findAllDistanceFares();
 }
