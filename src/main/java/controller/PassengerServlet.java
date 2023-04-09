@@ -21,7 +21,6 @@ public class PassengerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Reservation reservation = (Reservation) session.getAttribute("reservation");
         Flight[] allFlights = (Flight[]) session.getAttribute("allFlights");
 
         long flightId = Long.parseLong(request.getParameter("flight-id"));
@@ -34,7 +33,7 @@ public class PassengerServlet extends HttpServlet {
             }
         }
         if (selectedFlight != null) {
-            reservation.setFlight(selectedFlight);
+            Reservation reservation = new Reservation(selectedFlight);
             session.setAttribute("reservation", reservation);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PASSENGERS.path);
