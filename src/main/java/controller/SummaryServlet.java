@@ -1,6 +1,7 @@
 package controller;
 
 import model.BagFareDTO;
+import model.DistanceFareDTO;
 import model.PassengerRequest;
 import model.Receipt;
 import model.Reservation;
@@ -38,7 +39,8 @@ public class SummaryServlet extends HttpServlet {
         reservation.setFlightPassengers(passengers);
 
         BagFareDTO[] bagFares = flightService.findAllBagFares();
-        Receipt receipt = new Receipt(bagFares);
+        DistanceFareDTO[] distanceFares = flightService.findAllDistanceFares();
+        Receipt receipt = new Receipt(bagFares, distanceFares);
         reservation.setReceipt(receipt);
 
         session.setAttribute("reservation", reservation);
