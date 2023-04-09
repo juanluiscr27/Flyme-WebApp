@@ -121,7 +121,7 @@ public class EntityMapper {
                         resultSet.getString("p.registration"),
                         resultSet.getString("p.manufacturer"),
                         resultSet.getString("p.model"),
-                        resultSet.getBigDecimal("p.price_multiplier")
+                        resultSet.getBigDecimal("p.base_price")
                 ),
                 resultSet.getTimestamp("f.departure").toLocalDateTime(),
                 resultSet.getTimestamp("f.arrival").toLocalDateTime()
