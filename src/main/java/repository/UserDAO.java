@@ -43,10 +43,15 @@ public class UserDAO implements UserRepository {
             keys.next();
 
             selectStatement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, countries.country_id, countries.country_name, gender, phone, points " +
+                    "FROM users INNER JOIN countries ON nationality = country_id " +
+                    "WHERE user_id = ? ");
+/*
+            selectStatement = connection.prepareStatement("SELECT " +
                     "user_id, first_name, last_name, email, password, birth_date, country_id, country_name, gender, phone, points " +
                     "FROM users INNER JOIN countries ON nationality = country_id " +
                     "WHERE user_id = ? ");
-
+*/
             selectStatement.setLong(1, keys.getLong("GENERATED_KEY"));
 
             resultSet = selectStatement.executeQuery();
@@ -186,8 +191,13 @@ public class UserDAO implements UserRepository {
         UserDTO user = null;
         try {
             statement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, countries.country_id, countries.country_name, gender, phone, points " +
+                    "FROM users INNER JOIN countries ON nationality = country_id WHERE email = ? ");
+            /*
+            statement = connection.prepareStatement("SELECT " +
                     "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
                     "FROM users WHERE email = ? ");
+                    */
 
             statement.setString(1, email.toLowerCase());
 

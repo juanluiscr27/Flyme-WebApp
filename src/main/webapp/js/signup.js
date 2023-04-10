@@ -18,8 +18,8 @@ fetch(URL).then(response => {
     }
 }).then(data => {
     if (data) {
-		data.filter(country => country.id != "CA");
 		var input = document.getElementById("nationality");
+		data.filter(country => country.id!="CA");
         data.forEach(country => {
     		let option = document.createElement("option");
         	option.value = country.id;
