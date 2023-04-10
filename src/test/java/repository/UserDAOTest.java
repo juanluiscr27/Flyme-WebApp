@@ -1,6 +1,7 @@
 package repository;
 
 import model.User;
+import model.UserDTO;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,12 +12,14 @@ import java.util.Optional;
 
 public class UserDAOTest {
     UserRepository userRepo;
-    User expectedUser;
     @Before
     public void setUpUserDAOTest() {
 
         userRepo = new UserDAO();
-        expectedUser = new User(
+    }
+    @Test
+    public void testAddNewUser() {
+        User expectedUser = new User(
                 "John",
                 "Doe",
                 "john.doe@email.com",
@@ -25,24 +28,35 @@ public class UserDAOTest {
                 "CA",
                 'M',
                 "1234567890",
-                8500);
-    }
-    @Test
-    public void testAddNewUser() {
-        User actualUser = userRepo.add(expectedUser);
+                8500
+        );
 
-        assertEquals(expectedUser.getEmail(), actualUser.getEmail());
+        UserDTO actualUser = userRepo.add(expectedUser);
+
+        assertEquals(expectedUser.getEmail(), actualUser.email());
         // Delete User from the Database after test
         userRepo.delete(actualUser);
     }
     @Test
     public void testDeleteNewUser() {
+        User newUser = new User(
+                "John",
+                "Doe",
+                "john.doe@email.com",
+                "zXcVbNm@23",
+                LocalDate.parse("1995-07-24"),
+                "CA",
+                'M',
+                "1234567890",
+                8500
+        );
         // Insert User into the Database before test
-        expectedUser = userRepo.add(expectedUser);
-        Long expectedUserID = expectedUser.getId();
+        UserDTO expectedUser = userRepo.add(newUser);
+
+        Long expectedUserID = expectedUser.id();
 
         userRepo.delete(expectedUser);
-        Optional<User> actualUser = userRepo.find(expectedUserID);
+        Optional<UserDTO> actualUser = userRepo.find(expectedUserID);
 
         assertEquals(Optional.empty(), actualUser);
     }

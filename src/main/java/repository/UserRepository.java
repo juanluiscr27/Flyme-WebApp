@@ -1,6 +1,7 @@
 package repository;
 
 import model.User;
+import model.UserDTO;
 
 import java.util.Set;
 import java.util.List;
@@ -8,19 +9,17 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    User add(User user);
+    UserDTO add(User user);
 
-    Optional<User> find(Long id);
+    Optional<UserDTO> find(Long id);
 
-    List<User> findAll();
+    List<UserDTO> findAll();
 
-    User update(User user);
+    UserDTO update(User user);
 
-    void delete(User user);
+    void delete(UserDTO user);
 
-    Optional<User> findByEmail(String email);
-
-    Set<String> findAllEmails(String startsWith);
+    Optional<UserDTO> findByEmail(String email);
     
-    public boolean isEmailPresent(String email);
+    boolean isEmailPresent(String email);
 }

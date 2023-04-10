@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import model.UserDTO;
 import repository.UserDAO;
 import repository.UserRepository;
 import service.UserService;
@@ -35,10 +36,10 @@ public class LoginServlet extends HttpServlet {
         UserService userService = new UserService(userRepo);
 
         try {
-            User authenticatedUser = userService.login(email, password);
+            UserDTO authenticatedUser = userService.login(email, password);
 
             HttpSession session = request.getSession();
-            session.setAttribute("username", authenticatedUser.getEmail());
+            session.setAttribute("username", authenticatedUser.email());
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
             requestDispatcher.forward(request, response);

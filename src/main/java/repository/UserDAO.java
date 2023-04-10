@@ -1,6 +1,7 @@
 package repository;
 
 import model.User;
+import model.UserDTO;
 import util.EntityMapper;
 
 import java.sql.Connection;
@@ -10,66 +11,80 @@ import java.sql.PreparedStatement;
 import java.sql.Date;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class UserDAO implements UserRepository {
     @Override
-    public User add(User registrationRequest) {
+    public UserDTO add(User registrationRequest) {
         Connection connection = DatabaseConnectionPool.getConnection();
-        PreparedStatement statement = null;
+        PreparedStatement insertStatement = null;
+        PreparedStatement selectStatement = null;
         ResultSet keys = null;
-        User registeredUser = null;
+        ResultSet resultSet = null;
+        UserDTO registeredUser = null;
         try {
-            statement = connection.prepareStatement("INSERT INTO users " +
+            insertStatement = connection.prepareStatement("INSERT INTO users " +
                     "(user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points) " +
                     "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, registrationRequest.getFirstName());
-            statement.setString(2, registrationRequest.getLastName());
-            statement.setString(3, registrationRequest.getEmail().toLowerCase());
-            statement.setString(4, registrationRequest.getPassword());
-            statement.setDate(5, Date.valueOf(registrationRequest.getDateOfBirth()));
-            statement.setString(6, registrationRequest.getNationality());
-            statement.setString(7, Character.toString(registrationRequest.getGender()));
-            statement.setString(8, registrationRequest.getPhone());
-            statement.setInt(9, registrationRequest.getPoints());
+            insertStatement.setString(1, registrationRequest.getFirstName());
+            insertStatement.setString(2, registrationRequest.getLastName());
+            insertStatement.setString(3, registrationRequest.getEmail().toLowerCase());
+            insertStatement.setString(4, registrationRequest.getPassword());
+            insertStatement.setDate(5, Date.valueOf(registrationRequest.getDateOfBirth()));
+            insertStatement.setString(6, registrationRequest.getNationality());
+            insertStatement.setString(7, Character.toString(registrationRequest.getGender()));
+            insertStatement.setString(8, registrationRequest.getPhone());
+            insertStatement.setInt(9, registrationRequest.getPoints());
 
-            statement.executeUpdate();
-            keys = statement.getGeneratedKeys();
+            insertStatement.executeUpdate();
+            keys = insertStatement.getGeneratedKeys();
             keys.next();
-            registeredUser = new User(registrationRequest);
-            registeredUser.setId(keys.getLong("GENERATED_KEY"));
+
+            selectStatement = connection.prepareStatement("SELECT " +
+                    "user_id, first_name, last_name, email, password, birth_date, country_id, country_name, gender, phone, points " +
+                    "FROM users INNER JOIN countries ON nationality = country_id " +
+                    "WHERE user_id = ? ");
+
+            selectStatement.setLong(1, keys.getLong("GENERATED_KEY"));
+
+            resultSet = selectStatement.executeQuery();
+
+            while (resultSet.next()) {
+                registeredUser = EntityMapper.toUserDTO(resultSet);
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             DatabaseConnectionPool.close(keys);
-            DatabaseConnectionPool.close(statement);
+            DatabaseConnectionPool.close(resultSet);
+            DatabaseConnectionPool.close(insertStatement);
+            DatabaseConnectionPool.close(selectStatement);
             DatabaseConnectionPool.close(connection);
         }
         return registeredUser;
     }
 
     @Override
-    public Optional<User> find(Long userId) {
+    public Optional<UserDTO> find(Long userId) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        User user = null;
+        UserDTO user = null;
         try {
             statement = connection.prepareStatement("SELECT " +
-                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
-                    "FROM users WHERE user_id = ? ");
+                    "user_id, first_name, last_name, email, password, birth_date, country_id, country_name, gender, phone, points " +
+                    "FROM users INNER JOIN countries ON nationality = country_id " +
+                    "WHERE user_id = ? ");
 
             statement.setLong(1, userId);
 
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = EntityMapper.toUser(resultSet);
+                user = EntityMapper.toUserDTO(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -82,20 +97,20 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<User> allUsers = new ArrayList<>();
+        List<UserDTO> allUsers = new ArrayList<>();
         try {
             statement = connection.prepareStatement("SELECT " +
-                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
-                    "FROM users ");
+                    "user_id, first_name, last_name, email, password, birth_date, country_id, country_name, gender, phone, points " +
+                    "FROM users INNER JOIN countries ON nationality = country_id ");
 
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                allUsers.add(EntityMapper.toUser(resultSet));
+                allUsers.add(EntityMapper.toUserDTO(resultSet));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -108,12 +123,12 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public User update(User user) {
+    public UserDTO update(User user) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement updateStatement = null;
         PreparedStatement selectStatement = null;
         ResultSet resultSet = null;
-        User updatedUser = null;
+        UserDTO updatedUser = null;
         try {
             updateStatement = connection.prepareStatement("UPDATE users "
                     + "SET password = ?, phone = ?, points = ? WHERE user_id = ? ");
@@ -126,14 +141,15 @@ public class UserDAO implements UserRepository {
             updateStatement.executeUpdate();
 
             selectStatement = connection.prepareStatement("SELECT " +
-                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
-                    " FROM users WHERE user_id = ? ");
+                    "user_id, first_name, last_name, email, password, birth_date, country_id, country_name, gender, phone, points " +
+                    "FROM users INNER JOIN countries ON nationality = country_id " +
+                    "WHERE user_id = ? ");
             selectStatement.setLong(1, user.getId());
 
             resultSet = selectStatement.executeQuery();
 
             while (resultSet.next()) {
-                updatedUser = EntityMapper.toUser(resultSet);
+                updatedUser = EntityMapper.toUserDTO(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -147,12 +163,12 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(UserDTO user) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement("DELETE FROM users WHERE user_id = ? ");
-            statement.setLong(1, user.getId());
+            statement.setLong(1, user.id());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -163,11 +179,11 @@ public class UserDAO implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<UserDTO> findByEmail(String email) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        User user = null;
+        UserDTO user = null;
         try {
             statement = connection.prepareStatement("SELECT " +
                     "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
@@ -178,7 +194,7 @@ public class UserDAO implements UserRepository {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                user = EntityMapper.toUser(resultSet);
+                user = EntityMapper.toUserDTO(resultSet);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -188,34 +204,6 @@ public class UserDAO implements UserRepository {
             DatabaseConnectionPool.close(connection);
         }
         return Optional.ofNullable(user);
-    }
-
-    @Override
-    public Set<String> findAllEmails(String startsWith) {
-        Connection connection = DatabaseConnectionPool.getConnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        Set<String> allEmails = new HashSet<>();
-        try {
-            statement = connection.prepareStatement("SELECT " +
-                    "email " +
-                    "FROM users WHERE email LIKE ? ");
-
-            statement.setString(1, startsWith.toLowerCase() + "%");
-
-            resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                allEmails.add(resultSet.getString("email"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            DatabaseConnectionPool.close(resultSet);
-            DatabaseConnectionPool.close(statement);
-            DatabaseConnectionPool.close(connection);
-        }
-        return allEmails;
     }
 
     public boolean isEmailPresent(String email) {

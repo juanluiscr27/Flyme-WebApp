@@ -2,6 +2,7 @@ package repository;
 
 import model.Payment;
 import model.User;
+import model.UserDTO;
 import util.EntityMapper;
 
 import java.sql.Connection;
@@ -75,7 +76,7 @@ public class PaymentDAO implements PaymentRepository {
     }
 
     @Override
-    public Optional<Payment> findByUser(User user) {
+    public Optional<Payment> findByUser(UserDTO user) {
         Connection connection = DatabaseConnectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -85,7 +86,7 @@ public class PaymentDAO implements PaymentRepository {
                     "payment_id, card_number, name, expiry_date, security_code, user_id " +
                     "FROM payments WHERE user_id = ? ");
 
-            statement.setLong(1, user.getId());
+            statement.setLong(1, user.id());
 
             resultSet = statement.executeQuery();
 

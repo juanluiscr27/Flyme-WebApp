@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import model.UserDTO;
 import repository.UserDAO;
 import repository.UserRepository;
 import service.UserService;
@@ -31,8 +32,8 @@ public class UserController extends HttpServlet {
 		UserService userService = new UserService(userRepo);
 
 		try {
-			if (username != "") {
-				User user = userService.find(username);
+			if (!username.equals("")) {
+				UserDTO user = userService.find(username);
 				session.setAttribute("user", user);
 
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
@@ -66,7 +67,7 @@ public class UserController extends HttpServlet {
 				LocalDate.parse(request.getParameter("date-of-birth")), request.getParameter("nationality"),
 				request.getParameter("gender").charAt(0), request.getParameter("phone-number"), 0);
 
-		User registerdUser = userService.register(registrationRequest);
+		UserDTO registeredUser = userService.register(registrationRequest);
 
 		/* If registration OK, go to Login page */
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
@@ -77,18 +78,16 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String password = request.getParameter("password");
-		String phone = request.getParameter("phone-number");
-		User user = (User) request.getAttribute("user");
+
+		HttpSession session = request.getSession();
+		User user = new User( (UserDTO) session.getAttribute("user") );
 
 		user.setPassword(password);
-		user.setPhone(phone);
 
 		UserRepository userRepo = new UserDAO();
 		UserService userService = new UserService(userRepo);
 
-		User updatedUser = userService.update(user);
-
-		HttpSession session = request.getSession();
+		UserDTO updatedUser = userService.updatePassword(user);
 		session.setAttribute("user", updatedUser);
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
@@ -99,7 +98,7 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		UserDTO user = (UserDTO) session.getAttribute("user");
 
 		UserRepository userRepo = new UserDAO();
 		UserService userService = new UserService(userRepo);

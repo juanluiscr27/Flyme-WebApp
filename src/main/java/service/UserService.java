@@ -1,6 +1,7 @@
 package service;
 
 import model.User;
+import model.UserDTO;
 import repository.UserRepository;
 import util.PasswordEncoder;
 
@@ -13,32 +14,37 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public User register(User registrationRequest) {
+    public UserDTO register(User registrationRequest) {
         String encodedPassword = PasswordEncoder.encodePassword(registrationRequest.getPassword());
         registrationRequest.setPassword(encodedPassword);
         return userRepo.add(registrationRequest);
     }
-    public User login(String email, String password) throws IllegalArgumentException {
-        Optional<User> unvalidatedUser = userRepo.findByEmail(email);
-        User verifiedUser = unvalidatedUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public UserDTO login(String email, String password) throws IllegalArgumentException {
+        Optional<UserDTO> unvalidatedUser = userRepo.findByEmail(email);
+        UserDTO verifiedUser = unvalidatedUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
+
         String encodedPassword = PasswordEncoder.encodePassword(password);
-        if (!encodedPassword.equals(verifiedUser.getPassword()))
+        if (!encodedPassword.equals(verifiedUser.password()))
             throw new IllegalArgumentException("Incorrect password");
         return verifiedUser;
     }
-    public User find(String email) throws IllegalArgumentException {
-        Optional<User> optionalUser = userRepo.findByEmail(email);
+    public UserDTO find(String email) throws IllegalArgumentException {
+        Optional<UserDTO> optionalUser = userRepo.findByEmail(email);
         return optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
-    public User update(User user) {
+    public UserDTO update(User user) {
+        return userRepo.update(user);
+    }
+    public UserDTO updatePassword(User user) {
         String encodedPassword = PasswordEncoder.encodePassword(user.getPassword());
         user.setPassword(encodedPassword);
+
         return userRepo.update(user);
     }
     public boolean isEmailAvailable(String email) {
         return !userRepo.isEmailPresent(email);
     }
-    public void delete(User user) {
+    public void delete(UserDTO user) {
         userRepo.delete(user);
     }
 }

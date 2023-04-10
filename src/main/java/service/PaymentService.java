@@ -2,6 +2,7 @@ package service;
 
 import model.Payment;
 import model.User;
+import model.UserDTO;
 import repository.PaymentRepository;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class PaymentService {
     public Payment add(Payment newPayment) {
         return paymentRepo.add(newPayment);
     }
-    public Payment findByUser(User user) throws IllegalArgumentException {
+    public Payment findByUser(UserDTO user) throws IllegalArgumentException {
         Optional<Payment> optionalPayment = paymentRepo.findByUser(user);
         return optionalPayment.orElseThrow(() -> new IllegalArgumentException("Payment not found"));
     }
@@ -23,7 +24,7 @@ public class PaymentService {
         return paymentRepo.update(payment);
     }
 
-    public void delete(User user) {
+    public void delete(UserDTO user) {
         try {
             Payment userPayment = findByUser(user);
             paymentRepo.delete(userPayment);

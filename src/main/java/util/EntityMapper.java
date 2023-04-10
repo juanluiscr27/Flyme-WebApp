@@ -48,30 +48,19 @@ public class EntityMapper {
                 resultSet.getString("first_name"),
                 resultSet.getString("last_name"),
                 resultSet.getString("email"),
+                resultSet.getString("password"),
                 resultSet.getDate("birth_date").toLocalDate(),
-                resultSet.getString("nationality"),
-                resultSet.getString("gender").charAt(0),
+                new CountryDTO(
+                        resultSet.getString("country_id"),
+                        resultSet.getString("country_name")
+                ),
+                switch (resultSet.getString("gender").charAt(0)) {
+                    case 'F' -> "Female";
+                    case 'M' -> "Male";
+                    default -> "Other";
+                },
                 resultSet.getString("phone"),
                 resultSet.getInt("points")
-        );
-    }
-
-    /**
-     * Map a given User to an UserDTO.
-     * @param user The ResultSet of which the current row is to be mapped to a User.
-     * @return The mapped UserDTO from the given User.
-     */
-    public static UserDTO toUserDTO(User user) {
-        return new UserDTO(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getDateOfBirth(),
-                user.getNationality(),
-                user.getGender(),
-                user.getPhone(),
-                user.getPoints()
         );
     }
 

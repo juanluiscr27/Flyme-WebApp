@@ -2,6 +2,7 @@ package repository;
 
 import model.Payment;
 import model.User;
+import model.UserDTO;
 
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ public interface PaymentRepository {
 
     Optional<Payment> find(Long paymentId);
 
-    Optional<Payment> findByUser(User user);
+    Optional<Payment> findByUser(UserDTO user);
 
     Payment update(Payment payment);
 

@@ -84,7 +84,7 @@ public class Payment implements Serializable {
                 "cardNumber='" + cardNumber + '\'' +
                 ", nameOnCard='" + nameOnCard + '\'' +
                 ", expiryDate=" + expiryDate +
-                ", userId=" + userId +
+                ", id=" + userId +
                 '}';
     }
 }

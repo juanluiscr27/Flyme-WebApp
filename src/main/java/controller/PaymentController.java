@@ -2,6 +2,7 @@ package controller;
 
 import model.Payment;
 import model.User;
+import model.UserDTO;
 import repository.PaymentDAO;
 import repository.PaymentRepository;
 import service.PaymentService;
@@ -25,7 +26,7 @@ public class PaymentController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
 
         PaymentRepository paymentRepo = new PaymentDAO();
         PaymentService paymentService = new PaymentService(paymentRepo);
@@ -46,7 +47,7 @@ public class PaymentController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
 
         PaymentRepository paymentRepo = new PaymentDAO();
         PaymentService paymentService = new PaymentService(paymentRepo);
@@ -56,7 +57,7 @@ public class PaymentController extends HttpServlet {
                 request.getParameter("name-on-card"),
                 LocalDate.parse(request.getParameter("expiry-date")),
                 Integer.parseInt(request.getParameter("security-code")),
-                user.getId()
+                user.id()
         );
 
         Payment payment = paymentService.add(newPayment);
@@ -68,7 +69,7 @@ public class PaymentController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         int paymentId = Integer.parseInt(request.getParameter("payment-id"));
 
         PaymentRepository paymentRepo = new PaymentDAO();
@@ -80,7 +81,7 @@ public class PaymentController extends HttpServlet {
                 request.getParameter("name-on-card"),
                 LocalDate.parse(request.getParameter("expiry-date")),
                 Integer.parseInt(request.getParameter("security-code")),
-                user.getId()
+                user.id()
         );
 
         Payment payment = paymentService.update(newPayment);
@@ -92,7 +93,7 @@ public class PaymentController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
 
         PaymentRepository paymentRepo = new PaymentDAO();
         PaymentService paymentService = new PaymentService(paymentRepo);

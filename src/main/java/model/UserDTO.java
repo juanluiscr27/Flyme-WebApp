@@ -3,13 +3,14 @@ package model;
 import java.time.LocalDate;
 
 public record UserDTO(
-        Long userId,
+        Long id,
         String firstName,
         String lastName,
         String email,
+        String password,
         LocalDate dateOfBirth,
-        String nationality,
-        char gender,
+        CountryDTO nationality,
+        String gender,
         String phone,
         int points
 ) {

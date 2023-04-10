@@ -2,6 +2,7 @@ package controller;
 
 import model.EmailDTO;
 import model.User;
+import model.UserDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +21,10 @@ import static org.junit.Assert.*;
 
 public class EmailApiTest {
     UserRepository userRepo;
-    User user;
+    UserDTO user;
 
     @Before
     public void setUpEmailApiTest() {
-
         userRepo = new UserDAO();
         user =  userRepo.add(new User(
                 "John",

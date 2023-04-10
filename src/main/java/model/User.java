@@ -56,17 +56,21 @@ public class User implements Serializable {
         this.phone = phone;
         this.points = points;
     }
-    public User(User user) {
-        this.id = user.getId();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.dateOfBirth = user.getDateOfBirth();
-        this.nationality = user.getNationality();
-        this.gender = user.getGender();
-        this.phone = user.getPhone();
-        this.points = user.getPoints();
+    public User(UserDTO user) {
+        this.id = user.id();
+        this.firstName = user.firstName();
+        this.lastName = user.lastName();
+        this.email = user.email();
+        this.password = user.password();
+        this.dateOfBirth = user.dateOfBirth();
+        this.nationality = user.nationality().id();
+        this.gender = switch (user.gender()) {
+            case "Female"-> 'F';
+            case  "Male" -> 'M';
+            default -> 'X';
+        };
+        this.phone = user.phone();
+        this.points = user.points();
     }
 
     public Long getId() { return id; }
