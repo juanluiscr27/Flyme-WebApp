@@ -70,13 +70,12 @@ public class PaymentController extends HttpServlet {
 
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
-        int paymentId = Integer.parseInt(request.getParameter("payment-id"));
 
         PaymentRepository paymentRepo = new PaymentDAO();
         PaymentService paymentService = new PaymentService(paymentRepo);
 
         Payment newPayment = new Payment(
-                paymentId,
+                Integer.parseInt(request.getParameter("payment-id")),
                 request.getParameter("card-number"),
                 request.getParameter("name-on-card"),
                 LocalDate.parse(request.getParameter("expiry-date")),
