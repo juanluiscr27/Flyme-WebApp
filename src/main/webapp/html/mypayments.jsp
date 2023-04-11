@@ -63,7 +63,7 @@
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a href="profile" class="btn btn-primary btn-sm"/>My profile</a>
+												<a href="user" class="btn btn-primary btn-sm"/>My profile</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
