@@ -1,10 +1,14 @@
 package model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Reservation {
     private User user;
     private final Flight flight;
     private SeatDTO[] flightSeats;
-    private PassengerRequest[] passengers;
+    private PassengerDTO[] passengers;
     private Receipt receipt;
 
     public Reservation(Flight flight) {
@@ -31,16 +35,41 @@ public class Reservation {
         this.flightSeats = flightSeats;
     }
 
-    public PassengerRequest[] getFlightPassengers() {
+    public PassengerDTO[] getFlightPassengers() {
         return passengers;
     }
 
     public void setFlightPassengers(PassengerRequest[] passengers) {
-        this.passengers = passengers;
+
+        List<PassengerDTO> passengerList = new ArrayList<>();
+
+        for (PassengerRequest passenger : passengers) {
+            for (SeatDTO seat : flightSeats) {
+                if (passenger.getSeatId() == seat.seatId()) {
+                    PassengerDTO newPassenger = new PassengerDTO(
+                            flight,
+                            seat,
+                            passenger.getFirstName(),
+                            passenger.getLastName(),
+                            passenger.getDateOfBirth(),
+                            switch (passenger.getGender()) {
+                                case 'F' -> "Female";
+                                case 'M' -> "Male";
+                                default -> "Other";
+                                },
+                            passenger.getBags()
+                    );
+                    passengerList.add(newPassenger);
+                    break;
+                }
+            }
+        }
+
+        this.passengers = passengerList.toArray(new PassengerDTO[0]);
     }
 
     public Receipt getReceipt() {
-        receipt.generateTickets(flight, passengers, flightSeats);
+        receipt.generateTickets(passengers);
         return receipt;
     }
 

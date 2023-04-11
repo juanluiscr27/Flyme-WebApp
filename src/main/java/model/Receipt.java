@@ -24,12 +24,12 @@ public class Receipt {
         return tickets;
     }
 
-    public void generateTickets(Flight flight, PassengerRequest[] passengers, SeatDTO[] seats) {
+    public void generateTickets(PassengerDTO[] passengers) {
         tickets = new ArrayList<>();
         totalPrice = BigDecimal.valueOf(0L);
 
-        for (PassengerRequest passenger : passengers) {
-            Ticket passengerTicket = new Ticket(passenger, flight, seats, bagFares, distanceFares);
+        for (PassengerDTO passenger : passengers) {
+            Ticket passengerTicket = new Ticket(passenger, bagFares, distanceFares);
             tickets.add(passengerTicket);
             totalPrice = totalPrice.add(passengerTicket.getPrice());
         }

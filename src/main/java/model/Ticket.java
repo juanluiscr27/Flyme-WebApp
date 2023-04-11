@@ -7,7 +7,7 @@ import util.Geodesy;
 
 public class Ticket {
     private Flight flight;
-    private PassengerRequest passenger;
+    private PassengerDTO passenger;
     private SeatDTO seat;
     private BagFareDTO[] bagFares;
     private DistanceFareDTO[] distanceFares;
@@ -15,31 +15,20 @@ public class Ticket {
     private BigDecimal bagFee;
     private BigDecimal price;
 
-    public Ticket(PassengerRequest passenger, Flight flight, SeatDTO[] seats, BagFareDTO[] bagFares, DistanceFareDTO[] distanceFares) {
+    public Ticket(PassengerDTO passenger, BagFareDTO[] bagFares, DistanceFareDTO[] distanceFares) {
         this.passenger = passenger;
-        this.flight = flight;
-        this.seat = getPassengerSeat(seats);
+        this.flight = passenger.flight();
+        this.seat = passenger.seat();
         this.bagFares = bagFares;
         this.distanceFares = distanceFares;
         this.chargeableBags = getChargeableBags();
         calculatePrice();
     }
 
-    private SeatDTO getPassengerSeat(SeatDTO[] seats){
-        SeatDTO passengerSeat = null;
-        for (SeatDTO seat : seats) {
-            if (passenger.getSeatId() == seat.seatId()) {
-                passengerSeat = seat;
-                break;
-            }
-        }
-        return passengerSeat;
-    }
-
     private int getChargeableBags() {
         int bags = 0;
-        if (passenger.getBags() > seat.seatClass().checkedBags()) {
-            bags = passenger.getBags();
+        if (passenger.bags() > seat.seatClass().checkedBags()) {
+            bags = passenger.bags();
         }
         return bags;
     }
@@ -92,7 +81,7 @@ public class Ticket {
         return flight;
     }
 
-    public PassengerRequest getPassenger() {
+    public PassengerDTO getPassenger() {
         return passenger;
     }
 

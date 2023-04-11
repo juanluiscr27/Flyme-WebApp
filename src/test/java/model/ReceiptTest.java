@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class ReceiptTest {
     Receipt receipt;
     Flight flight;
-    PassengerRequest[] passengers;
+    PassengerDTO[] passengers;
     SeatDTO[] flightSeats;
     @Before
     public void setUpReceiptTest() {
@@ -27,7 +27,7 @@ public class ReceiptTest {
                 new BagFareDTO(1, BigDecimal.valueOf(50.00)),
                 new BagFareDTO(2, BigDecimal.valueOf(80.00)),
                 new BagFareDTO(3, BigDecimal.valueOf(120.00)),
-                new BagFareDTO(4, BigDecimal.valueOf(150.00))
+                new BagFareDTO(4, BigDecimal.valueOf(175.00))
         };
 
         DistanceFareDTO[] distanceFares = {
@@ -90,15 +90,31 @@ public class ReceiptTest {
                 LocalDateTime.parse("2023-03-30T14:50:00")
         );
 
+        SeatClassDTO seatClass = new SeatClassDTO(
+                1,
+                "First",
+                2,
+                BigDecimal.valueOf(1.50),
+                false
+        );
+
+        SeatDTO seat = new SeatDTO(
+                3,
+                1,
+                1,
+                'H',
+                seatClass
+        );
+
         flightSeats = flightService.findAllFlightSeats(flight);
 
-        passengers = new PassengerRequest[] {new PassengerRequest(
-                flight.getId(),
-                3,
+        passengers = new PassengerDTO[] {new PassengerDTO(
+                flight,
+                seat,
                 "John",
                 "Doe",
                 LocalDate.parse("1995-07-24"),
-                'M',
+                "Male",
                 3
         )};
     }
@@ -109,9 +125,9 @@ public class ReceiptTest {
          * distanceFare = flightDistance.priceMultiplier()
          * bagFee = | passenger.bagCount.fee() - flightClass.checkedBags.fee() |
          */
-        receipt.generateTickets(flight, passengers, flightSeats);
+        receipt.generateTickets(passengers);
 
-        // ticketPrice =  basePrice * flightClassFare * distanceFare - bagFee
+        // ticketPrice =  basePrice * flightClassFare * distanceFare + bagFee
         BigDecimal expectedPrice = BigDecimal.valueOf(607.50).setScale(2, RoundingMode.HALF_UP);
 
         BigDecimal actualPrice = receipt.getTotalPrice();

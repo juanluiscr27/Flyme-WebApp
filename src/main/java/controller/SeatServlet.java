@@ -32,7 +32,6 @@ public class SeatServlet extends HttpServlet {
 
         String passengersJSON = request.getParameter("passengers");
         PassengerRequest[] passengers = Json.toObject(passengersJSON, PassengerRequest[].class);
-        reservation.setFlightPassengers(passengers);
 
         try {
             Flight flight = reservation.getFlight();
@@ -43,6 +42,7 @@ public class SeatServlet extends HttpServlet {
             SeatDTO[] flightSeats = flightService.findAllFlightSeats(flight);
 
             reservation.setFlightSeats(flightSeats);
+            session.setAttribute("passengers", passengers);
             session.setAttribute("reservation", reservation);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEATS.path);

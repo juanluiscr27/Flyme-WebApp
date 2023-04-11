@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDate;
 
 public class PassengerRequest {
-    private long flightId;
     private int seatId;
     private String firstName;
     private String lastName;
@@ -11,26 +10,20 @@ public class PassengerRequest {
     private char gender;
     private int bags;
 
-    public PassengerRequest(long flightId, String firstName, String lastName, LocalDate dateOfBirth, char gender, int bags) {
-        this.flightId = flightId;
+    public PassengerRequest(String firstName, String lastName, LocalDate dateOfBirth, char gender, int bags) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.bags = bags;
     }
-    public PassengerRequest(long flightId, int seatId, String firstName, String lastName, LocalDate dateOfBirth, char gender, int bags) {
-        this.flightId = flightId;
+    public PassengerRequest(int seatId, String firstName, String lastName, LocalDate dateOfBirth, char gender, int bags) {
         this.seatId = seatId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.bags = bags;
-    }
-
-    public long getFlightId() {
-        return flightId;
     }
 
     public int getSeatId() {
@@ -64,8 +57,7 @@ public class PassengerRequest {
     @Override
     public String toString() {
         return "PassengerRequest{" +
-                "flightId=" + flightId +
-                ", seatId=" + seatId +
+                ", seat=" + seatId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +

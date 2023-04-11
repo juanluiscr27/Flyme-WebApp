@@ -38,9 +38,11 @@ public class FlightServlet extends HttpServlet {
 
         Boolean isRoundTrip = Boolean.valueOf(request.getParameter("round-trip"));
 
+        // If is round trip find all one way flights
         Flight[] allFlights = flightService.findAllOneWay(flightSearch);
 
         HttpSession session = request.getSession();
+        session.setAttribute("flightSearch", flightSearch);
         session.setAttribute("allFlights", allFlights);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.FLIGHT.path);
