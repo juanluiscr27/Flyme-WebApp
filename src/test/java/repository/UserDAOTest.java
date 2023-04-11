@@ -37,6 +37,33 @@ public class UserDAOTest {
         // Delete User from the Database after test
         userRepo.delete(actualUser);
     }
+
+    @Test
+    public void testFindUserByEmail() {
+        User expectedUser = new User(
+                "John",
+                "Doe",
+                "john.doe@email.com",
+                "zXcVbNm@23",
+                LocalDate.parse("1995-07-24"),
+                "CA",
+                'M',
+                "1234567890",
+                8500
+        );
+
+        userRepo.add(expectedUser);
+
+        UserDTO actualUser = userRepo.findByEmail(
+                expectedUser.getEmail()
+        ).orElseThrow(()-> new RuntimeException("User not found"));
+
+        assertEquals(expectedUser.getEmail(), actualUser.email());
+
+        // Delete User from the Database after test
+        userRepo.delete(actualUser);
+    }
+
     @Test
     public void testDeleteNewUser() {
         User newUser = new User(

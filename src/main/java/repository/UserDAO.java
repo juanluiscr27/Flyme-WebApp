@@ -193,11 +193,6 @@ public class UserDAO implements UserRepository {
             statement = connection.prepareStatement("SELECT " +
                     "user_id, first_name, last_name, email, password, birth_date, countries.country_id, countries.country_name, gender, phone, points " +
                     "FROM users INNER JOIN countries ON nationality = country_id WHERE email = ? ");
-            /*
-            statement = connection.prepareStatement("SELECT " +
-                    "user_id, first_name, last_name, email, password, birth_date, nationality, gender, phone, points " +
-                    "FROM users WHERE email = ? ");
-                    */
 
             statement.setString(1, email.toLowerCase());
 
