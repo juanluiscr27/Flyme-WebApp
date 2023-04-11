@@ -107,7 +107,7 @@
 												<label for="date-of-birth" class="form-label">Date
 													of birth</label> <br> <input type="date"
 													class="form-control form-control-lg" id="date-of-birth"
-													name="date-of-birth" />
+													name="date-of-birth" min="1900-01-01" max="2022-12-12" value="1999-01-01"/>
 											</div>
 										</div>
 										<div class="col-md-3 mb-4">
