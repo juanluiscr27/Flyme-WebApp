@@ -100,7 +100,8 @@
 												<div class="form-outline">
 													<input type="text" id="card-number" name="card-number"
 														class="form-control form-control-lg"
-														value="1234567890123456" disabled />
+														pattern="^[0-9]{16}"
+														value="${payment.getCardNumber()}" disabled />
 												</div>
 											</div>
 										</div>
@@ -115,7 +116,7 @@
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="card-name" name="card-name"
-														class="form-control form-control-lg" value="HUGO BELTRAN"
+														class="form-control form-control-lg" value="${payment.getNameOnCard()}"
 														disabled />
 												</div>
 											</div>
@@ -131,8 +132,9 @@
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="text" id="expiry-date" name="expiry-date"
-														class="form-control form-control-lg" value="24/08"
+														class="form-control form-control-lg" value="${payment.getExpiryDate()}"
 														disabled />
+														<!-- pattern="^[0-1][0-9]/[2][2-9]" -->
 												</div>
 											</div>
 											<div class="col-md-2 mb-4">
@@ -143,16 +145,18 @@
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="password" id="cvc" name="cvc"
-														class="form-control form-control-lg" value="123" disabled />
+													pattern="^[0-9]{3}"
+														class="form-control form-control-lg" value="${payment.getSecurityCode()}" disabled />
 												</div>
 											</div>
 										</div>
 										<div class="row text-center d-flex align-items-center">
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
-													<input class="btn btn-secondary btn-sm" type="button"
-														value="Edit" /> <input class="btn btn-primary btn-sm"
-														type="button" value="Save" />
+													<input id="editButton" class="btn btn-secondary btn-sm" type="button"
+														value="Edit" /> 
+													<input id="saveButton" class="btn btn-primary btn-sm"
+														type="submit" value="Save" disabled/>
 												</div>
 											</div>
 										</div>
