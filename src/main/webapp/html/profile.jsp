@@ -78,7 +78,7 @@
 									</div>
 									<br>
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My profile</h3>
-								<form id="sign-up" action="user" method="POST">
+								<form id="sign-up" action="update" method="POST">
 									<section>
 										<div class="row">
 											<div class="col-md-12 mb-4">
@@ -214,7 +214,7 @@
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
 													<input id="editButton" class="btn btn-secondary btn-sm" type="button"
-														value="Edit" />
+														value="Change password" />
 													<input id="saveButton" class="btn btn-primary btn-sm"
 														type="submit" value="Save" disabled/>
 												</div>

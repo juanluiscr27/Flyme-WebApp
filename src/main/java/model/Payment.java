@@ -8,17 +8,17 @@ public class Payment implements Serializable {
     private String cardNumber;
     private String nameOnCard;
     private LocalDate expiryDate;
-    private int securityCode;
+    private String securityCode;
     private long userId;
 
-    public Payment(String cardNumber, String nameOnCard, LocalDate expiryDate, int securityCode, long userId) {
+    public Payment(String cardNumber, String nameOnCard, LocalDate expiryDate, String securityCode, long userId) {
         this.cardNumber = cardNumber;
         this.nameOnCard = nameOnCard;
         this.expiryDate = expiryDate;
         this.securityCode = securityCode;
         this.userId = userId;
     }
-    public Payment(long paymentId, String cardNumber, String nameOnCard, LocalDate expiryDate, int securityCode,long userId) {
+    public Payment(long paymentId, String cardNumber, String nameOnCard, LocalDate expiryDate, String securityCode,long userId) {
         this.id = paymentId;
         this.cardNumber = cardNumber;
         this.nameOnCard = nameOnCard;
@@ -65,11 +65,11 @@ public class Payment implements Serializable {
         this.expiryDate = expiryDate;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
     public long getUserId() {

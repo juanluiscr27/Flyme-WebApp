@@ -1,3 +1,4 @@
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
 
@@ -32,21 +33,24 @@
 							flights</a></li>
 				</ul>
 				<ul class="navbar-nav d-flex">
-				<%
-					if(session.getAttribute("username") != null) {
-				%>
-				
+					<%
+					if (session.getAttribute("username") != null) {
+					%>
+
 					<li class="nav-item"><a class="nav-link" href="user">Profile</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
-				<% } else {
-				%>
+					<li class="nav-item"><a class="nav-link" href="logout">Log
+							out</a></li>
+					<%
+					} else {
+					%>
 					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="signup">Sign	up</a></li>
-				<%
+					<li class="nav-item"><a class="nav-link" href="signup">Sign
+							up</a></li>
+					<%
 					}
-				%>	
+					%>
 				</ul>
 			</div>
 		</div>
@@ -59,29 +63,30 @@
 						<div class="card shadow-2-strong card-registration"
 							style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
-									<div class="row text-center">
-										<div class="col-md-3 mb-4"></div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<a href="user" class="btn btn-primary btn-sm"/>My profile</a>
-											</div>
-										</div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<a class="btn btn-secondary btn-sm disabled"/>My payments</a>
-											</div>
-										</div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<a href="myflights" class="btn btn-primary btn-sm"/>My flights</a>
-											</div>
+								<div class="row text-center">
+									<div class="col-md-3 mb-4"></div>
+									<div class="col-md-2 mb-4">
+										<div class="form-outline">
+											<a href="user" class="btn btn-primary btn-sm" />My profile</a>
 										</div>
 									</div>
-									<br>
+									<div class="col-md-2 mb-4">
+										<div class="form-outline">
+											<a class="btn btn-secondary btn-sm disabled" />My payments</a>
+										</div>
+									</div>
+									<div class="col-md-2 mb-4">
+										<div class="form-outline">
+											<a href="myflights" class="btn btn-primary btn-sm" />My
+											flights</a>
+										</div>
+									</div>
+								</div>
+								<br>
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My
 									payment methods</h3>
 								<form id="sign-up" action="payment" method="POST">
-									
+<input type="text" name="paymentId" id="paymentId" value="${payment.getId()}" hidden>
 									<section>
 										<div class="row">
 											<div class="col-md-12 mb-4">
@@ -99,9 +104,8 @@
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="card-number" name="card-number"
-														class="form-control form-control-lg"
-														pattern="^[0-9]{16}"
-														value="${payment.getCardNumber()}" disabled />
+														class="form-control form-control-lg" pattern="^[0-9]{16}"
+														value="${payment.getCardNumber()}" required disabled/>
 												</div>
 											</div>
 										</div>
@@ -116,8 +120,8 @@
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="card-name" name="card-name"
-														class="form-control form-control-lg" value="${payment.getNameOnCard()}"
-														disabled />
+														class="form-control form-control-lg"
+														value="${payment.getNameOnCard()}" required disabled />
 												</div>
 											</div>
 										</div>
@@ -132,9 +136,8 @@
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="text" id="expiry-date" name="expiry-date"
-														class="form-control form-control-lg" value="${payment.getExpiryDate()}"
-														disabled />
-														<!-- pattern="^[0-1][0-9]/[2][2-9]" -->
+														class="form-control form-control-lg"
+														value="${payment.getExpiryDate().format(DateTimeFormatter.ofPattern("yy-MM"))}" pattern="^[2][2-9]-[0-1][0-9]" required disabled />
 												</div>
 											</div>
 											<div class="col-md-2 mb-4">
@@ -145,18 +148,18 @@
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="password" id="cvc" name="cvc"
-													pattern="^[0-9]{3}"
-														class="form-control form-control-lg" value="${payment.getSecurityCode()}" disabled />
+														pattern="^[0-9]{3}" class="form-control form-control-lg"
+														value="${payment.getSecurityCode()}" required disabled />
 												</div>
 											</div>
 										</div>
 										<div class="row text-center d-flex align-items-center">
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
-													<input id="editButton" class="btn btn-secondary btn-sm" type="button"
-														value="Edit" /> 
-													<input id="saveButton" class="btn btn-primary btn-sm"
-														type="submit" value="Save" disabled/>
+													<input id="editButton" class="btn btn-secondary btn-sm"
+														type="button" value="Edit" /> <input id="saveButton"
+														class="btn btn-primary btn-sm" type="submit" value="Save"
+														disabled />
 												</div>
 											</div>
 										</div>

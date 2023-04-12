@@ -30,14 +30,7 @@ public class AirportDAO implements AirportRepository {
                     "c.country_name, a.latitude, a.longitude " +
                     "FROM airports AS a " +
                     "INNER JOIN countries AS c ON a.country = c.country_id " +
-                    "WHERE a.airport_id LIKE ? OR LOWER(a.name) LIKE ? " +
-                    "OR LOWER(a.city) LIKE ? OR a.country LIKE ? OR c.country_name LIKE ? ");
-
-            statement.setString(1, search.toUpperCase().substring(0,2) + "%");
-            statement.setString(2, "%" + search.toLowerCase() + "%");
-            statement.setString(3, "%" + search.toLowerCase() + "%");
-            statement.setString(4, search.toUpperCase().substring(0,2)  + "%");
-            statement.setString(5, search.toLowerCase() + "%");
+                    "ORDER BY a.city ASC ");
 
             resultSet = statement.executeQuery();
 

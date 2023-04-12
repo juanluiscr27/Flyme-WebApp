@@ -51,18 +51,36 @@ public class PaymentController extends HttpServlet {
 
         PaymentRepository paymentRepo = new PaymentDAO();
         PaymentService paymentService = new PaymentService(paymentRepo);
+        
+        if(request.getParameter("paymentId") == "") {
 
-        Payment newPayment = new Payment(
-                request.getParameter("card-number"),
-                request.getParameter("name-on-card"),
-                LocalDate.parse(request.getParameter("expiry-date")),
-                Integer.parseInt(request.getParameter("security-code")),
-                user.id()
-        );
+            Payment newPayment = new Payment(
+                    request.getParameter("card-number"),
+                    request.getParameter("card-name"),
+                    LocalDate.parse("20" + request.getParameter("expiry-date") + "-01"),
+                    request.getParameter("cvc"),
+                    user.id()
+            );
 
-        Payment payment = paymentService.add(newPayment);
+            Payment payment = paymentService.add(newPayment);
+            request.setAttribute("payment", payment);
+       	
+        }
+        else {
+            Payment newPayment = new Payment(
+                    Integer.parseInt(request.getParameter("paymentId")),
+                    request.getParameter("card-number"),
+                    request.getParameter("card-name"),
+                    LocalDate.parse("20" + request.getParameter("expiry-date") + "-01"),
+                    request.getParameter("cvc"),
+                    user.id()
+            );
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.PROFILE.path);
+            Payment payment = paymentService.update(newPayment);
+            request.setAttribute("payment", payment);
+       	
+        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.MYPAYMENTS.path);
         requestDispatcher.forward(request, response);
     }
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
@@ -79,7 +97,7 @@ public class PaymentController extends HttpServlet {
                 request.getParameter("card-number"),
                 request.getParameter("name-on-card"),
                 LocalDate.parse(request.getParameter("expiry-date")),
-                Integer.parseInt(request.getParameter("security-code")),
+                request.getParameter("security-code"),
                 user.id()
         );
 
