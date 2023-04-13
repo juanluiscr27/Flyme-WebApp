@@ -30,24 +30,28 @@
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="search">Search flights</a></li>
+					<li class="nav-item"><a class="nav-link" href="search">Search
+							flights</a></li>
 				</ul>
 				<ul class="navbar-nav d-flex">
-				<%
-					if(session.getAttribute("username") != null) {
-				%>
-				
+					<%
+					if (session.getAttribute("username") != null) {
+					%>
+
 					<li class="nav-item"><a class="nav-link" href="user">Profile</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
-				<% } else {
-				%>
+					<li class="nav-item"><a class="nav-link" href="logout">Log
+							out</a></li>
+					<%
+					} else {
+					%>
 					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="signup">Sign	up</a></li>
-				<%
+					<li class="nav-item"><a class="nav-link" href="signup">Sign
+							up</a></li>
+					<%
 					}
-				%>	
+					%>
 				</ul>
 			</div>
 		</div>
@@ -62,72 +66,85 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Search
 									flights</h3>
-									<% 
-									Flight[] allFlights = (Flight[])session.getAttribute("allFlights");
-									if (allFlights.length > 0) {
-									%>
-									
+								<%
+								Flight[] allFlights = (Flight[]) session.getAttribute("allFlights");
+								if (allFlights.length > 0) {
+								%>
+
 								<h4 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">From
-									${allFlights[0].origin().city()} to ${allFlights[0].destination().city()}</h4>
-								<form id="sign-up" action="FlightServlet" method="POST">
+									${allFlights[0].origin.city()} to
+									${allFlights[0].destination.city()}</h4>
+								<form id="sign-up" action="passengers" method="POST">
 									<div class="row text-center">
 										<div class="col-md-5 mb-4"></div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
 												<input class="btn btn-primary btn-sm" type="button"
-													value="${allFlights[0].departure().toLocalDate()}" />
+													value="${allFlights[0].departure.toLocalDate()}" />
 											</div>
 										</div>
 									</div>
 									<br>
-									<div class="row">
-										<div class="col-md-3 mb-4"></div>
-										<div class="col-md-3 mb-4">
-											<h5>Economy</h5>
-										</div>
-										<div class="col-md-3 mb-4">
-											<h5>Business</h5>
-										</div>
-										<div class="col-md-3 mb-4">
-											<h5>First class</h5>
-										</div>
-									</div>
-									<hr>
-									
-									<%for (int i = 0; i < allFlights.length; i++){ %>
+
+									<%
+									for (int i = 0; i < allFlights.length; i++) {
+									%>
 									<div class="row d-flex align-items-center">
 										<div class="col-md-3 mb-4">
 											<div class="form-outline">
 												<p class="form-label">
-													Flight ${allFlights[i].flightNumber()}<br>${allFlights[i].departure().toLocalTime()}<br>${allFlights[i].airPlane().manufacturer()} ${allFlights[i].airPlane().model()}
+													Flight ${allFlights[i].flightNumber}<br>${allFlights[i].departure.toLocalTime()}<br>
+													${allFlights[i].airPlane.manufacturer()} ${allFlights[i].airPlane.model()}
 												</p>
 											</div>
 										</div>
+										<%
+										int f, b, e = 0;
+										for (int j = 0; j < allFlights[i].getClasses().size(); j++) {
+											switch (allFlights[i].getClasses().get(j).className()) {
+											case "Economy":
+												e = 1;
+												break;
+											case "Business":
+												b = 1;
+												break;
+											case "First":
+												f = 1;
+											}
+										}
+										%>
+
 										<div class="col-md-3 mb-4">
 											<div class="form-check">
-												<input type="radio" class="form-check-input" id="economy1"
-													name="flight" value="economy1" checked>$200 <label
-													class="form-check-label" for="radio1"></label>
+												<input type="radio" class="form-check-input"
+													name="flightGroup" id="first${i+1}" name="flight"
+													value="first${i+1}" ${ f ? "checked" : "disabled" }>
+												<label class="form-check-label" for="first${i+1}">First
+													class</label>
 											</div>
 										</div>
 										<div class="col-md-3 mb-4">
 											<div class="form-check">
-												<input type="radio" class="form-check-input" id="business1"
-													name="flight" value="business1">$300 <label
-													class="form-check-label" for="radio1"></label>
+												<input type="radio" class="form-check-input"
+													name="flightGroup" id="business${i+1}" name="flight"
+													value="business${i+1}" ${ b ? "checked" : "disabled" }>
+												<label class="form-check-label" for="business${i+1}">Business</label>
 											</div>
 										</div>
 										<div class="col-md-3 mb-4">
 											<div class="form-check">
-												<input type="radio" class="form-check-input" id="first1"
-													name="flight" value="first1">$500 <label
-													class="form-check-label" for="radio1"></label>
+												<input type="radio" class="form-check-input"
+													name="flightGroup" id="Economy${i+1}" name="flight"
+													value="first${i+1}" ${ e ? "checked" : "disabled" }><label
+													class="form-check-label" for="Economy${i+1}">Economy</label>
 											</div>
 										</div>
 									</div>
 									<hr class="hr hr-blurry">
-									<%} %>
-									 
+									<%
+									}
+									%>
+
 									<br>
 									<div class="row">
 										<div class="col-md-12 mb-4 text-center">
@@ -138,19 +155,23 @@
 										</div>
 									</div>
 								</form>
-								<%}
-								  else {%>
-								  
-								<h5 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">No flights found !</h5>
-									 
-									<br>
-									<div class="row">
-										<div class="col-md-12 mb-4 text-center">
-											<input class="btn btn-secondary btn-lg" type="button"
-												onclick="window.location.href='search';" value="Back" />
-										</div>
+								<%
+								} else {
+								%>
+
+								<h5 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">No
+									flights found !</h5>
+
+								<br>
+								<div class="row">
+									<div class="col-md-12 mb-4 text-center">
+										<input class="btn btn-secondary btn-lg" type="button"
+											onclick="window.location.href='search';" value="Back" />
 									</div>
-								  <%} %>
+								</div>
+								<%
+								}
+								%>
 							</div>
 						</div>
 					</div>

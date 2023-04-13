@@ -77,16 +77,16 @@
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
 												<label for="from" class="form-label">From</label>
-												<input class="form-control" list="fromOptions" id="from" placeholder="Type to search..." aria-describedby="fromHelpInline" title="Please, select a departure airport" required>
-												<datalist id="fromOptions">
+												<input class="form-control" list="fromOptions" name="from" id="from" placeholder="Type to search..." aria-describedby="fromHelpInline" title="Please, select a departure airport" required>
+												<datalist id="fromOptions" >
 												  </datalist>
 											</div>
 										</div>
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
 												<label for="to" class="form-label">To</label>
-												<input class="form-control" list="toOptions" id="to" placeholder="Type to search..." title="Please, select an arrival airport"  required>
-												<datalist id="toOptions">
+												<input class="form-control" list="toOptions" name="to" id="to" placeholder="Type to search..." title="Please, select an arrival airport"  required>
+												<datalist id="toOptions" >
 												  </datalist>
 											</div>
 										</div>

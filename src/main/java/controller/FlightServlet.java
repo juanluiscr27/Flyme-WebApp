@@ -27,7 +27,6 @@ public class FlightServlet extends HttpServlet {
 
         FlightRepository flightRepo = new FlightDAO();
         FlightService flightService = new FlightService(flightRepo);
-
         FlightSearchDTO flightSearch = new FlightSearchDTO(
                 request.getParameter("from"),
                 request.getParameter("to"),
