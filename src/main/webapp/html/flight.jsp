@@ -38,13 +38,15 @@
 					if (session.getAttribute("username") != null) {
 					%>
 					<li class="nav-item"><a class="nav-link" href="user">Profile</a></li>
-					<li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
+					<li class="nav-item"><a class="nav-link" href="logout">Log
+							out</a></li>
 					<%
 					} else {
 					%>
 					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign
+							up</a></li>
 					<%
 					}
 					%>
@@ -68,8 +70,8 @@
 								%>
 
 								<h4 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">From
-									${allFlights[0].origin.city()} to
-									${allFlights[0].destination.city()}</h4>
+									${allFlights[0].origin.city()} (${allFlights[0].origin.airportId()}) to
+									${allFlights[0].destination.city()} (${allFlights[0].destination.airportId()})</h4>
 								<form id="sign-up" action="passengers" method="POST">
 									<div class="row text-center">
 										<div class="col-md-5 mb-4"></div>
@@ -81,64 +83,67 @@
 										</div>
 									</div>
 									<br>
-									<% 
-									for (int i=0; i<allFlights.length; i++) {
-										request.setAttribute("i", i);
-									%>
+									
 									<div class="row d-flex align-items-center">
 										<div class="col-md-3 mb-4">
+											<div class="form-label">
+												<h5>Flight number</h5>
+											</div>
+										</div>
+										<div class="col-md-3 mb-4">
+											<div class="form-outline">
+												<h5 class="form-label">Airplane</h5>
+											</div>
+										</div>
+										<div class="col-md-3 mb-4">
+											<div class="form-outline">
+												<h5 class="form-label">Departure time</h5>
+											</div>
+										</div>
+										<div class="col-md-3 mb-4">
+											<div class="form-outline">
+												<h5 class="form-label">Price</h5>
+											</div>
+										</div>
+									</div>
+									<hr class="hr hr-blurry">
+									<%
+									for (int i = 0; i < allFlights.length; i++) {
+										request.setAttribute("i", i);
+									%>
+
+									<div class="row d-flex align-items-center">
+										<div class="col-md-3 mb-4 px-3">
+											<div class="form-check">
+												<input type="radio" class="form-check-input"
+													name="flightGroup" id="flight${i+1}"
+													value="${allFlights[i].flightNumber}"
+													${ i == 0 ? "checked" : "" }> <label
+													class="form-check-label" for="flight${i+1}">${allFlights[i].flightNumber}</label>
+											</div>
+										</div>
+										<div class="col-md-3 mb-4 px-3">
 											<div class="form-outline">
 												<p class="form-label">
-													Flight ${allFlights[i].flightNumber}<br>${allFlights[i].departure.toLocalTime()}<br>
-													${allFlights[i].airPlane.manufacturer()} ${allFlights[i].airPlane.model()}
+													
+													${allFlights[i].airPlane.manufacturer()}
+													${allFlights[i].airPlane.model()}
 												</p>
 											</div>
 										</div>
-										<%
-										int f = 0;
-										int b = 0;
-										int e = 0;
-										for (int j = 0; j < allFlights[i].getClasses().size(); j++) {
-											request.setAttribute("j", j);
-											switch (allFlights[i].getClasses().get(j).className()) {
-											case "Economy":
-												e = 1;
-												break;
-											case "Business":
-												b = 1;
-												break;
-											case "First":
-												f = 1;
-											}
-										}
-										request.setAttribute("e", e);
-										request.setAttribute("b", b);
-										request.setAttribute("f", f);
-										%>
-
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input"
-													name="flightGroup" id="first${i+1}" name="flight"
-													value="${allFlights[i].flightNumber}" ${ f == 0 ? "disabled" : "" }>
-												<label class="form-check-label" for="first${i+1}">First
-													class</label>
+										<div class="col-md-3 mb-4 px-3">
+											<div class="form-outline">
+												<p class="form-label">
+													${allFlights[i].departure.toLocalTime()}
+												</p>
 											</div>
 										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input"
-													name="flightGroup" id="business${i+1}" name="flight"
-													value="${allFlights[i].flightNumber}" ${ b == 0 ? "disabled" : "" }>
-												<label class="form-check-label" for="business${i+1}">Business</label>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input"
-													name="flightGroup" id="Economy${i+1}" name="flight"
-													value="${allFlights[i].flightNumber}" ${ e == 0 ? "disabled" : "" }><label
-													class="form-check-label" for="Economy${i+1}">Economy</label>
+										<div class="col-md-3 mb-4 px-3">
+											<div class="form-outline">
+												<p class="form-label">
+													
+													Starting at &dollar;${allFlights[i].airPlane.basePrice()}
+												</p>
 											</div>
 										</div>
 									</div>
