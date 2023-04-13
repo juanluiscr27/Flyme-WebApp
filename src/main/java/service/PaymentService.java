@@ -23,7 +23,6 @@ public class PaymentService {
     public Payment update(Payment payment) {
         return paymentRepo.update(payment);
     }
-
     public void delete(UserDTO user) {
         try {
             Payment userPayment = findByUser(user);

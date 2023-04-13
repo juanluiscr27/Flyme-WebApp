@@ -4,6 +4,8 @@
 
 const SwitchCheck = document.querySelector("#SwitchCheck");
 const SwitchCheckLabel = document.querySelector("#SwitchCheckLbl");
+const departureDate = document.querySelector("#departure");
+const returnDate = document.querySelector("#return");
 const URL = "api/v1/airports";
 
 fetch(URL).then(response => {
@@ -41,27 +43,47 @@ Date.prototype.addDays = function (days) {
 let today = new Date();
 
 const roundTrip = function () {
-    $("#daterange").daterangepicker({
-        opens: 'center'
-    }, function (start, end, label) {
-        console.log("Start date: " + start.format('YYYY-MM-DD'));
-        console.log("End date: " + end.format('YYYY-MM-DD'));
-    });
-    $('#daterange').data('daterangepicker').setEndDate(today.addDays(5));
+  $("#daterange").daterangepicker({
+    autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $("#daterange").on('apply.daterangepicker', function(ev, picker) {
+    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    // console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
+    console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
+    console.log("Date: " + picker.startDate.format('YYYY-MM-DD'));
+    departureDate.value = picker.startDate.format('YYYY-MM-DD');
+    returnDate.value = picker.endDate.format('YYYY-MM-DD');
+  });
+
+  $("#daterange").on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
 }
 
 const oneWay = function () {
-    $('#daterange').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format('YYYY'), 10)
-    }, function (start, end, label) {
-        var years = moment().diff(start, 'years');
-        // console.log(years);
-        console.log("Date: " + end.format('YYYY-MM-DD'));
-    });
-    $('#daterange').data('daterangepicker').setEndDate(today);
+  $("#daterange").daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY'),10),
+    autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+  $("#daterange").on('apply.daterangepicker', function(ev, picker) {
+    $(this).val(picker.startDate.format('MM/DD/YYYY'));
+    // console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
+    departureDate.value = picker.endDate.format('YYYY-MM-DD');
+  });
+
+  $("#daterange").on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
 }
 
 SwitchCheck.addEventListener("change", (event) => {

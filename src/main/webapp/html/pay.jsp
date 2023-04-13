@@ -5,6 +5,7 @@
 <title>FlyMe - Pay</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -60,7 +61,7 @@
 							style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Pay</h3>
-								<form id="sign-up" action="PayServlet" method="POST">
+								<form id="sign-up" action="/order" method="POST">
 									<div class="row">
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-6 mb-4">
