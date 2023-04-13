@@ -37,18 +37,14 @@
 					<%
 					if (session.getAttribute("username") != null) {
 					%>
-
-					<li class="nav-item"><a class="nav-link" href="user">Profile</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="logout">Log
-							out</a></li>
+					<li class="nav-item"><a class="nav-link" href="user">Profile</a></li>
+					<li class="nav-item"><a class="nav-link" href="logout">Log out</a></li>
 					<%
 					} else {
 					%>
 					<li class="nav-item"><a class="nav-link" href="login">Login</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="signup">Sign
-							up</a></li>
+					<li class="nav-item"><a class="nav-link" href="signup">Sign up</a></li>
 					<%
 					}
 					%>
@@ -85,9 +81,9 @@
 										</div>
 									</div>
 									<br>
-
-									<%
-									for (int i = 0; i < allFlights.length; i++) {
+									<% 
+									for (int i=0; i<allFlights.length; i++) {
+										request.setAttribute("i", i);
 									%>
 									<div class="row d-flex align-items-center">
 										<div class="col-md-3 mb-4">
@@ -99,8 +95,11 @@
 											</div>
 										</div>
 										<%
-										int f, b, e = 0;
+										int f = 0;
+										int b = 0;
+										int e = 0;
 										for (int j = 0; j < allFlights[i].getClasses().size(); j++) {
+											request.setAttribute("j", j);
 											switch (allFlights[i].getClasses().get(j).className()) {
 											case "Economy":
 												e = 1;
@@ -112,13 +111,16 @@
 												f = 1;
 											}
 										}
+										request.setAttribute("e", e);
+										request.setAttribute("b", b);
+										request.setAttribute("f", f);
 										%>
 
 										<div class="col-md-3 mb-4">
 											<div class="form-check">
 												<input type="radio" class="form-check-input"
 													name="flightGroup" id="first${i+1}" name="flight"
-													value="first${i+1}" ${ f ? "checked" : "disabled" }>
+													value="${allFlights[i].flightNumber}" ${ f == 0 ? "disabled" : "" }>
 												<label class="form-check-label" for="first${i+1}">First
 													class</label>
 											</div>
@@ -127,7 +129,7 @@
 											<div class="form-check">
 												<input type="radio" class="form-check-input"
 													name="flightGroup" id="business${i+1}" name="flight"
-													value="business${i+1}" ${ b ? "checked" : "disabled" }>
+													value="${allFlights[i].flightNumber}" ${ b == 0 ? "disabled" : "" }>
 												<label class="form-check-label" for="business${i+1}">Business</label>
 											</div>
 										</div>
@@ -135,7 +137,7 @@
 											<div class="form-check">
 												<input type="radio" class="form-check-input"
 													name="flightGroup" id="Economy${i+1}" name="flight"
-													value="first${i+1}" ${ e ? "checked" : "disabled" }><label
+													value="${allFlights[i].flightNumber}" ${ e == 0 ? "disabled" : "" }><label
 													class="form-check-label" for="Economy${i+1}">Economy</label>
 											</div>
 										</div>
