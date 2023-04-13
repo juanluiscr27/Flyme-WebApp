@@ -87,6 +87,7 @@
 									payment methods</h3>
 								<form id="sign-up" action="payment" method="POST">
 <input type="text" name="paymentId" id="paymentId" value="${payment.getId()}" hidden>
+ <input type="text" name="deleteAction" id="deleteAction" value="" hidden>
 									<section>
 										<div class="row">
 											<div class="col-md-12 mb-4">
@@ -103,10 +104,14 @@
 											</div>
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
-													<input type="text" id="card-number" name="card-number"
+													<input type="text" id="card-number" name="card-number" aria-describedby="cardNumberHelpInline"
 														class="form-control form-control-lg" pattern="^[0-9]{16}"
 														value="${payment.getCardNumber()}" required disabled/>
 												</div>
+											<div class="col-auto">
+												<span id="cardNumberHelpInline" class="form-text" hidden>
+													16 digits</span>
+											</div>
 											</div>
 										</div>
 										<div class="row d-flex align-items-center">
@@ -154,12 +159,14 @@
 											</div>
 										</div>
 										<div class="row text-center d-flex align-items-center">
-											<div class="col-md-12 mb-4">
+											<div class="col-md-12 mb-2">
 												<div class="form-outline">
 													<input id="editButton" class="btn btn-secondary btn-sm"
 														type="button" value="Edit" /> <input id="saveButton"
 														class="btn btn-primary btn-sm" type="submit" value="Save"
 														disabled />
+												 <input id="deleteButton" class="btn btn-danger btn-sm"
+													type="submit" value="Delete" /> 
 												</div>
 											</div>
 										</div>

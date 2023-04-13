@@ -1,7 +1,8 @@
-const button = document.querySelector('#editButton');
+const editButton = document.querySelector('#editButton');
 const payment = document.querySelector('#paymentId');
+const deleteButton = document.querySelector('#deleteButton');
 
-button.addEventListener('click', enableFields);
+editButton.addEventListener('click', enableFields);
 
 function enableFields() {
 	  document.querySelector("#card-number").disabled = false;
@@ -9,7 +10,14 @@ function enableFields() {
 	  document.querySelector("#expiry-date").disabled = false;
 	  document.querySelector("#cvc").disabled = false;
 	  document.querySelector("#saveButton").disabled = false;
-	  button.disabled = true;
+	  editButton.disabled = true;
+	  deleteButton.disabled = true;
+};
+
+deleteButton.addEventListener('click', submitDelete);
+
+function submitDelete() {
+	document.querySelector("#deleteAction").value = "1";
 };
 
 window.addEventListener('load', (event) => {
@@ -19,6 +27,7 @@ window.addEventListener('load', (event) => {
 	  document.querySelector("#expiry-date").disabled = false;
 	  document.querySelector("#cvc").disabled = false;
 	  document.querySelector("#saveButton").disabled = false;
-	  button.disabled = true;
+	  editButton.disabled = true;
+	  deleteButton.disabled = true;
 	}
 });

@@ -26,7 +26,7 @@ public class PaymentDAO implements PaymentRepository {
                     "VALUES (NULL, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, newPayment.getCardNumber());
-            statement.setString(2, newPayment.getNameOnCard().toUpperCase());
+            statement.setString(2, newPayment.getNameOnCard());
             statement.setDate(3, Date.valueOf(newPayment.getExpiryDate()));
             statement.setString(4, newPayment.getSecurityCode());
             statement.setLong(5, newPayment.getUserId());
@@ -115,7 +115,7 @@ public class PaymentDAO implements PaymentRepository {
                     + "SET card_number = ?, name = ?, expiry_date = ?, security_code = ? WHERE payment_id = ? ");
 
             updateStatement.setString(1, payment.getCardNumber());
-            updateStatement.setString(2, payment.getNameOnCard().toUpperCase());
+            updateStatement.setString(2, payment.getNameOnCard());
             updateStatement.setDate(3, Date.valueOf(payment.getExpiryDate()));
             updateStatement.setString(4, payment.getSecurityCode());
             updateStatement.setLong(5, payment.getId());
