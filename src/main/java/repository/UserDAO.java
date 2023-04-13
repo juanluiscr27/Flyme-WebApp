@@ -131,12 +131,11 @@ public class UserDAO implements UserRepository {
         UserDTO updatedUser = null;
         try {
             updateStatement = connection.prepareStatement("UPDATE users "
-                    + "SET password = ?, phone = ?, points = ? WHERE user_id = ? ");
+                    + "SET password = ?, points = ? WHERE user_id = ? ");
 
             updateStatement.setString(1, user.getPassword());
-            updateStatement.setString(2, user.getPhone());
-            updateStatement.setInt(3, user.getPoints());
-            updateStatement.setLong(9, user.getId());
+            updateStatement.setInt(2, user.getPoints());
+            updateStatement.setLong(3, user.getId());
 
             updateStatement.executeUpdate();
 

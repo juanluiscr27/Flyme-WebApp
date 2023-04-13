@@ -75,16 +75,18 @@
 									<div class="row">
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
-												<label class="form-label" for="from">From</label> <br>
-												<input type="text" id="from" name="from"
-													class="form-control form-control-lg" />
+												<label for="from" class="form-label">From</label>
+												<input class="form-control" list="fromOptions" id="from" placeholder="Type to search...">
+												<datalist id="fromOptions">
+												  </datalist>
 											</div>
 										</div>
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
-												<label class="form-label" for="to">To</label> <br> <input
-													type="text" id="to" name="to"
-													class="form-control form-control-lg" />
+												<label for="to" class="form-label">To</label>
+												<input class="form-control" list="toOptions" id="to" placeholder="Type to search...">
+												<datalist id="toOptions">
+												  </datalist>
 											</div>
 										</div>
 									</div>
@@ -100,8 +102,8 @@
 										</div>
 										<div class="col-md-4 mb-4">
 											<div class="form-outline">
-												<label class="form-label" for="daterange">Travel
-													dates</label> <br> <input id="daterange" name="daterange"
+												<label class="form-label" for="daterange" id="dateLabel">Travel
+													date</label> <br> <input id="daterange" name="daterange"
 													class="form-control form-control-lg" />
 											</div>
 										</div>

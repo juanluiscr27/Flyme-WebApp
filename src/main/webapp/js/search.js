@@ -2,9 +2,34 @@
 *
 */
 
-
 const SwitchCheck = document.querySelector("#SwitchCheck");
 const SwitchCheckLabel = document.querySelector("#SwitchCheckLbl");
+const URL = "api/v1/airports";
+
+fetch(URL).then(response => {
+    if (response.ok) {
+        return response.json();
+    } else {
+        setErrorMessage(message,"Request unsuccessful");
+    }
+}).then(data => {
+    if (data) {
+		var listFrom = document.getElementById("fromOptions");
+        data.forEach(airport => {
+    		let option = document.createElement("option");
+        	option.value = airport.city;
+        	listFrom.appendChild(option);
+        });
+		var listTo = document.getElementById("toOptions");
+        data.forEach(airport => {
+    		let option = document.createElement("option");
+        	option.value = airport.city;
+        	listTo.appendChild(option);
+        });
+    } else {
+        setErrorMessage(message,"<p>Error - No User Found</p>");
+    }
+});
 
 // Add a number of days to the current date  
 Date.prototype.addDays = function (days) {
@@ -42,9 +67,11 @@ const oneWay = function () {
 SwitchCheck.addEventListener("change", (event) => {
     if (event.target.checked) {
         SwitchCheckLabel.textContent = "Roundtrip";
+        document.querySelector("#dateLabel").innerHTML = "Travel dates"
         roundTrip();
     } else {
         SwitchCheckLabel.textContent = "One way";
+        document.querySelector("#dateLabel").innerHTML = "Travel date"
         oneWay();
     }
 });

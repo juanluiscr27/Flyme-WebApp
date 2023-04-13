@@ -74,7 +74,7 @@ public class EntityMapper {
                 resultSet.getString("card_number"),
                 resultSet.getString("name"),
                 resultSet.getDate("expiry_date").toLocalDate(),
-                0,
+                resultSet.getString("security_code"),
                 resultSet.getLong("user_id")
         );
     }

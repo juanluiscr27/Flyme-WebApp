@@ -76,12 +76,11 @@ public class UserController extends HttpServlet {
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String password = request.getParameter("password");
 
 		HttpSession session = request.getSession();
 		User user = new User( (UserDTO) session.getAttribute("user") );
-
+		
 		user.setPassword(password);
 
 		UserRepository userRepo = new UserDAO();

@@ -78,7 +78,7 @@
 									</div>
 									<br>
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My profile</h3>
-								<form id="sign-up" action="user" method="POST">
+								<form id="sign-up" action="update" method="POST">
 									<section>
 										<div class="row">
 											<div class="col-md-12 mb-4">
@@ -95,7 +95,7 @@
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="full-name" name="full-name"
-														class="form-control form-control-lg" value="${user.firstName} ${user.lastName}"
+														class="form-control form-control-lg" value="${user.firstName()} ${user.lastName()}"
 														disabled />
 												</div>
 											</div>
@@ -110,7 +110,7 @@
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="nationality" name="nationality"
-														class="form-control form-control-lg" value="${user.nationality}"
+														class="form-control form-control-lg" value="${user.nationality().name()}"
 														disabled />
 												</div>
 											</div>
@@ -127,7 +127,7 @@
 												<div class="form-outline">
 													<input type="text" id="date-of-birth" name="date-of-birth"
 														class="form-control form-control-lg"
-														value="${user.dateOfBirth}" disabled />
+														value="${user.dateOfBirth()}" disabled />
 												</div>
 											</div>
 										</div>
@@ -141,7 +141,7 @@
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
 													<input type="text" id="gender" name="gender"
-														class="form-control form-control-lg" value="${user.gender}" disabled />
+														class="form-control form-control-lg" value="${user.gender()}" disabled />
 												</div>
 											</div>
 										</div>
@@ -156,7 +156,7 @@
 												<div class="form-outline">
 													<input type="email" id="email" name="email"
 														class="form-control form-control-lg"
-														value="${user.email}" disabled />
+														value="${user.email()}" disabled />
 												</div>
 											</div>
 										</div>
@@ -173,18 +173,50 @@
 														<span class="input-group-text" id="inputGroupPrepend">+1</span>
 														<input type="tel" class="form-control form-control-lg"
 															id="phone-number" name="phone-number"
-															aria-describedby="inputGroupPrepend" value="${user.phone}"
+															pattern="^[2-9][0-9]{9}"
+															aria-describedby="inputGroupPrepend" value="${user.phone()}"
 															disabled>
 													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row d-flex align-items-center">
+											<div class="col-md-1 mb-4"></div>
+											<div class="col-md-2 mb-4">
+												<div class="form-outline">
+													<label class="form-label" for="email">Password</label>
+												</div>
+											</div>
+											<div class="col-md-8 mb-4">
+												<div class="form-outline">
+													<input type="password" id="password" name="password"
+														class="form-control form-control-lg"
+														pattern="[A-Za-z0-9!#$%&*+-]{8,}" disabled required />
+												</div>
+											</div>
+										</div>
+										<div class="row d-flex align-items-center">
+											<div class="col-md-1 mb-4"></div>
+											<div class="col-md-2 mb-4">
+												<div class="form-outline">
+													<label class="form-label" for="email">Confirm password</label>
+												</div>
+											</div>
+											<div class="col-md-8 mb-4">
+												<div class="form-outline">
+													<input type="password" id="confirm-password" name="confirm-password"
+														class="form-control form-control-lg"
+														pattern="[A-Za-z0-9!#$%&*+-]{8,}" disabled required />
 												</div>
 											</div>
 										</div>
 										<div class="row text-center d-flex align-items-center">
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
-													<input class="btn btn-secondary btn-sm" type="button"
-														value="Edit" /> <input class="btn btn-primary btn-sm"
-														type="button" value="Save" />
+													<input id="editButton" class="btn btn-secondary btn-sm" type="button"
+														value="Change password" />
+													<input id="saveButton" class="btn btn-primary btn-sm"
+														type="submit" value="Save" disabled/>
 												</div>
 											</div>
 										</div>
