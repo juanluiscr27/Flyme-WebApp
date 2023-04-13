@@ -1,8 +1,8 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Reservation {
     private User user;
@@ -70,10 +70,16 @@ public class Reservation {
 
     public Receipt getReceipt() {
         receipt.generateTickets(passengers);
+        user.setPoints(user.getPoints() + receipt.getTotalPrice().intValue()/100);
         return receipt;
     }
 
     public void setReceipt(Receipt receipt) {
         this.receipt = receipt;
+    }
+
+    public String getConfirmationNumber() {
+        UUID uuid = UUID.randomUUID();
+        return  uuid.toString();
     }
 }

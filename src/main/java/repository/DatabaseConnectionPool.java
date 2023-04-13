@@ -56,5 +56,12 @@ public class DatabaseConnectionPool {
             System.out.println(e.getMessage());
         }
     }
+    public static void rollback(Connection connection){
+        try {
+            connection.rollback();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 

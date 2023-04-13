@@ -225,7 +225,7 @@ CREATE TABLE `users` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
   `order_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `confirmation_number` char(6) DEFAULT NULL,
+  `confirmation_number` char(36) DEFAULT NULL,
   `user_id` bigint unsigned NOT NULL,
   `order_date` datetime DEFAULT NULL,
   `price` decimal(7,2) NOT NULL,

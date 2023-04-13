@@ -12,7 +12,8 @@ public enum StaticPage {
     PASSENGERS("/html/passengers.jsp"),
     SEATS("/html/seats.jsp"),
     SUMMARY("/html/summary.jsp"),
-    PAY("/html/pay.jsp");
+    PAY("/html/pay.jsp"),
+    CONFIRMATION("/html/confirmation.jsp");
 
     final String path;
 

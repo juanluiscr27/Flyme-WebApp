@@ -5,6 +5,8 @@ import model.AirportDTO;
 import model.Coordinate;
 import model.CountryDTO;
 import model.Flight;
+import model.FlightPassenger;
+import model.Order;
 import model.Payment;
 import model.SeatClassDTO;
 import model.SeatDTO;
@@ -13,6 +15,8 @@ import model.UserDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EntityMapper {
     /**
@@ -146,6 +150,79 @@ public class EntityMapper {
                         resultSet.getBigDecimal("c.price_multiplier"),
                         resultSet.getInt("is_reserved") != 0
                 )
+        );
+    }
+
+    public static Order mapOrder(ResultSet resultSet) throws SQLException {
+        return new Order(
+                resultSet.getLong("o.order_id"),
+                resultSet.getString("o.confirmation_number").substring(0,7),
+                resultSet.getDate("o.order_date").toLocalDate(),
+                resultSet.getLong("o.user_id"),
+                resultSet.getBigDecimal("o.price"),
+                new Flight(
+                        resultSet.getLong("f.flight_id"),
+                        resultSet.getString("f.flight_number"),
+                        new AirportDTO(
+                                resultSet.getString("f.origin"),
+                                resultSet.getString("oa.name"),
+                                resultSet.getString("oa.city"),
+                                new CountryDTO(
+                                        resultSet.getString("oa.country"),
+                                        resultSet.getString("oc.country_name")
+                                ),
+                                new Coordinate(
+                                        resultSet.getBigDecimal("oa.latitude"),
+                                        resultSet.getBigDecimal("oa.longitude")
+                                )
+                        ),
+                        new AirportDTO(
+                                resultSet.getString("f.destination"),
+                                resultSet.getString("da.name"),
+                                resultSet.getString("da.city"),
+                                new CountryDTO(
+                                        resultSet.getString("da.country"),
+                                        resultSet.getString("dc.country_name")
+                                ),
+                                new Coordinate(
+                                        resultSet.getBigDecimal("da.latitude"),
+                                        resultSet.getBigDecimal("da.longitude")
+                                )
+                        ),
+                        new AirPlaneDTO(
+                                resultSet.getInt("f.plane_id"),
+                                resultSet.getString("p.registration"),
+                                resultSet.getString("p.manufacturer"),
+                                resultSet.getString("p.model"),
+                                resultSet.getBigDecimal("p.base_price")
+                        ),
+                        resultSet.getTimestamp("f.departure").toLocalDateTime(),
+                        resultSet.getTimestamp("f.arrival").toLocalDateTime()),
+                new ArrayList<>()
+        );
+    }
+
+    public static FlightPassenger mapPassenger(ResultSet resultSet) throws SQLException {
+        return new FlightPassenger(
+                resultSet.getLong("ps.passenger_id"),
+                new SeatDTO(
+                        resultSet.getInt("s.seat_id"),
+                        resultSet.getInt("s.plane_id"),
+                        resultSet.getInt("s.row"),
+                        resultSet.getString("s.column").charAt(0),
+                        new SeatClassDTO(
+                                resultSet.getInt("s.class_id"),
+                                resultSet.getString("c.name"),
+                                resultSet.getInt("c.checked_bags"),
+                                resultSet.getBigDecimal("c.price_multiplier"),
+                                resultSet.getInt("is_reserved") != 0
+                        )
+                ),
+                resultSet.getString("ps.first_name"),
+                resultSet.getString("ps.last_name"),
+                resultSet.getDate("ps.birth_date").toLocalDate(),
+                resultSet.getString("ps.gender"),
+                resultSet.getInt("ps.bags")
         );
     }
 }

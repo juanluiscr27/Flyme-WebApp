@@ -3,6 +3,7 @@ import controller.EmailApiTest;
 import model.ReceiptTest;
 import repository.DatabaseConnectionPoolTest;
 import repository.FlightDAOTest;
+import repository.OrderDAOTest;
 import repository.PropertiesFileReaderTest;
 import repository.UserDAOTest;
 import util.GeodesyTest;
@@ -20,6 +21,7 @@ import org.junit.runners.Suite;
         GeodesyTest.class,
         EmailApiTest.class,
         ReceiptTest.class,
+        OrderDAOTest.class
 })
 
 public class TestSuite {
