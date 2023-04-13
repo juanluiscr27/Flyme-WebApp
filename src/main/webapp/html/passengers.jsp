@@ -62,7 +62,7 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Passengers
 									information</h3>
-								<form id="sign-up" action="PassengersServlet" method="POST">
+								<form id="sign-up" action="seats" method="POST">
 									<div class="row">
 										<h4>Passenger 1</h4>
 										<div class="col-md-6 mb-4">
