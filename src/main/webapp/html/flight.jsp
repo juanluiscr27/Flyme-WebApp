@@ -1,3 +1,4 @@
+<%@ page import="model.Flight"%>
 <!DOCTYPE html>
 <html>
 
@@ -61,7 +62,10 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Search
 									flights</h3>
-									<% if (allFlights.length() > 0) {%>
+									<% 
+									Flight[] allFlights = (Flight[])session.getAttribute("allFlights");
+									if (allFlights.length > 0) {
+									%>
 									
 								<h4 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">From
 									${allFlights[0].origin().city()} to ${allFlights[0].destination().city()}</h4>
@@ -90,7 +94,7 @@
 									</div>
 									<hr>
 									
-									<%for (int i = 0; i < allFlights.length(); i++){ %>
+									<%for (int i = 0; i < allFlights.length; i++){ %>
 									<div class="row d-flex align-items-center">
 										<div class="col-md-3 mb-4">
 											<div class="form-outline">
