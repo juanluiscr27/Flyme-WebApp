@@ -18,14 +18,14 @@ public class Flight {
                   String flightNumber,
                   AirportDTO origin,
                   AirportDTO destination,
-                  AirPlaneDTO planeId,
+                  AirPlaneDTO airPlane,
                   LocalDateTime departure,
                   LocalDateTime arrival) {
         this.id = id;
         this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
-        this.airPlane = planeId;
+        this.airPlane = airPlane;
         this.departure = departure;
         this.arrival = arrival;
         this.classes = new ArrayList<>();

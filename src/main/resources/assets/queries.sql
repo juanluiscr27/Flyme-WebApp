@@ -136,7 +136,7 @@ INNER JOIN countries AS oc ON oa.country = oc.country_id
 INNER JOIN airports AS da ON f.destination = da.airport_id
 INNER JOIN countries AS dc ON da.country = dc.country_id
 WHERE f.origin = 'YYZ' AND f.destination = 'SDQ'
-AND f.departure BETWEEN '2023-03-30 00:00:00' AND '2023-03-30 23:59:59'
+AND f.departure BETWEEN '2023-04-15 00:00:00' AND '2023-04-15 23:59:59'
 AND f.status_id = 1
 GROUP BY f.flight_id, f.flight_number, f.plane_id, c.class_id, c.name, passenger
 HAVING seat - passenger >= 1;
