@@ -72,12 +72,12 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Search
 									flights</h3>
-								<form id="sign-up" action="flights" method="POST">
+								<form id="sign-up" action="flights" method="GET">
 									<div class="row">
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
 												<label for="from" class="form-label">From</label>
-												<input class="form-control" list="fromOptions" id="from" placeholder="Type to search...">
+												<input class="form-control" list="fromOptions" id="from" placeholder="Type to search..." aria-describedby="fromHelpInline" title="Please, select a departure airport" required>
 												<datalist id="fromOptions">
 												  </datalist>
 											</div>
@@ -85,7 +85,7 @@
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
 												<label for="to" class="form-label">To</label>
-												<input class="form-control" list="toOptions" id="to" placeholder="Type to search...">
+												<input class="form-control" list="toOptions" id="to" placeholder="Type to search..." title="Please, select an arrival airport"  required>
 												<datalist id="toOptions">
 												  </datalist>
 											</div>
@@ -102,10 +102,11 @@
 											</div>
 										</div>
 										<div class="col-md-4 mb-4">
+                      <input type="hidden" id="departure" name="departure">
+                      <input type="hidden" id="return" name="return">
 											<div class="form-outline">
 												<label class="form-label" for="daterange" id="dateLabel">Travel
-													date</label> <br> <input id="daterange" name="daterange"
-													class="form-control form-control-lg" />
+													date</label> <br> <input id="daterange"	class="form-control form-control-lg" placeholder="MM/DD/YYYY" value="" title="Must select a travel date"  required/>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4"></div>
@@ -118,11 +119,6 @@
 												<option value="3">3</option>
 												<option value="4">4</option>
 												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
 											</select>
 										</div>
 									</div>
