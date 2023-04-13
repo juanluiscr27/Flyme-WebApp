@@ -22,8 +22,6 @@
 
 CREATE DATABASE flyme;
 
-USE flyme;
-
 --
 -- CREATE Database User
 --
@@ -50,6 +48,8 @@ FLUSH PRIVILEGES;
 --
 -- DROP Tables
 --
+
+USE flyme;
 
 DROP TABLE IF EXISTS `bag_fares`;
 DROP TABLE IF EXISTS `distance_fares`;
