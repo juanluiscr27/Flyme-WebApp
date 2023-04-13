@@ -16,16 +16,19 @@ fetch(URL).then(response => {
     }
 }).then(data => {
     if (data) {
-		var listFrom = document.getElementById("fromOptions");
+		  const listFrom = document.getElementById("fromOptions");
         data.forEach(airport => {
     		let option = document.createElement("option");
-        	option.value = airport.city;
+        	// option.value = airport.city;
+          option.value = airport.airportId;
+          option.innerHTML = `${airport.city} (${airport.airportId})`;
         	listFrom.appendChild(option);
         });
-		var listTo = document.getElementById("toOptions");
+      const listTo = document.getElementById("toOptions");
         data.forEach(airport => {
-    		let option = document.createElement("option");
-        	option.value = airport.city;
+    		  let option = document.createElement("option");
+          option.value = airport.airportId;
+          option.innerHTML = `${airport.city} (${airport.airportId})`;
         	listTo.appendChild(option);
         });
     } else {

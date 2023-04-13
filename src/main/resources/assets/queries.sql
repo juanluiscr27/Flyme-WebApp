@@ -65,3 +65,22 @@ OR LOWER(a.city) LIKE ? OR a.country LIKE ? OR c.country_name LIKE 1;
 SELECT user_id, first_name, last_name, email, password, birth_date, country_id, country_name, gender, phone, points
 FROM users INNER JOIN countries ON nationality = country_id
 WHERE user_id = 21;
+
+
+-- TRUNCATE [TABLE] tbl_name
+
+TRUNCATE TABLE `bag_fares`;
+TRUNCATE TABLE `distance_fares`;
+TRUNCATE TABLE `payments`;
+TRUNCATE TABLE `passengers`;
+TRUNCATE TABLE `orders`;
+TRUNCATE TABLE `flights`;
+TRUNCATE TABLE `flight_status`;
+TRUNCATE TABLE `plane_services`;
+TRUNCATE TABLE `seats`;
+TRUNCATE TABLE `services`;
+TRUNCATE TABLE `classes`;
+TRUNCATE TABLE `planes`;
+TRUNCATE TABLE `airports`;
+TRUNCATE TABLE `users`;
+TRUNCATE TABLE `countries`;
