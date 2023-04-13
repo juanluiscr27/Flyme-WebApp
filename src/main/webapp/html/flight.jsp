@@ -28,8 +28,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="search">Search
-							flights</a></li>
+					<li class="nav-item"><a class="nav-link" href="search">Search flights</a></li>
 				</ul>
 				<ul class="navbar-nav d-flex">
 				<%
@@ -61,39 +60,17 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Search
 									flights</h3>
+									<% if (allFlights.length() > 0) {%>
+									
 								<h4 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">From
-									Pearson International to New York International</h4>
+									${allFlights[0].origin().city()} to ${allFlights[0].destination().city()}</h4>
 								<form id="sign-up" action="FlightServlet" method="POST">
 									<div class="row text-center">
-										<div class="col-md-1 mb-4"></div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<input class="btn btn-secondary btn-sm" type="button"
-													value="2023-02-28" />
-											</div>
-										</div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<input class="btn btn-secondary btn-sm" type="button"
-													value="2023-03-01" />
-											</div>
-										</div>
+										<div class="col-md-5 mb-4"></div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
 												<input class="btn btn-primary btn-sm" type="button"
-													value="2023-03-02" />
-											</div>
-										</div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<input class="btn btn-secondary btn-sm" type="button"
-													value="2023-03-03" />
-											</div>
-										</div>
-										<div class="col-md-2 mb-4">
-											<div class="form-outline">
-												<input class="btn btn-secondary btn-sm" type="button"
-													value="2023-03-04" />
+													value="${allFlights[0].departure().toLocalDate()}" />
 											</div>
 										</div>
 									</div>
@@ -111,11 +88,13 @@
 										</div>
 									</div>
 									<hr>
+									
+									<%for (int i = 0; i < allFlights.length(); i++){ %>
 									<div class="row d-flex align-items-center">
 										<div class="col-md-3 mb-4">
 											<div class="form-outline">
 												<p class="form-label">
-													Flight 1234<br>10:00<br>Boeing 737
+													Flight ${allFlights[i].flightNumber()}<br>${allFlights[i].departure().toLocalTime()}<br>${allFlights[i].airPlane().manufacturer()} ${allFlights[i].airPlane().model()}
 												</p>
 											</div>
 										</div>
@@ -142,68 +121,8 @@
 										</div>
 									</div>
 									<hr class="hr hr-blurry">
-									<div class="row d-flex align-items-center">
-										<div class="col-md-3 mb-4">
-											<div class="form-outline">
-												<p class="form-label">
-													Flight 5678<br>15:00<br>Airbus A380
-												</p>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input" id="economy2"
-													name="flight" value="economy2">$250 <label
-													class="form-check-label" for="radio1"></label>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input" id="business2"
-													name="flight" value="business2">$400 <label
-													class="form-check-label" for="radio1"></label>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input" id="first2"
-													name="flight" value="first2">$600 <label
-													class="form-check-label" for="radio1"></label>
-											</div>
-										</div>
-									</div>
-									<hr class="hr hr-blurry">
-									<div class="row d-flex align-items-center">
-										<div class="col-md-3 mb-4">
-											<div class="form-outline">
-												<p class="form-label">
-													Flight 5697<br>19:00<br>Boeing 777
-												</p>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input" id="economy3"
-													name="flight" value="economy3">$250 <label
-													class="form-check-label" for="radio1"></label>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input" id="business3"
-													name="flight" value="business3">$400 <label
-													class="form-check-label" for="radio1"></label>
-											</div>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-check">
-												<input type="radio" class="form-check-input" id="first3"
-													name="flight" value="first3">$550 <label
-													class="form-check-label" for="radio1"></label>
-											</div>
-										</div>
-									</div>
-									<hr class="hr hr-blurry">
+									<%} %>
+									 
 									<br>
 									<div class="row">
 										<div class="col-md-12 mb-4 text-center">
@@ -214,6 +133,19 @@
 										</div>
 									</div>
 								</form>
+								<%}
+								  else {%>
+								  
+								<h5 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">No flights found !</h5>
+									 
+									<br>
+									<div class="row">
+										<div class="col-md-12 mb-4 text-center">
+											<input class="btn btn-secondary btn-lg" type="button"
+												onclick="window.location.href='search';" value="Back" />
+										</div>
+									</div>
+								  <%} %>
 							</div>
 						</div>
 					</div>

@@ -91,25 +91,25 @@
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
-												<h5>Number</h5>
+												<h5>Flight number</h5>
 											</div>
 											<div class="col-md-3 mb-4">
 												<h5>From - To</h5>
 											</div>
 											<div class="col-md-2 mb-4">
-												<h5>Date</h5>
+												<h5>Departure date</h5>
 											</div>
 										</div>
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
-												<p>1234</p>
+												<p>${flight.flightNumber()}</p>
 											</div>
 											<div class="col-md-3 mb-4">
-												<p>Toronto - New York</p>
+												<p>${flight.origin().city()} - ${flight.destination().city()}</p>
 											</div>
 											<div class="col-md-2 mb-4">
-												<p>2023-05-05</p>
+												<p>${flight.departure().toLocalDate()}</p>
 											</div>
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
@@ -126,10 +126,9 @@
 												<div class="card card-body">
 													<div class="row font-small">
 														<p>
-															<b>From: </b>Pearson International <b>To: </b>New York
-															International<br> <b>Depart: </b>March 15th, 2023 -
-															17:00<br> <b>Aircraft: </b>Airbus A380 <b>Class:
-															</b>Economy
+															<b>From: </b>${flight.origin().city()} <b>To: </b>${flight.destination().city()}<br>
+															<b>Depart: </b>${flight.departure()}<br> <b>Airplane: </b>${flight.airPlane().manufacturer()} ${flight.airPlane().model()} <b>Class:
+															</b>${flight.classes().className()}
 														</p>
 													</div>
 													<div class="row font-small">

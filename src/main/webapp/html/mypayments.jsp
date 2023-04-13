@@ -1,4 +1,4 @@
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html>
 <html>
 
@@ -86,8 +86,9 @@
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My
 									payment methods</h3>
 								<form id="sign-up" action="payment" method="POST">
-<input type="text" name="paymentId" id="paymentId" value="${payment.getId()}" hidden>
- <input type="text" name="deleteAction" id="deleteAction" value="" hidden>
+									<input type="text" name="paymentId" id="paymentId"
+										value="${payment.getId()}" hidden> <input type="text"
+										name="deleteAction" id="deleteAction" value="" hidden>
 									<section>
 										<div class="row">
 											<div class="col-md-12 mb-4">
@@ -104,14 +105,11 @@
 											</div>
 											<div class="col-md-8 mb-4">
 												<div class="form-outline">
-													<input type="text" id="card-number" name="card-number" aria-describedby="cardNumberHelpInline"
+													<input type="text" id="card-number" name="card-number"
+														aria-describedby="cardNumberHelpInline" title="16 digits"
 														class="form-control form-control-lg" pattern="^[0-9]{16}"
-														value="${payment.getCardNumber()}" required disabled/>
+														value="${payment.getCardNumber()}" required disabled />
 												</div>
-											<div class="col-auto">
-												<span id="cardNumberHelpInline" class="form-text" hidden>
-													16 digits</span>
-											</div>
 											</div>
 										</div>
 										<div class="row d-flex align-items-center">
@@ -141,8 +139,10 @@
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="text" id="expiry-date" name="expiry-date"
+														aria-describedby="expiryDateHelpInline" title="YY-MM"
 														class="form-control form-control-lg"
-														value="${payment.getExpiryDate().format(DateTimeFormatter.ofPattern("yy-MM"))}" pattern="^[2][2-9]-[0-1][0-9]" required disabled />
+														value="${payment.getExpiryDate().format(DateTimeFormatter.ofPattern('yy-MM'))}"
+														pattern="^[2][2-9]-[0-1][0-9]" required disabled />
 												</div>
 											</div>
 											<div class="col-md-2 mb-4">
@@ -153,7 +153,8 @@
 											<div class="col-md-3 mb-4">
 												<div class="form-outline">
 													<input type="password" id="cvc" name="cvc"
-														pattern="^[0-9]{3}" class="form-control form-control-lg"
+														aria-describedby="cvcHelpInline" pattern="^[0-9]{3}"
+														title="3 digits" class="form-control form-control-lg"
 														value="${payment.getSecurityCode()}" required disabled />
 												</div>
 											</div>
@@ -164,9 +165,8 @@
 													<input id="editButton" class="btn btn-secondary btn-sm"
 														type="button" value="Edit" /> <input id="saveButton"
 														class="btn btn-primary btn-sm" type="submit" value="Save"
-														disabled />
-												 <input id="deleteButton" class="btn btn-danger btn-sm"
-													type="submit" value="Delete" /> 
+														disabled /> <input id="deleteButton"
+														class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return submitDelete();" />
 												</div>
 											</div>
 										</div>

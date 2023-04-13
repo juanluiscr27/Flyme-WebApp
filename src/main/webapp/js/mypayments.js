@@ -14,10 +14,16 @@ function enableFields() {
 	  deleteButton.disabled = true;
 };
 
-deleteButton.addEventListener('click', submitDelete);
+//deleteButton.addEventListener('click', submitDelete);
 
 function submitDelete() {
-	document.querySelector("#deleteAction").value = "1";
+	if (confirm("Please confirm payment method deletion")) {
+		document.querySelector("#deleteAction").value = "1";
+		return true;
+	}
+    else {
+        return false;
+    }
 };
 
 window.addEventListener('load', (event) => {
