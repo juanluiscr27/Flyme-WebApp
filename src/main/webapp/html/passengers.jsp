@@ -16,7 +16,8 @@
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link href="css/styles.css" rel="stylesheet" type="text/css">
-<script defer src="js/passengers.js"></script>
+<script type="module" src="js/passenger.js"></script>
+<script type="module" src="js/passengers.js"></script>
 </head>
 
 <body>
@@ -62,44 +63,59 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Passengers
 									information</h3>
-								<form id="sign-up" action="PassengersServlet" method="POST">
-									<div class="row">
-										<h4>Passenger 1</h4>
+                  <% FlightSearchDTO flightSearch = (FlightSearchDTO) session.getAttribute("flightSearch"); %>
+								<form id="passengers-form" action="seats" method="POST">
+                  <input type="hidden" name="passengers">
+                  <% for(int i = 0; i < flightSearch.passengers; i++)  { %>
+									<div class="row passenger">
+										<h4>Passenger ${i + 1}</h4>
 										<div class="col-md-6 mb-4">
 											<div class="form-outline">
-												<label class="form-label" for="p1-name">Name</label> <br>
-												<input type="text" id="p1-name" name="p1-name"
-													class="form-control form-control-lg"
-													aria-describedby="fullNameHelpInline"
+												<label class="form-label" for="p${i + 1}-fname">Name</label> <br>
+												<input type="text" id="p${i + 1}-name" name="p${i + 1}-fname"
+													class="first-name form-control form-control-lg"
+													aria-describedby="firstNameHelpInline${i + 1}"
 													pattern="^[a-zA-Z.]+( [a-zA-Z.]+)*$"
 													title="Alphabets and no special characters" required />
 											</div>
 											<div class="col-auto">
-												<span id="fullNameHelpInline" class="form-text" hidden>
+												<span id="firstameHelpInline${i + 1}" class="form-text" hidden>
+													Alphabets and no special characters. </span>
+											</div>
+                      <div class="form-outline">
+												<label class="form-label" for="p${i + 1}-lname">Name</label> <br>
+												<input type="text" id="p${i + 1}-name" name="p${i + 1}-lname"
+													class="last-name form-control form-control-lg"
+													aria-describedby="lastNameHelpInline${i + 1}"
+													pattern="^[a-zA-Z.]+( [a-zA-Z.]+)*$"
+													title="Alphabets and no special characters" required />
+											</div>
+											<div class="col-auto">
+												<span id="lastNameHelpInline${i + 1}" class="form-text" hidden>
 													Alphabets and no special characters. </span>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
-											<label for="p1-gender" class="form-label select-label">Gender</label>
-											<br> <select class="select form-control-lg"
-												id="p1-gender" name="p1-gender">
+											<label for="p${i + 1}-gender" class="form-label select-label">Gender</label>
+											<br> <select class="gender select form-control-lg"
+												id="p${i + 1}-gender" name="p${i + 1}-gender">
 												<option value="F">Female</option>
 												<option value="M">Male</option>
-												<option value="O">Other</option>
+												<option value="X">Other</option>
 											</select>
 										</div>
 										<div class="col-md-3 mb-4">
 											<div class="form-outline datepicker w-100">
-												<label for="p1-birth" class="form-label">Date of
+												<label for="p${i + 1}-birth" class="form-label">Date of
 													birth</label> <br> <input type="date"
-													class="form-control form-control-lg" id="p1-birth"
-													name="p1-birth" />
+													class="date-of-birth form-control form-control-lg" id="p${i + 1}-birth"
+													name="p${i + 1}-birth" required />
 											</div>
 										</div>
 										<div class="col-md-1 mb-4">
-											<label for="p1-bags" class="form-label select-label">Bags</label>
-											<br> <select class="select form-control-lg" id="p1-bags"
-												name="p1-bags">
+											<label for="p${i + 1}-bags" class="form-label select-label">Bags</label>
+											<br> <select class="bags select form-control-lg" id="p1-bags"
+												name="p${i + 1}-bags">
 												<option value="0">0</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -108,6 +124,7 @@
 											</select>
 										</div>
 									</div>
+                  <% } %>
 									<div class="row">
 										<h4>Passenger 2</h4>
 										<div class="col-md-6 mb-4">
