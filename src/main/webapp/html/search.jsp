@@ -39,7 +39,6 @@
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link" href="search">Search
 							flights</a></li>
-					<li class="nav-item"><a class="nav-link" href="user">Profile</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav d-flex">

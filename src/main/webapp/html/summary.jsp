@@ -1,3 +1,4 @@
+<%@ page import="model.Reservation"%>
 <!DOCTYPE html>
 <html>
 
@@ -61,7 +62,10 @@
 							style="border-radius: 15px;">
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Summary</h3>
-								<form id="sign-up" action="SummaryServlet" method="POST">
+								<form id="sign-up" action="pay" method="POST">
+
+                  <% Reservation reservation = (Reservation) session.getAttribute("reservation"); %>
+
 									<div class="row">
 										<h4>Flight 1234</h4>
 										<p>

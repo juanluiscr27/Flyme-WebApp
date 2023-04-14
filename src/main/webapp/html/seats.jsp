@@ -16,7 +16,8 @@
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 		crossorigin="anonymous"></script>
 	<link href="css/styles.css" rel="stylesheet" type="text/css">
-	<script defer src="js/seats.js"></script>
+  <script type="module" src="js/passenger.js"></script>
+  <script type="module" src="js/seats.js"></script>
 </head>
 
 <body>
@@ -67,12 +68,13 @@
                   
                   <div class="col-md-6">
 										<form id="seats" action="summary" method="POST">
+                      <% String passengersJSON = (String) request.getAttribute("passengers-seats"); %>
+                      <input type="hidden" id="passengers" name="passengers" value='<%= passengersJSON %>'>
                       <% PassengerRequest[] passengers = (PassengerRequest[]) session.getAttribute("passengers");
                       Reservation reservation = (Reservation) session.getAttribute("reservation");
                       for(int i = 0; i < passengers.length; i++)  { 
                         request.setAttribute("i", i);
-                      %>                      
-                      <input type="hidden" id="passengers" name="passengers" value='${request.getAttribute("passengers")}'>
+                      %>
                         <div class="">
                           <div class="col-md-10 mb-4">
                             <label class="form-label" for="full-name">Name</label>
@@ -106,7 +108,7 @@
                   </div>
 
 									<div class="col-md-4">
-										<img src="images/boeing-747-seatmap.png" alt="Airplane Seat Map">
+										<img src="images/boeing-747-seatmap.png" width="100%" alt="Airplane Seat Map">
 									</div>
 
 								</div>

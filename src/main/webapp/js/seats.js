@@ -2,35 +2,50 @@ import Passenger from "./passenger.js";
 
 const seatsForm = document.querySelector("#seats");
 const seatsDOM = document.querySelectorAll(".select");
-const passengers = document.querySelector("#passengers");
+const passengersDOM = document.querySelector("#passengers");
 
 seatsDOM.forEach((select) => {
   select.addEventListener("change", (e) =>{
-
+    console.log(e.target.value);
   });
 });
 
 
-seatsForm.addEventListener("submit", (e) =>{
-  let passengersList = [];
+const findDuplicates = (array) => array.filter(
+  (item, index) => array.indexOf(item) !== index
+);
 
-  for ([i, v] of document.querySelectorAll(".select").entries()) { console.log(`${i}  ${v}`);} 
-  passengersDOM.forEach((passengerDOM) => {
-    const firstName = passengerDOM.querySelector(".first-name").value;
-    const lastName = passengerDOM.querySelector(".last-name").value;
-    const dateOfBirth = passengerDOM.querySelector(".date-of-birth").value; // LocalDate
-    const gender = passengerDOM.querySelector(".gender").value; //char
-    const bags = Number(passengerDOM.querySelector(".bags").value);
-    const passenger = new Passenger(
-      0,
-      firstName,
-      lastName,
-      dateOfBirth,
-      gender,
-      bags
-    );
-    passengersList.push(passenger);
+function isRepeated(selects) {
+  let seatsArray = [];
+  selects.forEach((select) => {
+    seatsArray.push(select.value);
   });
-  console.log(JSON.stringify(passengersList))
+
+  return findDuplicates(seatsArray).length > 0;
+}
+
+function isNotSelected(selects) {
+  let seatsArray = [];
+  selects.forEach((select) => {
+    seatsArray.push(select.value);
+  });
+
+  return seatsArray.filter((value) => value == "select a seat").length > 0
+}
+
+seatsForm.addEventListener("submit", (e) =>{
+
+  if(isRepeated(seatsDOM) || isNotSelected(seatsDOM)) {
+    e.preventDefault();
+    return;
+  }
+
+  let passengersList = JSON.parse(passengersDOM.value);
+
+  for (const [i, seat] of seatsDOM.entries()) {
+    passengersList[i].seatId = seat.value;
+  }
+
+  passengersDOM.value = JSON.stringify(passengersList);
   passengers.value = JSON.stringify(passengersList);
 });

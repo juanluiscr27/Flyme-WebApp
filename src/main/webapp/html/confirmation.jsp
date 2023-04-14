@@ -53,8 +53,8 @@
             <h1 class="fw-light">Thank you for choosing Flyme</h1>
             <p class="lead text-body-secondary">Your reservation has been processed. Your confirmation number is <b>${confirmation.confirmationNumber}</b>.</p>
             <p>In your profile page is your flight itinerary where you can see receipts, calendar; also check in, cancel, or upgrade your flights.<p>
-              <a href="/profile" class="btn btn-primary my-2">See your Profile</a>
-              <a href="/home" class="btn btn-secondary my-2">Go to Home Page</a>
+              <a href="profile" class="btn btn-primary my-2">See your Profile</a>
+              <a href="home" class="btn btn-secondary my-2">Go to Home Page</a>
             </p>
           </div>
         </div>
