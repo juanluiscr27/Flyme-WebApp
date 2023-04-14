@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 public record SeatClassDTO(
@@ -8,5 +9,5 @@ public record SeatClassDTO(
         int checkedBags,
         BigDecimal priceMultiplier,
         Boolean isReserved
-) {
+) implements Serializable {
 }

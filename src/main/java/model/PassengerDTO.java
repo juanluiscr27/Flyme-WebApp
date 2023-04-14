@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public record PassengerDTO (
@@ -10,5 +11,5 @@ public record PassengerDTO (
         LocalDate dateOfBirth,
         String gender,
         int bags
-){
+) implements Serializable {
 }

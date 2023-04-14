@@ -94,9 +94,9 @@
 											</table>
 									<div class="row">
 											<div class="col-md-4 mb-4"></div>
-											<div class="col-md-6 mb-4">Price: &dollar;(reservation.receipt.totalPrice)<br>
-													Taxes: &dollar;(reservation.receipt.totalPrice * 0.13)<br>
-													<b>Total: &dollar;(reservation.receipt.totalPrice * 1.13)</b>
+											<div class="col-md-6 mb-4">Price: &dollar;${reservation.receipt.totalPrice}<br>
+													Taxes: &dollar;${reservation.receipt.totalPrice * 0.13}<br>
+													<b>Total: &dollar;${reservation.receipt.totalPrice * 1.13}</b>
 													</div>
 													</div>
 										</div>

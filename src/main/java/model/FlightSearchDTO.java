@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public record FlightSearchDTO (
@@ -8,5 +9,5 @@ public record FlightSearchDTO (
         LocalDate departureDate,
         LocalDate returnDate,
         int passengers
-) {
+) implements Serializable {
 }
