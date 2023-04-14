@@ -6,10 +6,10 @@ const passengers = document.querySelector("#passengers");
 
 
 passengersForm.addEventListener("submit", (e) =>{
-  let passengers = [];
+  let passengersList = [];
   passengersDOM.forEach((passengerDOM) => {
-    const firstName = passengerDOM.querySelector(".first-name").value.split(" ");
-    const lastName = passengerDOM.querySelector(".last-name").value.split(" ");
+    const firstName = passengerDOM.querySelector(".first-name").value;
+    const lastName = passengerDOM.querySelector(".last-name").value;
     const dateOfBirth = passengerDOM.querySelector(".date-of-birth").value; // LocalDate
     const gender = passengerDOM.querySelector(".gender").value; //char
     const bags = Number(passengerDOM.querySelector(".bags").value);
@@ -21,8 +21,8 @@ passengersForm.addEventListener("submit", (e) =>{
       gender,
       bags
     );
-    passengers.push(passenger);
+    passengersList.push(passenger);
   });
-  console.log(JSON.stringify(passengers))
-  passengers.value = JSON.stringify(passengers);
+  console.log(JSON.stringify(passengersList))
+  passengers.value = JSON.stringify(passengersList);
 });

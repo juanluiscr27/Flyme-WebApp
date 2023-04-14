@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class PassengerRequest {
+public class PassengerRequest  implements Serializable {
     private int seatId;
     private String firstName;
     private String lastName;

@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Reservation {
+public class Reservation  implements Serializable {
     private User user;
     private final Flight flight;
     private SeatDTO[] flightSeats;

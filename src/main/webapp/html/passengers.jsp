@@ -1,3 +1,5 @@
+<%@ page import="model.FlightSearchDTO"%>
+<%@ page import="model.PassengerRequest"%>
 <!DOCTYPE html>
 <html>
 
@@ -63,10 +65,13 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Passengers
 									information</h3>
-                  <% FlightSearchDTO flightSearch = (FlightSearchDTO) session.getAttribute("flightSearch"); %>
+
 								<form id="passengers-form" action="seats" method="POST">
-                  <input type="hidden" name="passengers">
-                  <% for(int i = 0; i < flightSearch.passengers; i++)  { %>
+                  <input type="hidden" id="passengers" name="passengers">
+                  <% FlightSearchDTO flightSearch = (FlightSearchDTO) session.getAttribute("flightSearch");
+                  for(int i = 0; i < flightSearch.passengers(); i++)  { 
+                    request.setAttribute("i", i);
+                  %>
 									<div class="row passenger">
 										<h4>Passenger ${i + 1}</h4>
 										<div class="col-md-6 mb-4">
@@ -125,52 +130,6 @@
 										</div>
 									</div>
                   <% } %>
-									<div class="row">
-										<h4>Passenger 2</h4>
-										<div class="col-md-6 mb-4">
-											<div class="form-outline">
-												<label class="form-label" for="p2-name">Name</label> <br>
-												<input type="text" id="p2-name" name="p2-name"
-													class="form-control form-control-lg"
-													aria-describedby="fullNameHelpInline"
-													pattern="^[a-zA-Z.]+( [a-zA-Z.]+)*$"
-													title="Alphabets and no special characters" required />
-											</div>
-											<div class="col-auto">
-												<span id="fullNameHelpInline" class="form-text" hidden>
-													Alphabets and no special characters. </span>
-											</div>
-										</div>
-										<div class="col-md-2 mb-4">
-											<label for="p2-gender" class="form-label select-label">Gender</label>
-											<br> <select class="select form-control-lg"
-												id="p2-gender" name="p2-gender">
-												<option value="F">Female</option>
-												<option value="M">Male</option>
-												<option value="O">Other</option>
-											</select>
-										</div>
-										<div class="col-md-3 mb-4">
-											<div class="form-outline datepicker w-100">
-												<label for="p2-birth" class="form-label">Date of
-													birth</label> <br> <input type="date"
-													class="form-control form-control-lg" id="p2-birth"
-													name="p2-birth" />
-											</div>
-										</div>
-										<div class="col-md-1 mb-4">
-											<label for="p2-bags" class="form-label select-label">Bags</label>
-											<br> <select class="select form-control-lg" id="p2-bags"
-												name="p2-bags">
-												<option value="0">0</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-											</select>
-										</div>
-									</div>
 									<br>
 									<div class="row">
 										<div class="col-md-12 mb-4 text-center">

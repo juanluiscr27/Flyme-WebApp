@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Receipt {
+public class Receipt  implements Serializable {
     private BagFareDTO[] bagFares;
     private DistanceFareDTO[] distanceFares;
     private List<Ticket> tickets;

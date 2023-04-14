@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Flight {
+public class Flight  implements Serializable {
     long id;
     String flightNumber;
     AirportDTO origin;

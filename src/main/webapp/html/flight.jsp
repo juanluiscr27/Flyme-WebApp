@@ -117,7 +117,7 @@
 											<div class="form-check">
 												<input type="radio" class="form-check-input"
 													name="flightGroup" id="flight${i+1}"
-													value="${allFlights[i].flightNumber}"
+													value="${allFlights[i].id}"
 													${ i == 0 ? "checked" : "" }> <label
 													class="form-check-label" for="flight${i+1}">${allFlights[i].flightNumber}</label>
 											</div>

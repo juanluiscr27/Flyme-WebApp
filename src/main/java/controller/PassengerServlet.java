@@ -23,7 +23,7 @@ public class PassengerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Flight[] allFlights = (Flight[]) session.getAttribute("allFlights");
 
-        long flightId = Long.parseLong(request.getParameter("flight-id"));
+        long flightId = Long.parseLong(request.getParameter("flightGroup"));
         Flight selectedFlight = null;
 
         for (Flight flight: allFlights) {

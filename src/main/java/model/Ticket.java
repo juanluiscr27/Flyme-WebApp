@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import util.Geodesy;
 
-public class Ticket {
+public class Ticket  implements Serializable {
     private Flight flight;
     private PassengerDTO passenger;
     private SeatDTO seat;
