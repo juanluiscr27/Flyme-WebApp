@@ -158,7 +158,7 @@
 											<input class="btn btn-primary btn-lg" type="submit"
 												value="Passengers" /> <input
 												class="btn btn-secondary btn-lg" type="button"
-												onclick="window.location.href='search';" value="Back" />
+												onclick="window.location.href='search';" value="Cancel" />
 										</div>
 									</div>
 								</form>

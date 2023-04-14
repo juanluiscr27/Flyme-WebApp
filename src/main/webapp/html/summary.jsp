@@ -64,57 +64,50 @@
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Summary</h3>
 								<form id="sign-up" action="pay" method="POST">
 
-                  <% Reservation reservation = (Reservation) session.getAttribute("reservation"); %>
-
 									<div class="row">
-										<h4>Flight 1234</h4>
+										<h4>Flight ${reservation.flight.flightNumber }</h4>
 										<p>
-											From Pearson International to New York International<br>
-											February 28th, 2023 - 10:00<br> Boeing 737-400 - Economy
-										</p>
-									</div>
-									<div class="row">
-										<h4>Flight 5678</h4>
-										<p>
-											From New York International to Pearson International<br>
-											March 15th, 2023 - 17:00<br> Airbus A380 - Economy
+											From ${reservation.flight.getOrigin().city() } (${reservation.flight.getOrigin().airportId() }) to ${reservation.flight.getDestination().city() } (${reservation.flight.getDestination().airportId() })<br>
+											${reservation.flight.departure }<br> 
+											${reservation.flight.getAirPlane().manufacturer() } ${reservation.flight.getAirPlane().model() }
 										</p>
 									</div>
 									<div class="row">
 										<h4>Passengers</h4>
 										<div class="col-md-12 mb-4">
 											<table class="table">
+											<%
+											Reservation reservation = (Reservation) session.getAttribute("reservation");
+											for(int i = 0 ; i < reservation.getFlightPassengers().length ; i++) {
+												 request.setAttribute("i", i);
+											%>
 												<tr>
-													<td>Mike Tyson</td>
-													<td>Male</td>
-													<td>2 bags</td>
-													<td>Seat 3</td>
-													<td>$660</td>
+													<td>${reservation.getFlightPassengers()[i].firstName() } ${reservation.getFlightPassengers()[i].lastName() }</td>
+													<td>${reservation.getFlightPassengers()[i].gender() }</td>
+													<td>${reservation.getFlightPassengers()[i].bags() } bag${reservation.getFlightPassengers()[i].bags() != "1" ? "s" : ""}</td>
+													<td>Seat ${reservation.getFlightPassengers()[i].seat().row() } ${reservation.getFlightPassengers()[i].seat().column() }</td>
+
 												</tr>
-												<tr>
-													<td>Jeniffer Lawrence</td>
-													<td>Female</td>
-													<td>1 bag</td>
-													<td>Seat 2</td>
-													<td>$480</td>
-												</tr>
-												<tr>
-													<td>Steven Tyler</td>
-													<td>Male</td>
-													<td>1 bag</td>
-													<td>Seat 1</td>
-													<td>$480</td>
-												</tr>
+											<%
+											}
+											%>		
 											</table>
+									<div class="row">
+											<div class="col-md-4 mb-4"></div>
+											<div class="col-md-6 mb-4">Price: &dollar;(reservation.receipt.totalPrice)<br>
+													Taxes: &dollar;(reservation.receipt.totalPrice * 0.13)<br>
+													<b>Total: &dollar;(reservation.receipt.totalPrice * 1.13)</b>
+													</div>
+													</div>
 										</div>
 									</div>
 									<br>
 									<div class="row">
 										<div class="col-md-12 mb-4 text-center">
 											<input class="btn btn-primary btn-lg" type="submit"
-												value="Payment" /> <input class="btn btn-secondary btn-lg"
-												type="button" onclick="window.location.href='seats';"
-												value="Back" />
+												value="Payment" /> <input
+												class="btn btn-secondary btn-lg" type="button"
+												onclick="window.location.href='search';" value="Cancel" />
 										</div>
 									</div>
 								</form>

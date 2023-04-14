@@ -111,7 +111,7 @@
 												<label for="p${i + 1}-birth" class="form-label">Date of
 													birth</label> <br> <input type="date"
 													class="date-of-birth form-control form-control-lg" id="p${i + 1}-birth"
-													name="p${i + 1}-birth" required />
+													name="p${i + 1}-birth" min="1900-01-01" max="2022-12-12" value="1999-01-01" required />
 											</div>
 										</div>
 										<div class="col-md-1 mb-4">
@@ -131,9 +131,9 @@
 									<div class="row">
 										<div class="col-md-12 mb-4 text-center">
 											<input class="btn btn-primary btn-lg" type="submit"
-												value="Seats" /> <input class="btn btn-secondary btn-lg"
-												type="button" onclick="window.location.href='flights';"
-												value="Back" />
+												value="Seats" /> <input
+												class="btn btn-secondary btn-lg" type="button"
+												onclick="window.location.href='search';" value="Cancel" />
 										</div>
 									</div>
 								</form>

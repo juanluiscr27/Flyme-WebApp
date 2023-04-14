@@ -304,7 +304,7 @@ INSERT INTO `planes` VALUES (1, 'C-FAAA','Boeing', '747', 700);
 INSERT INTO `planes` VALUES (2, 'N1001A','Airbus', 'A320', 550);
 INSERT INTO `planes` VALUES (3, 'EI-DYR','Boeing', '737', 550);
 INSERT INTO `planes` VALUES (4, 'C-FZZZ','Embraer', '175', 400);
-INSERT INTO `planes` VALUES (5, 'DP-666','McDonell Douglass', 'DC-9', 350);
+INSERT INTO `planes` VALUES (5, 'DP-666','McDonell-Douglass', 'DC-9', 350);
 
 --
 -- Inserts for table `flight_status`

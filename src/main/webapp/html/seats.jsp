@@ -75,7 +75,7 @@
                       for(int i = 0; i < passengers.length; i++)  { 
                         request.setAttribute("i", i);
                       %>
-                        <div class="">
+                        <div class=""><h4>Passenger ${i + 1}</h4>
                           <div class="col-md-10 mb-4">
                             <label class="form-label" for="full-name">Name</label>
                             <input type="text" id="full-name" name="full-name"
@@ -99,16 +99,17 @@
                         <div class="row">
                           <div class="col-md-12 mb-4 text-center">
                             <input class="btn btn-primary btn-lg" type="submit"
-                              value="Summary" /> <input class="btn btn-secondary btn-lg"
-                              type="button" onclick="window.location.href='passengers';"
-                              value="Back" />
+                              value="Summary" /> <input
+												class="btn btn-secondary btn-lg" type="button"
+												onclick="window.location.href='search';" value="Cancel" />
                           </div>
                         </div>
 										</form>                    
                   </div>
 
 									<div class="col-md-4">
-										<img src="images/boeing-747-seatmap.png" width="100%" alt="Airplane Seat Map">
+
+										<img src="images/${airplane.manufacturer().toLowerCase()}-${airplane.model().toLowerCase()}-seatmap.png" width="100%" alt="Airplane Seat Map">
 									</div>
 
 								</div>

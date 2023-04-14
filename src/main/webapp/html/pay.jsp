@@ -109,7 +109,7 @@
 												class="btn btn-primary btn-lg" type="button"
 												value="Pay with points" /> <input
 												class="btn btn-secondary btn-lg" type="button"
-												onclick="window.location.href='summary';" value="Back" />
+												onclick="window.location.href='search';" value="Cancel" />
 										</div>
 									</div>
 								</form>

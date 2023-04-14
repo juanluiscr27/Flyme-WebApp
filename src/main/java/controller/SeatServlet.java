@@ -45,6 +45,7 @@ public class SeatServlet extends HttpServlet {
             request.setAttribute("passengers-seats", passengersJSON);
             session.setAttribute("passengers", passengers);
             session.setAttribute("reservation", reservation);
+            session.setAttribute("airplane", reservation.getFlight().getAirPlane());
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEATS.path);
             requestDispatcher.forward(request, response);

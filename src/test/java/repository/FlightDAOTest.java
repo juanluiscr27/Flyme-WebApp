@@ -27,8 +27,8 @@ public class FlightDAOTest {
         FlightSearchDTO flightSearch = new FlightSearchDTO(
                 "YYZ",
                 "SDQ",
-                LocalDate.parse("2023-03-30"),
-                LocalDate.parse("2023-04-03"),
+                LocalDate.parse("2023-04-16"),
+                LocalDate.parse("2023-04-16"),
                 1
         );
 
@@ -71,8 +71,8 @@ public class FlightDAOTest {
                         BigDecimal.valueOf(-69.6771733))),
                 new AirPlaneDTO(
                 1, "C-FAAA","Boeing", "747", BigDecimal.valueOf(750)),
-                LocalDateTime.parse("2023-03-30T10:30:00"),
-                LocalDateTime.parse("2023-03-30T14:50:00")
+                LocalDateTime.parse("2023-04-16T10:30:00"),
+                LocalDateTime.parse("2023-04-16T14:50:00")
         );
 
         SeatDTO[] flightSeats = flightService.findAllFlightSeats(flight);
