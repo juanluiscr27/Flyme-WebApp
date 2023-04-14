@@ -132,7 +132,7 @@
 										<div class="col-md-12 mb-4 text-center">
 											<input class="btn btn-primary btn-lg" type="submit"
 												value="Seats" /> <input class="btn btn-secondary btn-lg"
-												type="button" onclick="window.location.href='flight';"
+												type="button" onclick="window.location.href='flights';"
 												value="Back" />
 										</div>
 									</div>
