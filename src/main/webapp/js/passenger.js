@@ -6,7 +6,7 @@ class Passenger {
     lastName, // String
     dateOfBirth, // LocalDate
     gender, //char
-    bags, // bags
+    bags // bags
   ) {
     // Define properties:
     this.seatId = seatId;
