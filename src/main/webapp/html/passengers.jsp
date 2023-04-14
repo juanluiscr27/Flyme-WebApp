@@ -74,32 +74,29 @@
                   %>
 									<div class="row passenger">
 										<h4>Passenger ${i + 1}</h4>
-										<div class="col-md-6 mb-4">
-											<div class="form-outline">
-												<label class="form-label" for="p${i + 1}-fname">Name</label> <br>
+										
+											<div class="col-md-3 mb-4 form-outline">
+												<label class="form-label" for="p${i + 1}-fname">First name</label> <br>
 												<input type="text" id="p${i + 1}-name" name="p${i + 1}-fname"
 													class="first-name form-control form-control-lg"
 													aria-describedby="firstNameHelpInline${i + 1}"
 													pattern="^[a-zA-Z.]+( [a-zA-Z.]+)*$"
 													title="Alphabets and no special characters" required />
-											</div>
-											<div class="col-auto">
 												<span id="firstameHelpInline${i + 1}" class="form-text" hidden>
 													Alphabets and no special characters. </span>
 											</div>
-                      <div class="form-outline">
-												<label class="form-label" for="p${i + 1}-lname">Name</label> <br>
+											
+                     						<div class="col-md-3 mb-4 form-outline">
+												<label class="form-label" for="p${i + 1}-lname">Last name</label> <br>
 												<input type="text" id="p${i + 1}-name" name="p${i + 1}-lname"
 													class="last-name form-control form-control-lg"
 													aria-describedby="lastNameHelpInline${i + 1}"
 													pattern="^[a-zA-Z.]+( [a-zA-Z.]+)*$"
 													title="Alphabets and no special characters" required />
-											</div>
-											<div class="col-auto">
 												<span id="lastNameHelpInline${i + 1}" class="form-text" hidden>
 													Alphabets and no special characters. </span>
 											</div>
-										</div>
+											
 										<div class="col-md-2 mb-4">
 											<label for="p${i + 1}-gender" class="form-label select-label">Gender</label>
 											<br> <select class="gender select form-control-lg"
