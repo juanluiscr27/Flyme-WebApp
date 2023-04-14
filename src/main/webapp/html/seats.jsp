@@ -1,3 +1,7 @@
+<%@ page import="model.PassengerRequest"%>
+<%@ page import="model.Reservation"%>
+<%@ page import="model.SeatDTO"%>
+<%@ page import="model.SeatDTO"%>
 <!DOCTYPE html>
 <html>
 
@@ -59,66 +63,52 @@
 								<h4 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">From Pearson International to New York
 									International</h4>
 								<div class="row justify-content-center d-flex align-items-center">
-									<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-										<form id="sign-up" action="SeatsServlet" method="POST">
-											<div class="row d-flex align-items-center">
-												<div class="col-md-1 mb-4"></div>
-												<div class="col-md-8 mb-4">
-													<label for="p1-seat" class="form-label select-label">Jeniffer
-														Lawrence</label>
-												</div>
-												<div class="col-md-1 mb-4">
-													<select class="select form-control-lg" id="p1-seat" name="p1-seat">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-													</select>
-												</div>
-											</div>
-											<div class="row d-flex align-items-center">
-												<div class="col-md-1 mb-4"></div>
-												<div class="col-md-8 mb-4">
-													<label for="p2-seat" class="form-label select-label">Mike
-														Tyson</label>
-												</div>
-												<div class="col-md-1 mb-4">
-													<select class="select form-control-lg" id="p2-seat" name="p2-seat">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-													</select>
-												</div>
-											</div>
-											<div class="row d-flex align-items-center">
-												<div class="col-md-1 mb-4"></div>
-												<div class="col-md-8 mb-4">
-													<label for="p3-seat" class="form-label select-label">Steven Tyler</label>
-												</div>
-												<div class="col-md-1 mb-4">
-													<select class="select form-control-lg" id="p3-seat" name="p3-seat">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-													</select>
-												</div>
-											</div>
-											<br>
-											<div class="row">
-												<div class="col-md-12 mb-4 text-center">
-													<input class="btn btn-primary btn-lg" type="submit"
-														value="Summary" />
-													<input class="btn btn-secondary btn-lg" type="button" onclick="window.location.href='passengers';"
-														value="Back" />
-												</div>
-											</div>
-										</form>
+                  
+                  <div class="col-md-6">
+										<form id="seats" action="summary" method="POST">
+                      <% PassengerRequest[] passengers = (PassengerRequest[]) session.getAttribute("passengers");
+                      Reservation reservation = (Reservation) session.getAttribute("reservation");
+                      for(int i = 0; i < passengers.length; i++)  { 
+                        request.setAttribute("i", i);
+                      %>                      
+                      <input type="hidden" id="passengers" name="passengers" value='${request.getAttribute("passengers")}'>
+                        <div class="">
+                          <div class="col-md-10 mb-4">
+                            <label class="form-label" for="full-name">Name</label>
+                            <input type="text" id="full-name" name="full-name"
+                                class="form-control form-control-lg" value="${passengers[i].firstName} ${passengers[i].lastName}"
+                                disabled />
+                          </div>
+                          <div class="col-md-10 mb-4">
+                            <label for="p${i+1}-seat" class="form-label select-label">Seats</label>
+                            <select class="select form-control-lg col-md-12" id="p${i+1}-seat" name="p${i+1}-seat" required>
+                              <option selected>select a seat</option>
+                              <% for(int j = 0; j < reservation.getFlightSeats().length; j++)  { 
+                                request.setAttribute("j", j);
+                              %>
+                              <option value="${reservation.flightSeats[j].seatId()}" ${ reservation.getFlightSeats()[j].seatClass().isReserved() ? disabled : "" }>${reservation.getFlightSeats()[j].seatClass().className()} - ${reservation.getFlightSeats()[j].row()} ${reservation.getFlightSeats()[j].column()} </option>
+                              <% } %>
+                            </select>
+                          </div>
+                        </div>
+                        <% } %>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-12 mb-4 text-center">
+                            <input class="btn btn-primary btn-lg" type="submit"
+                              value="Summary" /> <input class="btn btn-secondary btn-lg"
+                              type="button" onclick="window.location.href='passengers';"
+                              value="Back" />
+                          </div>
+                        </div>
+										</form>                    
+                  </div>
+
+									<div class="col-md-4">
+										<img src="images/boeing-747-seatmap.png" alt="Airplane Seat Map">
 									</div>
-									<div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-										<img src="../images/a380_economy.jpg" class="img-fluid mx-auto d-block" alt="Economy">
-
-									</div>
 								</div>
 							</div>
 						</div>

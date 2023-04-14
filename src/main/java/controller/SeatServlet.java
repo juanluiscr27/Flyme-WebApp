@@ -42,6 +42,7 @@ public class SeatServlet extends HttpServlet {
             SeatDTO[] flightSeats = flightService.findAllFlightSeats(flight);
 
             reservation.setFlightSeats(flightSeats);
+            request.setAttribute("passengers", passengersJSON);
             session.setAttribute("passengers", passengers);
             session.setAttribute("reservation", reservation);
 
