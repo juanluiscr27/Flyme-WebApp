@@ -5,9 +5,14 @@ import model.DistanceFareDTO;
 import model.PassengerRequest;
 import model.Receipt;
 import model.Reservation;
+import model.User;
+import model.UserDTO;
 import repository.FlightDAO;
 import repository.FlightRepository;
+import repository.UserDAO;
+import repository.UserRepository;
 import service.FlightService;
+import service.UserService;
 import util.Json;
 
 import javax.servlet.RequestDispatcher;
@@ -32,11 +37,18 @@ public class SummaryServlet extends HttpServlet {
         FlightService flightService = new FlightService(flightRepo);
 
         HttpSession session = request.getSession();
+
         Reservation reservation = (Reservation) session.getAttribute("reservation");
 
         String passengersJSON = request.getParameter("passengers");
         PassengerRequest[] passengers = Json.toObject(passengersJSON, PassengerRequest[].class);
         reservation.setFlightPassengers(passengers);
+
+        UserRepository userRepo = new UserDAO();
+        UserService userService = new UserService(userRepo);
+        String username = (String) session.getAttribute("username");
+        UserDTO user = userService.find(username);
+        reservation.setUser(new User(user));
 
         BagFareDTO[] bagFares = flightService.findAllBagFares();
         DistanceFareDTO[] distanceFares = flightService.findAllDistanceFares();
