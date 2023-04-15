@@ -68,34 +68,29 @@
 									<div class="col-md-3 mb-4"></div>
 									<div class="col-md-2 mb-4">
 										<div class="form-outline">
-											<a href="user" class="btn btn-primary btn-sm" />My profile</a>
+											<a href="user" class="btn btn-primary" />My profile</a>
 										</div>
 									</div>
 									<div class="col-md-2 mb-4">
 										<div class="form-outline">
-											<a class="btn btn-secondary btn-sm disabled" />My payments</a>
+											<a class="btn btn-secondary disabled" />My payments</a>
 										</div>
 									</div>
 									<div class="col-md-2 mb-4">
 										<div class="form-outline">
-											<a href="myflights" class="btn btn-primary btn-sm" />My
+											<a href="order" class="btn btn-primary" />My
 											flights</a>
 										</div>
 									</div>
 								</div>
 								<br>
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My
-									payment methods</h3>
+									payment method</h3>
 								<form id="sign-up" action="payment" method="POST">
 									<input type="text" name="paymentId" id="paymentId"
 										value="${payment.getId()}" hidden> <input type="text"
 										name="deleteAction" id="deleteAction" value="" hidden>
 									<section>
-										<div class="row">
-											<div class="col-md-12 mb-4">
-												<h4>Payment method</h4>
-											</div>
-										</div>
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
@@ -163,11 +158,11 @@
 										<div class="row text-center d-flex align-items-center">
 											<div class="col-md-12 mb-2">
 												<div class="form-outline">
-													<input id="editButton" class="btn btn-secondary btn-sm"
+													<input id="editButton" class="btn btn-secondary"
 														type="button" value="Edit" /> <input id="saveButton"
-														class="btn btn-primary btn-sm" type="submit" value="Save"
+														class="btn btn-primary" type="submit" value="Save"
 														disabled /> <input id="deleteButton"
-														class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return submitDelete();" />
+														class="btn btn-danger" type="submit" value="Delete" onclick="return submitDelete();" />
 												</div>
 											</div>
 										</div>

@@ -1,3 +1,9 @@
+<%@ page import="model.Order"%>
+<%@ page import="model.Flight"%>
+<%@ page import="model.AirportDTO"%>
+<%@ page import="model.PassengerDTO"%>
+<%@ page import="model.FlightClassDTO"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 
@@ -64,31 +70,30 @@
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a href="user" class="btn btn-primary btn-sm"/>My profile</a>
+												<a href="user" class="btn btn-primary"/>My profile</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a href="payment" class="btn btn-primary btn-sm"/>My payments</a>
+												<a href="payment" class="btn btn-primary"/>My payments</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a class="btn btn-secondary btn-sm disabled"/>My flights</a>
+												<a class="btn btn-secondary disabled"/>My flights</a>
 											</div>
 										</div>
 									</div>
 									<br>
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My
 									flights</h3>
+									<%
+									List<Order> orders = (List<Order>) request.getAttribute("orders");
+									if (orders.size() > 0){
+									%>
 								<form id="sign-up" action="user" method="POST">
 									
 									<section>
-										<div class="row">
-											<div class="col-md-12 mb-4">
-												<h4>My flights</h4>
-											</div>
-										</div>
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
@@ -101,16 +106,20 @@
 												<h5>Departure date</h5>
 											</div>
 										</div>
+								<%
+								for (int i = 0 ; i < orders.size() ; i++ ){
+									request.setAttribute("i", i);
+								%>
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
-												<p>${flight.flightNumber()}</p>
+												<p>${orders.get(i).flight().flightNumber }</p>
 											</div>
 											<div class="col-md-3 mb-4">
-												<p>${flight.origin().city()} - ${flight.destination().city()}</p>
+												<p>${orders.get(i).flight().origin.city()} - ${orders.get(i).flight().destination.city()}</p>
 											</div>
 											<div class="col-md-2 mb-4">
-												<p>${flight.departure().toLocalDate()}</p>
+												<p>${orders.get(i).flight().departure.toLocalDate()}</p>
 											</div>
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
@@ -127,36 +136,29 @@
 												<div class="card card-body">
 													<div class="row font-small">
 														<p>
-															<b>From: </b>${flight.origin().city()} <b>To: </b>${flight.destination().city()}<br>
-															<b>Depart: </b>${flight.departure()}<br> <b>Airplane: </b>${flight.airPlane().manufacturer()} ${flight.airPlane().model()} <b>Class:
-															</b>${flight.classes().className()}
+															<b>From: </b>${orders.get(i).flight().origin.city()} <b>To: </b>${orders.get(i).flight().destination.city()}<br>
+															<b>Depart: </b>${orders.get(i).flight().departure}<b> Arrival: </b>${orders.get(i).flight().arrival}<br>
+															<b>Airplane: </b>${orders.get(i).flight().airPlane.manufacturer()} ${orders.get(i).flight().airPlane.model()} 
 														</p>
 													</div>
 													<div class="row font-small">
 														<b>Passengers:</b>
 														<div class="col-md-12 mb-4">
 															<table class="table">
+															<%
+															for (int j = 0 ; j < orders.get(i).passengers().size() ; j++ ){
+																request.setAttribute("j", j);
+															%>
 																<tr>
-																	<td>Mike Tyson</td>
-																	<td>Male</td>
-																	<td>2 bags</td>
-																	<td>Seat 3</td>
-																	<td>$660</td>
+																	<td>${orders.get(i).passengers().get(j).firstName()} ${orders.get(i).passengers().get(j).lastName()}</td>
+																	<td>${orders.get(i).passengers().get(j).gender()}</td>
+																	<td>${orders.get(i).passengers().get(j).bags()} bag${orders.get(i).passengers().get(j).bags() == "1" ? "" : "s" }</td>
+																	<td>Seat ${orders.get(i).passengers().get(j).seat().row()} ${orders.get(i).passengers().get(j).seat().column()}</td>
+																	<td>${orders.get(i).passengers().get(j).seat().seatClass().className()} class</td>
 																</tr>
-																<tr>
-																	<td>Jeniffer Lawrence</td>
-																	<td>Female</td>
-																	<td>1 bag</td>
-																	<td>Seat 2</td>
-																	<td>$480</td>
-																</tr>
-																<tr>
-																	<td>Steven Tyler</td>
-																	<td>Male</td>
-																	<td>1 bag</td>
-																	<td>Seat 1</td>
-																	<td>$480</td>
-																</tr>
+															<%
+															}
+															%>
 															</table>
 														</div>
 													</div>
@@ -164,73 +166,18 @@
 											</div>
 										</div>
 										<br>
-										<div class="row d-flex align-items-center">
-											<div class="col-md-1 mb-4"></div>
-											<div class="col-md-2 mb-4">
-												<p>5678</p>
-											</div>
-											<div class="col-md-3 mb-4">
-												<p>Quebec - Paris</p>
-											</div>
-											<div class="col-md-2 mb-4">
-												<p>2023-11-01</p>
-											</div>
-											<div class="col-md-1 mb-4"></div>
-											<div class="col-md-2 mb-4">
-												<div class="form-outline">
-													<input class="btn btn-secondary btn-sm" type="button"
-														data-bs-toggle="collapse" data-bs-target="#flight2"
-														value="Details" /> <input class="btn btn-primary btn-sm"
-														type="button" value="Cancel" />
-												</div>
-											</div>
-										</div>
-
-										<div class="row d-flex align-items-center">
-											<div class="collapse" id="flight2">
-												<div class="card card-body">
-													<div class="row font-small">
-														<p>
-															<b>From: </b>Pearson International <b>To: </b>New York
-															International<br> <b>Depart: </b>March 15th, 2023 -
-															17:00<br> <b>Aircraft: </b>Airbus A380 <b>Class:
-															</b>Economy
-														</p>
-													</div>
-													<div class="row font-small">
-														<b>Passengers:</b>
-														<div class="col-md-12 mb-4">
-															<table class="table">
-																<tr>
-																	<td>Mike Tyson</td>
-																	<td>Male</td>
-																	<td>2 bags</td>
-																	<td>Seat 3</td>
-																	<td>$660</td>
-																</tr>
-																<tr>
-																	<td>Jeniffer Lawrence</td>
-																	<td>Female</td>
-																	<td>1 bag</td>
-																	<td>Seat 2</td>
-																	<td>$480</td>
-																</tr>
-																<tr>
-																	<td>Steven Tyler</td>
-																	<td>Male</td>
-																	<td>1 bag</td>
-																	<td>Seat 1</td>
-																	<td>$480</td>
-																</tr>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<br>
+										<% } %> 
 									</section>
 								</form>
+										<%
+									}
+										else
+										{
+											%>
+											<h5 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">No orders found !</h5>
+											<%
+										}
+										%>
 							</div>
 						</div>
 					</div>

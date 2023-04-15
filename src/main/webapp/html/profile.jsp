@@ -63,17 +63,17 @@
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a class="btn btn-secondary btn-sm disabled"/>My profile</a>
+												<a class="btn btn-secondary disabled"/>My profile</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a href="payment" class="btn btn-primary btn-sm"/>My payments</a>
+												<a href="payment" class="btn btn-primary"/>My payments</a>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4">
 											<div class="form-outline">
-												<a href="myflights" class="btn btn-primary btn-sm"/>My flights</a>
+												<a href="order" class="btn btn-primary"/>My flights</a>
 											</div>
 										</div>
 									</div>
@@ -81,11 +81,6 @@
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">My profile</h3>
 								<form id="sign-up" action="update" method="POST">
 									<section>
-										<div class="row">
-											<div class="col-md-12 mb-4">
-												<h4>Personal information</h4>
-											</div>
-										</div>
 										<div class="row d-flex align-items-center">
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
@@ -229,9 +224,9 @@
 										<div class="row text-center d-flex align-items-center">
 											<div class="col-md-12 mb-4">
 												<div class="form-outline">
-													<input id="editButton" class="btn btn-secondary btn-sm" type="button"
+													<input id="editButton" class="btn btn-secondary" type="button"
 														value="Change password" />
-													<input id="saveButton" class="btn btn-primary btn-sm"
+													<input id="saveButton" class="btn btn-primary"
 														type="submit" value="Save" disabled/>
 												</div>
 											</div>
