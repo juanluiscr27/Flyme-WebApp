@@ -1,3 +1,6 @@
+<%@ page import="model.Reservation"%>
+<%@ page import="model.Receipt"%>
+<%@ page import="model.Payment"%>
 <!DOCTYPE html>
 <html>
 
@@ -62,29 +65,30 @@
 							<div class="card-body p-4 p-md-5">
 								<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Pay</h3>
 								<form id="sign-up" action="order" method="POST">
+                  <% String passengersJSON = (String) request.getAttribute("passengers-seats"); %>
 									<div class="row">
 										<div class="col-md-3 mb-4"></div>
 										<div class="col-md-6 mb-4">
 											<h4>Fees</h4>
 											<table class="table">
 												<tr>
-													<td>Tickets</td>
-													<td>$1520</td>
+													<td>Tickets + Bags/td>
+													<td>&dollar; ${reservation.receipt.subTotal }</td>
 												</tr>
 												<tr>
-													<td>Extra bags</td>
-													<td>$100</td>
+													<td>Bags fee</td>
+													<td>&dollar; ${reservation.receipt.bagFees }</td>
 												</tr>
 												<tr>
 													<td>Taxes</td>
-													<td>$248</td>
+													<td>&dollar; ${reservation.receipt.taxes }</td>
 												</tr>
 												<tr>
 													<td>
 														<h5>TOTAL</h5>
 													</td>
 													<td>
-														<h5>$1868 or 25,456 points</h5>
+														<h5>&dollar; ${reservation.receipt.totalPrice }</h5>
 													</td>
 												</tr>
 											</table>
@@ -92,20 +96,36 @@
 									</div>
 									<div class="row">
 										<div class="col-md-3 mb-4"></div>
-										<div class="col-md-6 mb-4">
-											<h4>Payment options</h4>
-											<ul>
-												<li>Card number: 1234567890123456</li>
-												<li>Reward points: 55,875</li>
-											</ul>
 
+                    <%
+                      if(request.getAttribute("message") != null) {
+                    %>
+
+                      
+                    <div class="col-md-6 mb-4">
+											<h4>${message}</h4>
+											<a class="btn btn-primary" href="user" role="button">Add payment method</a>
 										</div>
+
+                    <% } else {
+                    %>                    
+
+										<div class="col-md-6 mb-4">
+											<h4>Payment method</h4>
+											<ul>
+												<li>Card number: ${payment.cardNumber}</li>
+											</ul>
+										</div>
+
+                    <%
+                      }
+                    %>
 									</div>
 									<br>
 									<div class="row">
 										<div class="col-md-12 mb-4 text-center">
 											<input class="btn btn-primary btn-lg" type="submit"
-												value="Pay with card" /> <input
+												value="Pay with card" ${ message != null ? "disabled" : "" }/> <input
 												class="btn btn-primary btn-lg" type="button"
 												value="Pay with points" /> <input
 												class="btn btn-secondary btn-lg" type="button"
