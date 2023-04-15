@@ -23,7 +23,7 @@ public class OrderDAOTest {
     @Test //@Ignore("Test setup not fully implemented yet")
     public void testFindOrderById() {
         // TODO: Insert custom order
-        long expectedOrderId = 2;
+        long expectedOrderId = 1L;
 
         Optional<Order> actualOrder= orderRepo.find(expectedOrderId);
         // Assert the optional contains an order
@@ -36,7 +36,7 @@ public class OrderDAOTest {
         // TODO: Create user and insert custom orders
 
         UserDTO user = new UserDTO(
-                21L,
+                3L,
                 "John",
                 "Doe",
                 "john.doe@email.com",

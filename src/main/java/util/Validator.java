@@ -43,4 +43,16 @@ public class Validator {
         Matcher matcher = pattern.matcher(email);
         return matcher.find();
     }
+    /**
+     * Validate if the User Password is in a correct format
+     * @param password User password
+     * @return True if it is valid, false otherwise
+     */
+    public static boolean isValidPassword(String password) {
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–{}:;',?/*~$^+=<>]).{8,20}$",
+                Pattern.CASE_INSENSITIVE
+        );
+        Matcher matcher = pattern.matcher(password);
+        return matcher.find();
+    }
 }
