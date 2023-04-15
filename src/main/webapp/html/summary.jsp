@@ -66,16 +66,25 @@
 
 									<div class="row">
 										<h4>Flight ${reservation.flight.flightNumber }</h4>
-										<p>
-											From ${reservation.flight.getOrigin().city() } (${reservation.flight.getOrigin().airportId() }) to ${reservation.flight.getDestination().city() } (${reservation.flight.getDestination().airportId() })<br>
-											${reservation.flight.departure }<br> 
-											${reservation.flight.getAirPlane().manufacturer() } ${reservation.flight.getAirPlane().model() }
+										<p class="mx-5">
+											From: ${reservation.flight.getOrigin().city() } (${reservation.flight.getOrigin().airportId() })<br>
+											To: ${reservation.flight.getDestination().city() } (${reservation.flight.getDestination().airportId() })<br>
+											Departure date/time: ${reservation.flight.departure }<br> 
+											Arrival date/time: ${reservation.flight.arrival }<br>
+											Airplane: ${reservation.flight.getAirPlane().manufacturer() } ${reservation.flight.getAirPlane().model() }
 										</p>
 									</div>
 									<div class="row">
 										<h4>Passengers</h4>
 										<div class="col-md-12 mb-4">
 											<table class="table">
+												<tr>
+													<td><b>Name</b></td>
+													<td><b>Gender</b></td>
+													<td><b>Bags</b></td>
+													<td><b>Seat</b></td>
+
+												</tr>
 											<%
 											Reservation reservation = (Reservation) session.getAttribute("reservation");
 											for(int i = 0 ; i < reservation.getFlightPassengers().length ; i++) {
@@ -84,8 +93,8 @@
 												<tr>
 													<td>${reservation.getFlightPassengers()[i].firstName() } ${reservation.getFlightPassengers()[i].lastName() }</td>
 													<td>${reservation.getFlightPassengers()[i].gender() }</td>
-													<td>${reservation.getFlightPassengers()[i].bags() } bag${reservation.getFlightPassengers()[i].bags() != "1" ? "s" : ""}</td>
-													<td>Seat ${reservation.getFlightPassengers()[i].seat().row() } ${reservation.getFlightPassengers()[i].seat().column() }</td>
+													<td>${reservation.getFlightPassengers()[i].bags() }</td>
+													<td>${reservation.getFlightPassengers()[i].seat().row() } ${reservation.getFlightPassengers()[i].seat().column() }</td>
 
 												</tr>
 											<%

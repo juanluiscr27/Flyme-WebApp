@@ -54,10 +54,10 @@ const roundTrip = function () {
   });
 
   $("#daterange").on('apply.daterangepicker', function(ev, picker) {
-    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    $(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
     // console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
-    console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
-    console.log("Date: " + picker.startDate.format('YYYY-MM-DD'));
+    //console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
+    //console.log("Date: " + picker.startDate.format('YYYY-MM-DD'));
     departureDate.value = picker.startDate.format('YYYY-MM-DD');
     returnDate.value = picker.endDate.format('YYYY-MM-DD');
   });
@@ -79,7 +79,7 @@ const oneWay = function () {
       }
   });
   $("#daterange").on('apply.daterangepicker', function(ev, picker) {
-    $(this).val(picker.startDate.format('MM/DD/YYYY'));
+    $(this).val(picker.startDate.format('YYYY-MM-DD'));
     // console.log("Date: " + picker.endDate.format('YYYY-MM-DD'));
     departureDate.value = picker.endDate.format('YYYY-MM-DD');
   });
