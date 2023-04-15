@@ -98,7 +98,7 @@
 									<div class="row">
 										<div class="col-md-6 mb-4">
 											<label for="nationality" class="form-label select-label">Nationality</label>
-											<br> <select class="select form-control-lg"
+											<br> <select class="select form-control-lg w-100"
 												id="nationality" name="nationality">
 												<option value="CA">Canada</option>
 											</select>

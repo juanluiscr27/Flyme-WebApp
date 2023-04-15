@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 public record AirPlaneDTO(
@@ -8,5 +9,5 @@ public record AirPlaneDTO(
         String manufacturer,
         String model,
         BigDecimal basePrice
-) {
+) implements Serializable {
 }

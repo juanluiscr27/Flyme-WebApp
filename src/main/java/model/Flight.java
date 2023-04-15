@@ -29,7 +29,7 @@ public class Flight  implements Serializable {
         this.airPlane = airPlane;
         this.departure = departure;
         this.arrival = arrival;
-        this.classes = new ArrayList<>();
+        this.classes = new ArrayList<FlightClassDTO>();
     }
 
     public long getId() {
