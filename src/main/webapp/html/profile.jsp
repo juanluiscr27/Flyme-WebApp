@@ -185,6 +185,21 @@
 											<div class="col-md-1 mb-4"></div>
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
+													<label class="form-label" for="points">Reward points</label>
+												</div>
+											</div>
+											<div class="col-md-8 mb-4">
+												<div class="form-outline">
+													<input type="text" id="points" name="points"
+														class="form-control form-control-lg"
+														value="${user.points()}" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="row d-flex align-items-center">
+											<div class="col-md-1 mb-4"></div>
+											<div class="col-md-2 mb-4">
+												<div class="form-outline">
 													<label class="form-label" for="email">Password</label>
 												</div>
 											</div>

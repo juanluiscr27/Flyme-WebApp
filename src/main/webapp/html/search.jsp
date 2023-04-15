@@ -105,7 +105,7 @@
                       <input type="hidden" id="return" name="return">
 											<div class="form-outline">
 												<label class="form-label" for="daterange" id="dateLabel">Travel
-													date</label> <br> <input id="daterange"	class="form-control form-control-lg" placeholder="MM/DD/YYYY" value="" title="Must select a travel date"  required/>
+													date</label> <br> <input id="daterange"	class="form-control form-control-lg" placeholder="YYYY-MM-DD" value="" title="Must select a travel date"  required/>
 											</div>
 										</div>
 										<div class="col-md-2 mb-4"></div>
