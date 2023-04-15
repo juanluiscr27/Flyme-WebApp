@@ -34,8 +34,8 @@ function isNotSelected(selects) {
 }
 
 seatsForm.addEventListener("submit", (e) =>{
-
   if(isRepeated(seatsDOM) || isNotSelected(seatsDOM)) {
+	alert("Check seats selection");
     e.preventDefault();
     return;
   }

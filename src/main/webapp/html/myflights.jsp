@@ -125,20 +125,20 @@
 											<div class="col-md-2 mb-4">
 												<div class="form-outline">
 													<input class="btn btn-secondary btn-sm" type="button"
-														data-bs-toggle="collapse" data-bs-target="#flight1"
+														data-bs-toggle="collapse" data-bs-target="#flight${i}"
 														value="Details" /> <input class="btn btn-primary btn-sm"
 														type="button" value="Cancel" />
 												</div>
 											</div>
 										</div>
 										<div class="row d-flex align-items-center">
-											<div class="collapse" id="flight1">
+											<div class="collapse" id="flight${i}">
 												<div class="card card-body">
 													<div class="row font-small">
 														<p>
-															<b>From: </b>${orders.get(i).flight().origin.city()} <b>To: </b>${orders.get(i).flight().destination.city()}<br>
-															<b>Depart: </b>${orders.get(i).flight().departure}<b> Arrival: </b>${orders.get(i).flight().arrival}<br>
-															<b>Airplane: </b>${orders.get(i).flight().airPlane.manufacturer()} ${orders.get(i).flight().airPlane.model()} 
+															<b>From: </b>${orders.get(i).flight().origin.city()} - ${orders.get(i).flight().origin.name()} (${orders.get(i).flight().origin.airportId()}) <b>To: </b>${orders.get(i).flight().destination.city()} - ${orders.get(i).flight().destination.name()} (${orders.get(i).flight().destination.airportId()})<br>
+															<b>Departure date/time: </b>${orders.get(i).flight().departure}<b> Arrival date/time: </b>${orders.get(i).flight().arrival}<br>
+															<b>Aircraft: </b>${orders.get(i).flight().airPlane.manufacturer()} ${orders.get(i).flight().airPlane.model()} 
 														</p>
 													</div>
 													<div class="row font-small">
