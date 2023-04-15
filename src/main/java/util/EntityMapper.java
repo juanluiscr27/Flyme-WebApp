@@ -221,7 +221,11 @@ public class EntityMapper {
                 resultSet.getString("ps.first_name"),
                 resultSet.getString("ps.last_name"),
                 resultSet.getDate("ps.birth_date").toLocalDate(),
-                resultSet.getString("ps.gender"),
+                switch (resultSet.getString("ps.gender").charAt(0)) {
+                    case 'F' -> "Female";
+                    case 'M' -> "Male";
+                    default -> "Other";
+                },
                 resultSet.getInt("ps.bags")
         );
     }

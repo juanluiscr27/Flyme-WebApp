@@ -67,11 +67,11 @@
 									<div class="row">
 										<h4>Flight ${reservation.flight.flightNumber }</h4>
 										<p class="mx-5">
-											From: ${reservation.flight.getOrigin().city() } (${reservation.flight.getOrigin().airportId() })<br>
-											To: ${reservation.flight.getDestination().city() } (${reservation.flight.getDestination().airportId() })<br>
-											Departure date/time: ${reservation.flight.departure }<br> 
-											Arrival date/time: ${reservation.flight.arrival }<br>
-											Airplane: ${reservation.flight.getAirPlane().manufacturer() } ${reservation.flight.getAirPlane().model() }
+											<b>From:</b> ${reservation.flight.getOrigin().city() } - ${reservation.flight.getOrigin().name() } (${reservation.flight.getOrigin().airportId() })<br>
+											<b>To:</b> ${reservation.flight.getDestination().city() } - ${reservation.flight.getDestination().name() } (${reservation.flight.getDestination().airportId() })<br>
+											<b>Departure date/time:</b> ${reservation.flight.departure }<br> 
+											<b>Arrival date/time:</b> ${reservation.flight.arrival }<br>
+											<b>Airplane:</b> ${reservation.flight.getAirPlane().manufacturer() } ${reservation.flight.getAirPlane().model() }
 										</p>
 									</div>
 									<div class="row">
@@ -102,10 +102,10 @@
 											%>		
 											</table>
 									<div class="row">
-											<div class="col-md-4 mb-4"></div>
-											<div class="col-md-6 mb-4">Price: &dollar;${reservation.receipt.totalPrice}<br>
-													Taxes: &dollar;${reservation.receipt.totalPrice * 0.13}<br>
-													<b>Total: &dollar;${reservation.receipt.totalPrice * 1.13}</b>
+											<div class="col-md-8 mb-4"></div>
+											<div class="col-md-2 mb-4">Price: &dollar;${reservation.receipt.subTotal}<br>
+													Taxes: &dollar;${reservation.receipt.taxes}<br>
+													<b>Total: &dollar;${reservation.receipt.totalPrice}</b>
 													</div>
 													</div>
 										</div>

@@ -239,6 +239,7 @@ public class OrderDAO implements OrderRepository {
                     orders.get(orderId).passengers().add(mapPassenger(resultSet));
                 } else {
                     Order newOrder = EntityMapper.mapOrder(resultSet);
+                    newOrder.passengers().add(mapPassenger(resultSet));
                     orders.put(orderId, newOrder);
                 }
             }
