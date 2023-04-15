@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serial;
 
@@ -17,7 +18,14 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
-        requestDispatcher.forward(request, response);
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("username") != null) {
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SEARCH.path);
+            requestDispatcher.forward(request, response);
+        } else {
+            request.getRequestDispatcher(StaticPage.LOGIN.path).forward(request, response);
+        }
     }
 }

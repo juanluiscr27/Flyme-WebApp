@@ -99,11 +99,11 @@ public class OrderDAO implements OrderRepository {
             while (resultSet.next()) {
                 orderConfirmation = new Confirmation(
                         resultSet.getLong("order_id"),
-                        resultSet.getString("confirmation_number"),
+                        resultSet.getString("confirmation_number").substring(0,7).toUpperCase(),
                         resultSet.getLong("user_id"),
                         resultSet.getDate("order_date").toLocalDate(),
                         resultSet.getBigDecimal("price"),
-                        resultSet.getInt("passenger_count")
+                        resultSet.getInt("passengers_count")
                 );
             }
             // COMMIT

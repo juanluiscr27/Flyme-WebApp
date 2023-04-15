@@ -156,7 +156,7 @@ public class EntityMapper {
     public static Order mapOrder(ResultSet resultSet) throws SQLException {
         return new Order(
                 resultSet.getLong("o.order_id"),
-                resultSet.getString("o.confirmation_number").substring(0,7),
+                resultSet.getString("o.confirmation_number").substring(0,7).toUpperCase(),
                 resultSet.getDate("o.order_date").toLocalDate(),
                 resultSet.getLong("o.user_id"),
                 resultSet.getBigDecimal("o.price"),
