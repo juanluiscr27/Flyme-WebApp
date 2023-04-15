@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class Receipt  implements Serializable {
             tickets.add(passengerTicket);
             subTotal = subTotal.add(passengerTicket.getPrice());
         }
-        taxes = subTotal.multiply(TAX_RATE);
-        totalPrice = subTotal.add(taxes);
+        taxes = subTotal.multiply(TAX_RATE).setScale(2, RoundingMode.HALF_UP);
+        totalPrice = subTotal.add(taxes).setScale(2, RoundingMode.HALF_UP);
     }
 }

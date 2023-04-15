@@ -46,21 +46,35 @@
 		</div>
 	</nav>
 
-	<main class="container">
-      <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Thank you for choosing Flyme</h1>
-            <p class="lead text-body-secondary">Your reservation has been processed. Your confirmation number is <b>${confirmation.confirmationNumber}</b>.</p>
-            <p>In your profile page is your flight itinerary where you can see receipts, calendar; also check in, cancel, or upgrade your flights.<p>
-              <a href="profile" class="btn btn-primary my-2">See your Profile</a>
-              <a href="home" class="btn btn-secondary my-2">Go to Home Page</a>
-            </p>
-          </div>
-        </div>
-      </section>
+  <main class="container">
+		<section class="gradient-custom">
+			<div class="container py-3 h-100">
+				<div class="row justify-content-center align-items-center h-100">
+					<div class="col-12 col-lg-9 col-xl-10">
+						<div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+							<div class="card-body p-4 p-md-5">
+
+                <section class="py-5 text-center container">
+                  <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                      <h1 class="fw-light">Thank you for choosing Flyme</h1>
+                      <p class="lead text-body-secondary">Your reservation has been processed. Your confirmation number is <b>${confirmation.confirmationNumber}</b>.</p>
+                      <p>In your profile page is your flight itinerary where you can see receipts, calendar; also check in, cancel, or upgrade your flights.<p>
+                        <a href="profile" class="btn btn-primary my-2">See your Profile</a>
+                        <a href="home" class="btn btn-secondary my-2">Go to Home Page</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+							</div>
+						</div>
+					</div>
+				</div>
+		</section>
 
 	</main>
+  
 </body>
 
 </html>
