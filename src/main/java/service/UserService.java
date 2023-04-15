@@ -4,6 +4,7 @@ import model.User;
 import model.UserDTO;
 import repository.UserRepository;
 import util.PasswordEncoder;
+import util.Validator;
 
 import java.util.Optional;
 
@@ -15,6 +16,10 @@ public class UserService {
     }
 
     public UserDTO register(User registrationRequest) {
+        if (!Validator.isValidEmail(registrationRequest.getEmail())) {
+            throw new IllegalArgumentException("Email address is not in a valid format");
+        }
+
         String encodedPassword = PasswordEncoder.encodePassword(registrationRequest.getPassword());
         registrationRequest.setPassword(encodedPassword);
         return userRepo.add(registrationRequest);

@@ -66,12 +66,17 @@ public class UserController extends HttpServlet {
 				request.getParameter("email"), request.getParameter("password"),
 				LocalDate.parse(request.getParameter("date-of-birth")), request.getParameter("nationality"),
 				request.getParameter("gender").charAt(0), request.getParameter("phone-number"), 0);
+		try {
+			UserDTO registeredUser = userService.register(registrationRequest);
 
-		UserDTO registeredUser = userService.register(registrationRequest);
-
-		/* If registration OK, go to Login page */
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
-		requestDispatcher.forward(request, response);
+			/* If registration OK, go to Login page */
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.LOGIN.path);
+			requestDispatcher.forward(request, response);
+		} catch (IllegalArgumentException e) {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(StaticPage.SIGNUP.path);
+			requestDispatcher.forward(request, response);
+			System.out.println(e.getMessage());
+		}
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
