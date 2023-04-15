@@ -69,7 +69,7 @@ public class EmailApiTest {
 
     @Test
     public void testIsEmailAvailableTrue() {
-        String path = "http://127.0.0.1:8080/FlyMeWebApp/api/v1/emails";
+        String path = "http://127.0.0.1:8080/FlyMe/api/v1/emails";
         String parameter = "search";
         String email = "notavailable@email.com";
 

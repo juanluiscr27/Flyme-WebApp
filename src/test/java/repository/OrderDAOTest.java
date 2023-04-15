@@ -40,12 +40,12 @@ public class OrderDAOTest {
                 "John",
                 "Doe",
                 "john.doe@email.com",
-                "zXcVbNm@23",
+                "zXcVbNm23",
                 LocalDate.parse("1995-07-24"),
                 new CountryDTO("CA", "Canada"),
                 "Male",
-                "1234567890",
-                8500
+                "4234567890",
+                0
         );
 
         int expectedSize = 2;

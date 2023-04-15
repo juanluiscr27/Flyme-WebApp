@@ -17,7 +17,7 @@ public class PropertiesFileReaderTest {
         actualUrl = propReader.getProperty("url");
         actualUser = propReader.getProperty("user");
         actualPassword = propReader.getProperty("password");
-        assertEquals("jdbc:mysql://localhost:3307/flyme", actualUrl);
+        assertEquals("jdbc:mysql://localhost:3306/flyme", actualUrl);
         assertEquals("admin", actualUser);
         assertEquals("secret", actualPassword);
     }
