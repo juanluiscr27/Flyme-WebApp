@@ -71,7 +71,7 @@ public class Reservation  implements Serializable {
 
     public Receipt getReceipt() {
         receipt.generateTickets(passengers);
-        user.setPoints(user.getPoints() + receipt.getTotalPrice().intValue()/100);
+        user.setPoints(user.getPoints() + receipt.getSubTotal().intValue()/100);
         return receipt;
     }
 
