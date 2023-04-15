@@ -130,7 +130,7 @@ public class ReceiptTest {
         // ticketPrice =  basePrice * flightClassFare * distanceFare + bagFee
         BigDecimal expectedPrice = BigDecimal.valueOf(607.50).setScale(2, RoundingMode.HALF_UP);
 
-        BigDecimal actualPrice = receipt.getTotalPrice();
+        BigDecimal actualPrice = receipt.getSubTotal();
 
         assertEquals(expectedPrice, actualPrice);
     }

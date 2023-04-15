@@ -1,12 +1,9 @@
 package repository;
 
 import model.Confirmation;
-import model.Flight;
-import model.FlightClassDTO;
 import model.Order;
 import model.PassengerDTO;
 import model.Reservation;
-import model.SeatDTO;
 import model.UserDTO;
 import util.EntityMapper;
 
@@ -17,9 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -47,7 +42,7 @@ public class OrderDAO implements OrderRepository {
             insertStatement.setString(1, reservation.getConfirmationNumber());
             insertStatement.setLong(2, reservation.getUser().getId());
             insertStatement.setDate(3, Date.valueOf(LocalDate.now()));
-            insertStatement.setBigDecimal(4, reservation.getReceipt().getTotalPrice());
+            insertStatement.setBigDecimal(4, reservation.getReceipt().getSubTotal());
 
             insertStatement.executeUpdate();
             keys = insertStatement.getGeneratedKeys();
@@ -99,11 +94,11 @@ public class OrderDAO implements OrderRepository {
             while (resultSet.next()) {
                 orderConfirmation = new Confirmation(
                         resultSet.getLong("order_id"),
-                        resultSet.getString("confirmation_number"),
+                        resultSet.getString("confirmation_number").substring(0,7).toUpperCase(),
                         resultSet.getLong("user_id"),
                         resultSet.getDate("order_date").toLocalDate(),
                         resultSet.getBigDecimal("price"),
-                        resultSet.getInt("passenger_count")
+                        resultSet.getInt("passengers_count")
                 );
             }
             // COMMIT
